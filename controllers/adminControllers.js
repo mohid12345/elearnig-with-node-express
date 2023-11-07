@@ -1,15 +1,24 @@
 const adminCollection = require("../models/adminSchema");
 
-module.exports.getAdminRoute = (req, res) =>{
-    // if(req.session.admin){
-    //     res.redirect("admin/adminLogin");
-    // } else {
-    //     res.render("main");
-    // }
-    res.render("adminLogin");
-}
+// module.exports.getAdminRoute = (req, res) =>{
+//     if(req.session.admin){
+//         res.redirect("admin/adminLogin");
+//     } else {
+//         res.render("main");
+//     }
+//     res.render("adminLogin");
+// }
 
-module.exports.postAdminLogin = async (req, res) =>{
+module.exports.getAdminRoute = async (req, res) => {
+    if (req.session.admin) {
+    //   users = await userCollection.find({});
+      res.render("adminDashboard", { users });
+    } else {
+      res.render("adminLogin");
+    }
+  };
+
+module.exports.postAdminRoute = async (req, res) =>{
     const data = await adminCollection.findOne({ email: req.body.email});
     if (data) {
         if(req.body.email !== data.email) {
@@ -20,14 +29,43 @@ module.exports.postAdminLogin = async (req, res) =>{
             if(req.body.email == data.email && req.body.password == data.password) {
                 req.session.admin = data.email;
                 const admin = req.session.admin;
-                // res.render("course", {user});
+                // res.render("adminDashboard", {admin});
                 res.send("admin logged success")
+                console.log("admin logged success")
             }
         }
     } else {
         res.redirect ("../");
     }
 };
+
+
+
+// module.exports.postAdminRoute = async (req, res) => {
+//     const data = await adminCollection.findOne({ email: req.body.email });
+//     const users = await userCollection.find({});
+//     if (data) {
+//       if (req.body.email !== data.email && req.body.password === data.password) {
+//         res.redirect("/admin");
+//       } else if (
+//         req.body.email === data.email &&
+//         req.body.password !== data.password
+//       ) {
+//         res.redirect("/admin");
+//       } else {
+//         if (
+//           req.body.email === data.email &&
+//           req.body.password === data.password
+//         ) {
+//           req.session.admin = req.body.email;
+//           res.render("adminDashboard", { users });
+//         }
+//       }
+//     } else {
+//       res.redirect("/");
+//     }
+//   };
+
 
 module.exports.getAdminDashboard = (req, res) =>{
     if (req.session.admin) {

@@ -25,24 +25,56 @@ module.exports.getUserRoute = (req, res) => {
   }
   };
 
+// module.exports.postLogin = async (req, res) => {
+//   if (req.session.user){
+//   const data = await userCollection.findOne({ email: req.body.email });
+//   if (data) {
+//     if (req.body.email !== data.email) {
+//       res.render("userLogin", { subreddit: "incorrect email" });
+//     } else if (req.body.password !== data.password) {
+//       res.render("userLogin", { subreddit: "incorrect password" });
+//     } else {
+//       if (req.body.email == data.email && req.body.password == data.password) {
+//         req.session.user = data.email;
+//         const user = req.session.user;
+//         res.render("userDashboard", { user });
+//       }
+//     }
+//   } else {
+//     res.redirect("/");
+//   }
+// }
+// }
+
+//post login start
+
 module.exports.postLogin = async (req, res) => {
-  const data = await userCollection.findOne({ email: req.body.email });
-  if (data) {
-    if (req.body.email !== data.email) {
-      res.render("userLogin", { subreddit: "incorrect email" });
-    } else if (req.body.password !== data.password) {
-      res.render("userLogin", { subreddit: "incorrect password" });
-    } else {
-      if (req.body.email == data.email && req.body.password == data.password) {
-        req.session.user = data.email;
-        const user = req.session.user;
-        res.render("courses", { user });
-      }
+  if (req.session.user) {
+    // The user is already logged in, redirect them to their dashboard
+    return res.redirect("userDashboard");
+  }
+
+  const { email, password } = req.body;
+  try {
+    const user = await userCollection.findOne({ email });
+
+    if (!user) {
+      return res.render("userLogin", { error: "Incorrect email" });
     }
-  } else {
-    res.redirect("/");
+
+    // Compare the hashed password
+    if (user.password !== password) {
+      return res.render("userLogin", { error: "Incorrect password" });
+    }
+
+    req.session.user = user.email;
+    return res.redirect("userDashboard");
+  } catch (error) {
+    console.error("Login error:", error);
+    return res.render("errorPage", { error: "An error occurred during login" });
   }
 };
+// postLogin end 
 
 module.exports.getUserDashboard = (req, res) => {
   if (req.session.user) {
@@ -53,8 +85,9 @@ module.exports.getUserDashboard = (req, res) => {
 
 module.exports.getUserLogout = (req, res) => {
   req.session.user = null;
-  console.log(req.session);
-  res.redirect("/user");
+  // console.log(req.session);
+  // res.redirect("/user");
+  res.render("main");
 };
 
 module.exports.getUserSignup = (req, res) => {

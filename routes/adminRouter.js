@@ -7,13 +7,20 @@ const path = require("path");
 
 
 //redirecting each req to corresponding controllers
-adminRouter.get("/", adminControllers.getAdminRoute);
+// adminRouter.get("/admin", adminControllers.getAdminRoute);
 
 
-// userRouter.post("/login",userControllers.postLogin);
-adminRouter.post("/adminLogin",(req, res)=>{
-  res.render("adminLogin");
-});
+// adminRouter.post("admin/adminLogin",adminControllers.postAdminRoute);
+adminRouter.route("/adminLogin")
+  .get(adminControllers.getAdminRoute)
+  .post(adminControllers.postAdminRoute);
+
+
+
+
+// adminRouter.post("/adminLogin",(req, res)=>{
+//   res.render("adminLogin");
+// });
 
 // adminRouter.post("/admin", (req, res) => {
 //   // Render the about page

@@ -10,7 +10,7 @@ const path = require("path");
 userRouter.get("/", userControllers.getUserRoute);
 userRouter.post("/userLogin",userControllers.postLogin);
 userRouter.get("/userDashboard", userControllers.getUserDashboard);
-userRouter.get("/logout", userControllers.getUserLogout);
+userRouter.get("/userlogout", userControllers.getUserLogout);
 
 
 //local page rendering
