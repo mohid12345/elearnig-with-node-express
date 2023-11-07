@@ -26,10 +26,10 @@ app.set('view engine', 'ejs');
 // app.set("views", path.join(__dirname, "views","user"));
 app.use(express.static("public"));
 app.use(
-    session({
+    session({    //setted up session middleware
     secret: uuidv4(),
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: false,  
 })
 );
 

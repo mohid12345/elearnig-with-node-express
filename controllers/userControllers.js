@@ -46,7 +46,7 @@ module.exports.getUserRoute = (req, res) => {
 // }
 // }
 
-//post login start
+//postLogin start
 
 module.exports.postLogin = async (req, res) => {
   if (req.session.user) {
@@ -56,16 +56,23 @@ module.exports.postLogin = async (req, res) => {
 
   const { email, password } = req.body;
   try {
-    const user = await userCollection.findOne({ email });
+    const user = await userCollection.findOne({ email }); //find email from db 
 
     if (!user) {
       return res.render("userLogin", { error: "Incorrect email" });
     }
 
     // Compare the hashed password
-    if (user.password !== password) {
-      return res.render("userLogin", { error: "Incorrect password" });
-    }
+    // if (user.password !== password) {
+    //   return res.render("userLogin", { error: "Incorrect password" });
+
+    // compare hashed password using bcrypt
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      return res.render('userLogin', { error: 'Incorrect password' });
+    }  
+ 
 
     req.session.user = user.email;
     return res.redirect("userDashboard");
@@ -74,7 +81,7 @@ module.exports.postLogin = async (req, res) => {
     return res.render("errorPage", { error: "An error occurred during login" });
   }
 };
-// postLogin end 
+
 
 module.exports.getUserDashboard = (req, res) => {
   if (req.session.user) {
