@@ -1,10 +1,8 @@
 const express = require("express");
 const userRouter = express.Router(); //putting router to userRouter
 const userControllers = require("../controllers/userControllers");
-// userRouter.set("views","./views/user")
 const path = require("path");
-// userRouter.set("views", path.join(__dirname, "views","user"));
-
+const bcrypt = require('bcrypt');
 
 //redirecting each req to corresponding controllers
 userRouter.get("/", userControllers.getUserRoute);

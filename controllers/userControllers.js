@@ -63,17 +63,10 @@ module.exports.postLogin = async (req, res) => {
     }
 
     // Compare the hashed password
-    // if (user.password !== password) {
-    //   return res.render("userLogin", { error: "Incorrect password" });
+    if (user.password !== password) {
+      return res.render("userLogin", { error: "Incorrect password" });
 
-    // compare hashed password using bcrypt
-    const passwordMatch = await bcrypt.compare(password, user.password);
-
-    if (!passwordMatch) {
-      return res.render('userLogin', { error: 'Incorrect password' });
-    }  
- 
-
+    }
     req.session.user = user.email;
     return res.redirect("userDashboard");
   } catch (error) {
