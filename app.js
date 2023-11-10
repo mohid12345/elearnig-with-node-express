@@ -6,8 +6,14 @@ const cookieParser = require('cookie-parser');
 const{v4: uuidv4} = require('uuid');
 const path = require("path");
 require("dotenv").config();
+// const twilioRouter = require('./routes/twilio-sms');
 const app = express();
+const bodyparser = require("body-parser");
+const jsonParse = bodyparser.json();
 
+
+app.use(jsonParse);
+// app.use('/twilio-sms', twilioRouter);
 
 //importing routes
 const adminRouter = require("./routes/adminRouter");
@@ -24,7 +30,8 @@ app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 // app.set("views","./views");
 // app.set("views", path.join(__dirname, "views","user"));
-app.use(express.static("public"));
+// app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 app.use(
     session({    //setted up session middleware
     secret: uuidv4(),
@@ -33,40 +40,19 @@ app.use(
 })
 );
 
-//setting up route handlers
-// app.use("/", userRouter);
-
 app.use("/", (req, res, next) => {
   app.set("views", path.join(__dirname, "views", "user"));
   next();
 }, userRouter);
 
 
-// app.use("/", adminRouter);
-
 app.use("/", (req, res, next) => {
   app.set("views", path.join(__dirname, "views", "admin"));
   next();
 }, adminRouter);
 
-// app.use("/", adminRouter);
+app.use("/admin", adminRouter);
 // app.use("/creator",creatorRouter);
-
-// const db = mongoose.connect(LOCAL_STR);
-
-
-// app.get('/courses',(req, res)=>{
-// res.render("courses");
-// });
-// app.get('/contact',(req, res)=>{
-// res.render("contact");
-// });
-// app.get('/contact',(req, res)=>{
-//     res.render("contact");
-//     });
-//     app.get('/user-login',(req, res)=>{
-//         res.render("user-login");
-//         });
 
 const MONGO_CNT = "mongodb://127.0.0.1:27017/EdX-db";
 app.listen(PORT, async () => {

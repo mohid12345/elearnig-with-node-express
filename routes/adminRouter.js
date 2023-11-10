@@ -30,6 +30,8 @@ adminRouter.route("/adminLogin")
 // adminRouter.post("/admin",adminControllers.postAdminLogin);
 adminRouter.get("/adminDashboard", adminControllers.getAdminDashboard);
 adminRouter.get("/adminLogout", adminControllers.getAdminLogout);
+adminRouter.get("/admin/admin-usermanage",adminControllers.getUserManage);
+adminRouter.get("/admin/admin-creatormanage",adminControllers.getCreatorManage);
 
 
 // adminRouter.get("/user-login", (req, res) => {

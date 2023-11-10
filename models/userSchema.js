@@ -22,6 +22,36 @@ const userSchema = new mongoose.Schema({
         require: true,
     } ,
 });
+// username: {
+//     required: true,
+//     type: String,
+//   },
+//   email: {
+//     required: true,
+//     type: String,
+//     unique: true
+//   },
+//   password: {
+//     required: true,
+//     type: String,
+//   },
+//   confirmpassword: {
+//     required: true,
+//     type: String,
+//   },
+//   phoneNumber: {
+//     required: true,
+//     type: Number,
+//   },
+//   otpInput:{
+//     required:true,
+//     type:Number,
+//   },
+//   status: {
+//     type: String,
+//   },
+// });
+
 
 const userCollection = mongoose.model("userCollection", userSchema);
 

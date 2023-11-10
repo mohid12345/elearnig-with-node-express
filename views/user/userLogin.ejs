@@ -8,11 +8,12 @@
   -->
 <!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
 <%- include("../partials/header") %>
-<!-- </head> -->
+
 <body>
   <!-- <a href="/"> &nbsp; < < < Back</a> -->
   <a href="/"> &nbsp;
-  <button type="button" class="btn btn-light btn-lg btn-block pull-right">X</button>
+  <!-- <button type="button" class="btn btn-light btn-lg btn-block pull-right">X</button> -->
+  <button type="button" class="btn btn-primary float-right mt-3 mx-3">X</button>
 </a>
   <form action="/userLogin" method="POST">
     <section  class="vh-100">
@@ -23,7 +24,7 @@
                 class="img-fluid" alt="Phone image">
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-              <form>
+              <!-- <form> -->
                 <!-- Email input -->
                 <div class="form-outline mb-4">
                   <input type="email" id="form1Example13" name="email" class="form-control form-control-lg" required/>
@@ -45,6 +46,11 @@
                   <a href="#!">Forgot password?</a>
                 </div>
 
+                    
+                     
+                   
+                                   <!-- otp verification pop-over end -->
+
 
                 <div class="d-felx justify-content-around align-item-right mb-4">
                     <a href="/userSignup">Dont have an account ? Click Here</a>
@@ -52,20 +58,17 @@
 
       
                 <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Log in</button>
-      
-              </form>
+                <button type="submit" id="submitBtn" class="btn btn-primary btn-lg btn-block">Log in</button>
+
+              <!-- </form> -->
             </div>
           </div>
         </div>
       </section>
     </form>
-    <!-- <form action="/userSignup"> -->
-      
-     
-
-    <!-- </form> -->
-    
+ 
+<!--   
+  <script src="js/main-otp.js"></script> -->
 
 <!-- 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
