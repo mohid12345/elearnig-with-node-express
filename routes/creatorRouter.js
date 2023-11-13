@@ -1,9 +1,13 @@
 const express = require("express");
-const userRouter = express.Router(); 
-const userControllers = require("../controllers/creatorControllers");
+const creatorRouter = express.Router(); 
+const creatorControllers = require("../controllers/creatorControllers");
 const path = require("path");
 
-// userRouter.get("/creatorLogin", creatorControllers.getCreatorRoute);
+creatorRouter.get("/creatorLogin",creatorControllers.getCreatorLogin)
+creatorRouter.route("/creatorSignup")
+.get(creatorControllers.getCreatorSignup)
+.post(creatorControllers.postCreatorSignup);
+
 // userRouter.post("/creatorLogin",Controllers.postLogin);
 
 
@@ -15,5 +19,5 @@ const path = require("path");
 
 
 
-// module.exports = creatorRouter;
+module.exports = creatorRouter;
 

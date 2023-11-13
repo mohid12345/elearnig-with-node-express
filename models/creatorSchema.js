@@ -1,28 +1,27 @@
 const mongoose = require("mongoose");
 
 const creatorSchema = new mongoose.Schema({
-creatorName: {
-    required: true,
-    type: String,
-  },
-email: {
-    required: true,
-    type: String,
-    unique: true
-  },
-password: {
-    required: true,
-    type: String,
-  },
-  phoneNumber: {
-    required: true,
-    type: Number,
-  },
-  status: {
-    type: String,
-  },
+    fname: {
+        required: true,
+        type: String,
+    },
+    email: {
+        required: true,
+        type: String,
+        unique: true,
+    },
+    phone: {
+        required: true,
+        type: Number,
+    },
+    password: {
+        required: true,
+        type: String,
+    },
+    status: {
+        type: String,
+    },
 });
-
 
 const creatorCollection = mongoose.model("creatorCollection", creatorSchema);
 

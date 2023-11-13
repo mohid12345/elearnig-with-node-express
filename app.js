@@ -6,23 +6,20 @@ const cookieParser = require('cookie-parser');
 const{v4: uuidv4} = require('uuid');
 const path = require("path");
 require("dotenv").config();
-// const twilioRouter = require('./routes/twilio-sms');
 const app = express();
 const bodyparser = require("body-parser");
 const jsonParse = bodyparser.json();
 
 
 app.use(jsonParse);
-// app.use('/twilio-sms', twilioRouter);
 
-//importing routes
+
 const adminRouter = require("./routes/adminRouter");
 const userRouter = require("./routes/userRouter");
 const creatorRouter = require("./routes/creatorRouter");
 
 const PORT = process.env.PORT || 8000;
 
-// const LOCAL_STR = "mongodb://localhost:27017/e-learning-user-admin";
 
 app.use(nocache());
 app.use(cookieParser());
@@ -44,14 +41,16 @@ app.use("/", (req, res, next) => {
   app.set("views", path.join(__dirname, "views", "user"));
   next();
 }, userRouter);
-
-
 app.use("/", (req, res, next) => {
   app.set("views", path.join(__dirname, "views", "admin"));
   next();
 }, adminRouter);
+app.use("/", (req, res, next) => {
+  app.set("views", path.join(__dirname, "views", "creator"));
+  next();
+}, creatorRouter);
 
-app.use("/admin", adminRouter);
+// app.use("/admin", adminRouter);
 // app.use("/creator",creatorRouter);
 
 const MONGO_CNT = "mongodb://127.0.0.1:27017/EdX-db";

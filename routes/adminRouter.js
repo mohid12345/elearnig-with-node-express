@@ -1,7 +1,6 @@
 const express = require("express");
 const adminRouter = express.Router(); //putting router to userRouter
 const adminControllers = require("../controllers/adminControllers");
-// adminRouter.set("views","./views/admin");
 
 const path = require("path");
 
