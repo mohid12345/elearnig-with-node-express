@@ -21,35 +21,27 @@
       
                       <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
       
-                      <form action="userSignup" method="POST" class="mx-1 mx-md-4">
+                      <form action="/userSignup" method="POST" class="mx-1 mx-md-4">
       
                         <div class="d-flex flex-row align-items-center mb-4">
                           <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                           <div class="form-outline flex-fill mb-0">
-                            <input type="text" id="form3Example1c" class="form-control" name="fname" />
-                            <label class="form-label" for="form3Example1c">Your First Name</label>
+                            <input type="text" id="username" class="form-control" name="username" />
+                            <label class="form-label" for="form3Example1c">Name</label>
                           </div>
                         </div>
-                        <div class="d-flex flex-row align-items-center mb-4">
-                          <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                          <div class="form-outline flex-fill mb-0">
-                            <input type="text" id="form3Example1c" class="form-control" name="lname" />
-                            <label class="form-label" for="form3Example1c">Your Last Name</label>
-                          </div>
-                        </div>
-      
-                        <div class="d-flex flex-row align-items-center mb-4">
+                        <!-- <div class="d-flex flex-row align-items-center mb-4">
                           <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                           <div class="form-outline flex-fill mb-0">
-                            <input type="email" id="userEmail" class="form-control" name="email" 
+                            <input type="email" id="email" class="form-control" name="email" 
                             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required/> 
                             <label class="form-label" for="form3Example3c">Your Email</label>
                           </div>
-                        </div>
+                        </div> -->
                         <div class="d-flex flex-row align-items-center mb-4">
                           <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                           <div class="form-outline flex-fill mb-0">
-                            <input type="phone" id="phone" class="form-control" name="phone"/> 
+                            <input type="phone" id="phoneNumber" class="form-control" name="phoneNumber"/> 
                             <label class="form-label" for="form3Example3c">Phone</label>
                           </div>
                         </div>
@@ -65,10 +57,44 @@
                         <div class="d-flex flex-row align-items-center mb-4">
                           <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                           <div class="form-outline flex-fill mb-0">
-                            <input type="password" id="form3Example4cd" class="form-control" />
+                            <input type="password" id="confirm_password" class="form-control" name="confirm_password" />
                             <label class="form-label" for="form3Example4cd">Repeat your password</label>
                           </div>
                         </div>
+                         <!-- otp verification area -->
+      
+                       <div class="d-flex justify-content-center" >
+                        <div class="card py-1 px-1 my-1">
+                          <h5 class="m-0 ">Mobile phone verification</h5>
+                         <br>
+                          <div class="d-flex flex-row mt-1 mx-1">
+                          <input type="text" placeholder="enter your mail id" name="email" class="form-control mx-3" />
+                         </div>
+                          <br>
+                          <!-- <a id="sendOTPButton" onclick="sendOTP()" class="btn btn-primary sendOTPButton mx-5">Sent OTP</a> -->
+                          <!-- <a id="sendOTPButton" onclick="sendOTP()" class="btn btn-primary mx-5">Sent OTP</a> -->
+                          <button type="button" class="btn btn-sm btn-fill-out btn-block hover-up" id="sendOTPButton" name="sendOTPBtn" >Send OTP</button>
+                          <br>
+                          <span class="mobile-text px-3"
+                          <b>Enter the code we just sent on your mail</b>
+                           <b class="text-color">test@gmail.com</b>
+                         </span>
+                          <div class="d-flex flex-row mt-1 mx-3">
+                            <input placeholder="enter 4 digit otp" type="text" name="otpInput" class="form-control mx-3 otp-input" />
+                     
+                        </div>
+                          <div class="text-center mt-5">
+                            <span class="d-block mobile-text" id="countdown"></span>
+                            <span class="d-block mobile-text" id="resend"></span>
+                          </div>
+                          <br>
+                          <a action="" class="btn btn-primary mx-5" id="resendOtp">Resend Otp</a>
+                          
+                          <br>
+                          <a onclick="verify-otp" class="btn btn-primary mx-5 mb-3" id="verifyOTPButton">Verify OTP</a>
+                        </div>
+                      </div> 
+                      <!-- otp end -->
       
                         <div class="form-check d-flex justify-content-center mb-5">
                           <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
@@ -90,6 +116,8 @@
                         class="img-fluid" alt="Sample image">
       
                     </div>
+                   
+                
                   </div>
                 </div>
               </div>
@@ -97,7 +125,98 @@
           </div>
         </div>
       </section>
+   // send otp part
+<script>
+     submitButton.disabled = true;
+    const sendOTPButton = document.getElementById("sendOTPButton");
+
+  sendOTPButton.addEventListener("click", function () {
+    // e.preventDefault();
+
+               //validating form b4 sending otp
+      //  if(validateForm()){
+        const email = document.querySelector('input[name="email"]').value;
+        const phoneNumber = document.querySelector('input[name="phoneNumber"]').value;
+
+        fetch(`/send_otp?email=${email}&phoneNumber=${phoneNumber}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log("Response from server", data);
+
+            if (data.error) {
+            // User already exists, display error message
+            Swal.fire({
+                position: 'top-center',
+                icon: 'error',
+                title: data.error,
+                showConfirmButton: false,
+                timer: 1500
+            });
+            } else {
+            // User doesn't exist, continue with OTP sending logic
+            Swal.fire({
+                position: 'top-center',
+                icon: 'success',
+                title: 'OTP sent successfully',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            startResendTimer();
+            }
+            })
+            .catch((error) => {
+                console.error("Error sending OTP", error);
+            });
+          })
     
-</body>
-<!-- </html> -->
-<%- include("../partials/footer") %>
+//verifyOTP
+    const verifyOTPButton = document.getElementById("verifyOTPButton");
+
+        verifyOTPButton.addEventListener("click", function(e) {
+            e.preventDefault();
+
+            // const phoneNumber = document.querySelector('input[name="phoneNumber"]').value;
+            const otpInput = document.querySelector('input[name="otpInput"]').value;
+            fetch(`/verify_otp?otpInput=${otpInput},{
+                method: "POST"}`)
+            
+            .then((Response) => {
+                if(!Response.ok) {
+                    throw new Error(`HTTP error! status: ${Response.status}`)
+                }
+                return Response.json();
+            })
+            .then((data)=>{
+                console.log("Response from serve", data)
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'OTP verified succssfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                // startResendTimer()
+
+            })
+            .catch((error)=>{
+                console.error("Invalid OTP",error);
+                Swal.fire({
+                position: 'top-center',
+                icon: 'error',
+                title: "Invalid OTP",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            })
+        })
+      
+</script>
+
+
+      
+<%= include("../partials/footer")%>

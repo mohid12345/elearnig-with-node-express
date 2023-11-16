@@ -3,8 +3,6 @@
     
 
 
-                     <form action="">
-   <!-- otp verification pop-over -->
                       <div class="pt-5"  >
                       <button href="/userOtpSubmit" class="btn btn-light float-right  mx-3" >X</button>
                        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
@@ -18,10 +16,10 @@
                            </span> -->
                            <br>
                            <div class="d-flex flex-row mt-3 mx-4">
-                           <input type="text" placeholder="enter phone number" name="phone" class="form-control mx-3 phoneNum" id="phoneNum" />
+                           <input type="text" placeholder="enter your mail id" name="email" class="form-control mx-3" />
                           </div>
                            <br>
-                           <a action="/send-otp"  href="/send-otp" class="btn btn-primary" id="sendOTPButtom">Sent OTP</a>
+                           <a action="/send_otp"  href="/send_otp" class="btn btn-primary sendOTPButton">Sent OTP</a>
                            <br>
                            <div class="d-flex flex-row mt-3 mx-4">
                              <input placeholder="enter 4 digit otp" type="text" name="otpInput" class="form-control mx-3 otp-input" />
@@ -34,85 +32,12 @@
                            <br>
                            <a action="" class="btn btn-primary" id="resendOtp">Resend Otp</a>
                            <br>
-                           <a action="/verify-otp" class="btn btn-primary" id="verifyOTPButton">Verify OTP</a>
+                           <a action="/verify_otp" class="btn btn-primary" id="verifyOTPButton">Verify OTP</a>
                          </div>
                        </div>
                        </div>  
-                       <script src="/js/main-otp.js"></script> 
-                    </form>
+
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- <script>
-    const sendOTPButtom = document.getElementById("sendOTPButtom");
-    const verifyOTPButton = document.getElementById("verifyOTPButton"); -->
 
-    <!-- // sending otp
-//     sendOTPButtom.addEventListener("click",function(e) {
-//         e.preventDefault();
-
-//         const phoneNumber = document.querySelector('input[name="phone"]').value;
-//         // if(!phoneNumber) {
-//         //     errSignupPhoneNumber.innerHTML = "Phone number is required"
-//         //     return;
-//         // }
-//         fetch(/send-otp?phoneNumber=${phoneNumber})
-
-//         .then( (Response) => {
-//             if(!Response.ok) {
-//                 throw new Error(HTTP error! status: ${Response.status})
-//             }
-//             return Response.json();
-//         })
-//         .then((data) => {
-//             console.log("Respponse from server", data)
-
-//             Swal.fire({
-//                 position: 'top-centre',
-//                 icon: 'success',
-//                 title: 'OTP send sucessfully',
-//                 showConfirmButton: false,
-//                 timer: 1500
-//             })
-//             startResendTimer();
-//         })
-//         .catch((error) => {
-//             console.error("Error sending OTP", error);
-//         })
-//     })
-
-//     // verify otp
-//     verifyOTPButton.addEventListener("click", function(e) {
-//         e.preventDefault();
-
-//         const phoneNumber = document.querySelector('input[name="phone"]').value;
-//         const otpInput = document.querySelector('input[name="otpInput"]').value;
-//         fetch(/verify-otp?otpInput=${otpInput}&phoneNumber=${phoneNumber},{
-//             method: "POST"})
-        
-//         .then((Response) => {
-//             if(!Response.ok) {
-//                 throw new Error(HTTP error! status: ${Response.status})
-//             }
-//             return Response.json();
-//         })
-//         .then((data)=>{
-//             console.log("Response from serve", data)
-//             Swal.fire({
-//                 position: 'top-center',
-//                 icon: 'success',
-//                 title: 'OTP verified succssfully',
-//                 showConfirmButton: false,
-//                 timer: 1500
-//             })
-//             startResendTimer()
-
-//         })
-//         .catch((error)=>{
-//             console.error("Invalid OTP",error);
-//         })
-//     }) 
-// </script> -->
-
-
-<!-- ////////////////////////////////////////////////////////////////////////////// -->
                 
 <%- include("../partials/footer") %>
