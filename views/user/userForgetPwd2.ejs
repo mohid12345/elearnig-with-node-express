@@ -1,0 +1,127 @@
+<%- include("../partials/header") %>
+
+<body>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title text-center mb-4">Forget Password</h4>
+                    <form id="forgetPasswordForm">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone Number
+                            <input type="phoneNumber" class="form-control" id="phoneNumber" placeholder="Enter your phone" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary btn-block" id="sendOTPButton" onclick="sendOTP()">Send OTP</button>
+                        </div>
+                        <div class="form-group">
+                            <label for="otp">Enter OTP</label>
+                            <input type="text" class="form-control" id="otp" placeholder="Enter OTP" required>
+                        </div>
+                        <div class="text-center">
+                            <!-- otp countdown -->
+                            <span id="countdown"></span>  
+                            <a href="#" id="resendOTP">Resend OTP</a>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="button" class="btn btn-success btn-block" id="verifyOTPButton">Verify OTP</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block" id="submitButton">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // verifyOTPButton.disabled = true;
+    // submitButton.disabled = true;
+  
+  sendOTPButton.addEventListener("click", function (e) {
+      e.preventDefault();
+           // Validate the form before sending OTP
+    //   if () {
+        const sendOTPButton = document.getElementById("sendOTPButton") 
+
+          const email = document.querySelector('input[name="email"]').value;
+          const phoneNumber = document.querySelector('input[name="phoneNumber"]').value;
+
+          fetch(`/send-otp?email=${email}&phoneNumber=${phoneNumber}`)
+              .then((response) => {
+                  if (!response.ok) {
+                      throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+                  return response.json();
+              })
+              .then((data) => {
+                  console.log("Response from server", data);
+
+              if (data.error) {
+              // User already exists, display error message
+              Swal.fire({
+                  position: 'top-center',
+                  icon: 'error',
+                  title: data.error,
+                  showConfirmButton: false,
+                  timer: 1500
+              });
+              } else {
+              // User doesn't exist, continue with OTP sending logic
+              Swal.fire({
+                  position: 'top-center',
+                  icon: 'success',
+                  title: 'OTP sent to email successfully',
+                  showConfirmButton: false,
+                  timer: 1500
+              });
+              startResendTimer();
+              }
+              })
+              .catch((error) => {
+                  console.error("Error sending OTP", error);
+              });
+    //   } else {
+          // Form is not valid, display an error message or handle it accordingly
+          // alert('Form is not valid. Please check your inputs.');
+          // Swal.fire({
+          //     icon: "error",
+          //     title: "Oops...",
+          //     text: "Error sending OTP.",
+          //     footer: '<a href="#">Why do I have this issue?</a>'
+          //     });
+    //   }
+    //   enableVerifyButton(true);
+  });
+
+
+  function startResendTimer() {
+                let remainingTime = 60;
+                timerElement.style.display = "block";
+                resendOTPButton.style.display = "none";
+    
+                countdown = setInterval(() => {
+                    timerElement.textContent = Resend in ${remainingTime} seconds;
+                    remainingTime--;
+    
+                    if (remainingTime < 0) {
+                        clearInterval(countdown);
+                        timerElement.style.display = "none";
+                        resendOTPButton.style.display = "block";
+                    }
+                }, 1000);
+            }
+    
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+<%- include("../partials/footer") %>

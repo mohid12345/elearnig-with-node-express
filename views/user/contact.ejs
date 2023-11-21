@@ -20,10 +20,16 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="/" class="nav-item nav-link">Home</a>
-                <a href="/about" class="nav-item nav-link active">About</a>
+                <a href="/about" class="nav-item nav-link">About</a>
                 <a href="/courses" class="nav-item nav-link">Courses</a>
-                <a href="/contact" class="nav-item nav-link">Contact</a>
-                <a href="/contact" class="nav-item nav-link">Teach on EdX?</a>
+                <a href="/contact" class="nav-item nav-link active">Contact</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Teach on EdX?</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="/creatorSignup" class="dropdown-item">start teaching!</a>
+                        <a href="/creatorLogin" class="dropdown-item">Creator Login</a>
+                    </div>
+                </div>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Learning</a>
                     <div class="dropdown-menu fade-down m-0">
@@ -34,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="/userSignup" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->

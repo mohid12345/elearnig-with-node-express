@@ -1,10 +1,9 @@
 <%- include("../partials/admin-header")%>
-
     <div class="screen-overlay"></div>
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
             <a href="index.html" class="brand-wrap">
-                <img src="/adminAssets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+                <img src="/adminAssets/imgs/theme/logo.png" class="logo" alt="Evara Dashboard">
             </a>
             <div>
                 <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
@@ -12,24 +11,33 @@
         </div>
         <nav>
           <ul class="menu-aside">
-              <li class="menu-item active">
-                  <a class="menu-link" href="/admin-dash"> <i class="icon material-icons md-home"></i>
-                      <span class="text">Dashboard</span>
-                  </a>
-              </li>
-              <li class="menu-item ">
-                  <a class="menu-link" href="/admin/product-list"> <i class="icon material-icons md-shopping_bag"></i>
-                      <span class="text">Products</span>
-                  </a>
-              </li>
-              <li class="menu-item">
-                  <a class="menu-link" href="/admin/category-list"> <i class="icon material-icons md-stars"></i>
-                      <span class="text">Category</span> </a>
-              </li>
-              <li class="menu-item">
-                  <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
-                      <span class="text">Users</span>
-                  </a>
+            <li class="menu-item ">
+                <a class="menu-link" href="/admin/adminDashboard"> <i class="icon material-icons md-home"></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a class="menu-link" href="/admin/course-list"> <i class="icon material-icons md-shopping_bag"></i>
+                    <span class="text">Courses</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a class="menu-link" href="/admin/category-list"> <i class="icon material-icons md-stars"></i>
+                    <span class="text">Category</span> </a>
+            </li>
+
+            <li class="menu-item active">
+                <a class="menu-link " href="/admin/admin-usermanage"> <i class="icon material-icons md-person"></i>
+                    <span class="text">Users</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="/admin/admin-creatormanage"> <i class="icon material-icons md-person"></i>
+                    <span class="text">Creators</span>
+                </a>
+            </li>
                   <!-- <div class="submenu">
                       <a href="page-account-login.html">User login</a>
                       <a href="page-account-register.html">User registration</a>
@@ -186,18 +194,24 @@
                                     <th class="fs-5 text-center" style="width: 20%;"><h5>Actions</h5></th>
                                 </tr>
                             </thead>
-                            <tbody>   
+                            <tbody>  
+                                <% usercollection.reverse().forEach(user => { %>  
                                     <tr>
-                                        <td style="width: 20%;">UserId</td>
-                                        <td style="width: 20%;">Name</td>
-                                        <td style="width: 25%;">email</td>
-                                        <td style="width: 20%;">phoneNumber</td>
-                                        <td style="width: 15%;">Status</td>
-                                        <td style="width: 20%;">
-                                            <a href="#" class="btn btn-primary">Block</a>
-                                            <!-- <a href="#" class="btn btn-primary">Unblock</a> -->
+                                        <td style="width: 20%;"><%= user._id %></td>
+                                        <td style="width: 10%;"><%= user.username %></td>
+                                        <td style="width: 15%;"><%= user.email %></td>
+                                        <td style="width: 15%;"><%= user.phoneNumber %></td>
+                                        <td style="width: 15%;"><%= user.status %></td>
+                                        <td style="width: 25%;">
+                                            <% if(user.status === 'unblocked') { %>
+                                                <a href="/admin/block-user/<%= user._id %>" class="btn btn-primary">Block</a>  
+                                            <% } else if (user.status === 'Block') {%> 
+                                                <a href="/admin/unblock-user/<%= user._id %>" class="btn btn-danger">Unblock</a>
+                                            <%} %>
+                                            
                                         </td>
                                     </tr> 
+                                <% }) %>
                             </tbody>
                         </table>
                     </div>
@@ -253,19 +267,14 @@
         </section>
         <footer class="main-footer font-xs">
             <div class="row pb-30 pt-15">
+                
                 <div class="col-sm-6">
-                    <script>
-                    document.write(new Date().getFullYear())
-                    </script> ©, Evara - HTML Ecommerce Template .
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-sm-end">
-                        All rights reserved
-                    </div>
+                 
                 </div>
             </div>
         </footer>
     </main>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="/adminAssets/js/vendors/jquery-3.6.0.min.js"></script>
     <script src="/adminAssets/js/vendors/bootstrap.bundle.min.js"></script>
     <script src="/adminAssets/js/vendors/select2.min.js"></script>

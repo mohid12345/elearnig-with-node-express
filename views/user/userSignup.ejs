@@ -1,189 +1,226 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-</head> -->
+</head
 <%- include("../partials/header") %>
 <body>
+ <main class="main">
+  <section class="pt-5 pb-5 ">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 m-auto">
+          <div class="row d-flex align-items-center justify-content-center">
 
-    <section class="vh-100" style="background-color: #eee;">
-        <div class="container h-100">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-lg-12 col-xl-11">
-              <div class="card text-black" style="border-radius: 25px;">
-                <div class="card-body p-md-5">
-                  <div class="row justify-content-center">
-                    <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-      
-                      <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-      
-                      <form action="/userSignup" method="POST" class="mx-1 mx-md-4">
-      
-                        <div class="d-flex flex-row align-items-center mb-4">
-                          <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                          <div class="form-outline flex-fill mb-0">
-                            <input type="text" id="username" class="form-control" name="username" />
-                            <label class="form-label" for="form3Example1c">Name</label>
-                          </div>
-                        </div>
-                        <!-- <div class="d-flex flex-row align-items-center mb-4">
-                          <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                          <div class="form-outline flex-fill mb-0">
-                            <input type="email" id="email" class="form-control" name="email" 
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required/> 
-                            <label class="form-label" for="form3Example3c">Your Email</label>
-                          </div>
-                        </div> -->
-                        <div class="d-flex flex-row align-items-center mb-4">
-                          <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                          <div class="form-outline flex-fill mb-0">
-                            <input type="phone" id="phoneNumber" class="form-control" name="phoneNumber"/> 
-                            <label class="form-label" for="form3Example3c">Phone</label>
-                          </div>
-                        </div>
-      
-                        <div class="d-flex flex-row align-items-center mb-4">
-                          <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                          <div class="form-outline flex-fill mb-0">
-                            <input type="password" id="form3Example4c" class="form-control" name="password" />
-                            <label class="form-label" for="form3Example4c">Password</label>
-                          </div>
-                        </div>
-      
-                        <div class="d-flex flex-row align-items-center mb-4">
-                          <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                          <div class="form-outline flex-fill mb-0">
-                            <input type="password" id="confirm_password" class="form-control" name="confirm_password" />
-                            <label class="form-label" for="form3Example4cd">Repeat your password</label>
-                          </div>
-                        </div>
-                         <!-- otp verification area -->
-      
-                       <div class="d-flex justify-content-center" >
-                        <div class="card py-1 px-1 my-1">
-                          <h5 class="m-0 ">Mobile phone verification</h5>
-                         <br>
-                          <div class="d-flex flex-row mt-1 mx-1">
-                          <input type="text" placeholder="enter your mail id" name="email" class="form-control mx-3" />
-                         </div>
-                          <br>
-                          <!-- <a id="sendOTPButton" onclick="sendOTP()" class="btn btn-primary sendOTPButton mx-5">Sent OTP</a> -->
-                          <!-- <a id="sendOTPButton" onclick="sendOTP()" class="btn btn-primary mx-5">Sent OTP</a> -->
-                          <button type="button" class="btn btn-sm btn-fill-out btn-block hover-up" id="sendOTPButton" name="sendOTPBtn" >Send OTP</button>
-                          <br>
-                          <span class="mobile-text px-3"
-                          <b>Enter the code we just sent on your mail</b>
-                           <b class="text-color">test@gmail.com</b>
-                         </span>
-                          <div class="d-flex flex-row mt-1 mx-3">
-                            <input placeholder="enter 4 digit otp" type="text" name="otpInput" class="form-control mx-3 otp-input" />
-                     
-                        </div>
-                          <div class="text-center mt-5">
-                            <span class="d-block mobile-text" id="countdown"></span>
-                            <span class="d-block mobile-text" id="resend"></span>
-                          </div>
-                          <br>
-                          <a action="" class="btn btn-primary mx-5" id="resendOtp">Resend Otp</a>
-                          
-                          <br>
-                          <a onclick="verify-otp" class="btn btn-primary mx-5 mb-3" id="verifyOTPButton">Verify OTP</a>
-                        </div>
-                      </div> 
-                      <!-- otp end -->
-      
-                        <div class="form-check d-flex justify-content-center mb-5">
-                          <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                          <label class="form-check-label" for="form2Example3">
-                            I agree all statements in <a href="#!">Terms of service</a>
-                          </label>
-                        </div>
-      
-                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                          <button type="submit" class="btn btn-primary btn-lg">Register</button>
-                        </div>
-      
-                      </form>
-      
+            <div class="col-lg-6">
+              <div class="login_wrap widget-taber-content p-5 background-white border rounded">
+                <div class="p-4 bg-white">
+                  <div class="text-center mb-4">
+                    <h3 class="mb-3">Create an Account</h3>
+                    <% if (typeof error !== 'undefined') { %>
+                      <p class="text-danger"><%= error %></p>
+                    <% } %>
+                  </div>
+
+                  <form method="post" action="/userSignup" onsubmit="return validateForm()">
+                    <div class="mb-3">
+                      <input type="text" class="form-control" required name="username" placeholder="Username" id="username">
+                      <div id="usernameError" class="error-message"></div>
                     </div>
-                    <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-      
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                        class="img-fluid" alt="Sample image">
-      
+
+                    <div class="mb-3">
+                      <input type="text" class="form-control" required name="email" placeholder="Email" id="email">
+                      <div id="emailError" class="error-message"></div>
                     </div>
-                   
-                
+
+                    <div class="mb-3">
+                      <input type="password" class="form-control" required name="password" placeholder="Password" id="password">
+                      <div id="passwordError" class="error-message"></div>
+                    </div>
+
+                    <div class="mb-3">
+                      <input type="password" class="form-control" required name="confirmpassword" placeholder="Confirm password" id="confirmpassword">
+                      <div id="confirmpasswordError" class="error-message"></div>
+                    </div>
+
+                    <div class="mb-3">
+                      <input type="number" class="form-control" required name="phoneNumber" placeholder="Phone Number" id="phoneNumber">
+                      <div id="phoneNumberError" class="error-message"></div>
+                    </div>
+
+                    <div class="mb-3">
+                      <button type="button" class="btn btn-primary btn-block" id="sendOTPButton" name="sendOTPBtn" onclick="sendOTP()">Send OTP</button>
+                    </div>
+
+                      <!-- timer part -->
+                      <div id="timer" style="display: none;"></div>
+                      <!-- <button id="sendOTPButton" onclick="sendOTP()">Resend OTP</button> -->
+  
+
+                    <div class="mb-3">
+                      <input type="text" class="form-control" required name="otpInput" placeholder="Enter OTP" id="otpInput">
+                    </div>
+
+                    <div class="mb-3">
+                      <button type="button" class="btn btn-primary btn-block" id="verifyOTPButton" name="verifyOTPBtn">Verify OTP</button>
+                    </div>
+
+                    <div class="form-check mb-3">
+                      <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox12" value="">
+                      <label class="form-check-label" for="exampleCheckbox12">I agree to terms &amp; Policy.</label>
+                    </div>
+
+                  <div class="mb-3">
+                      <button type="submit" class="btn btn-success btn-block" name="loginbtn" id="submitButton">Submit &amp; Register</button>
+                    </div>
+                  </form>
+
+                  <div class="text-muted text-center">
+                    Already have an account? <a href="/login">Sign in now</a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-   // send otp part
+      </div>
+    </div>
+  </section>
+</main>
+
+
 <script>
-     submitButton.disabled = true;
-    const sendOTPButton = document.getElementById("sendOTPButton");
+  // function enableVerifyButton(enable) {
+  // const verifyOTPButton = document.getElementById("verifyOTPButton");
+  // verifyOTPButton.disabled = !enable;
+  // }
+  submitButton.disabled = true;
+  const sendOTPButton = document.getElementById("sendOTPButton") 
 
-  sendOTPButton.addEventListener("click", function () {
-    // e.preventDefault();
+  sendOTPButton.addEventListener("click", function (e) {
+      e.preventDefault();
+           // Validate the form before sending OTP
+      if (validateForm()) {
+          const email = document.querySelector('input[name="email"]').value;
+          const phoneNumber = document.querySelector('input[name="phoneNumber"]').value;
 
-               //validating form b4 sending otp
-      //  if(validateForm()){
-        const email = document.querySelector('input[name="email"]').value;
-        const phoneNumber = document.querySelector('input[name="phoneNumber"]').value;
+          fetch(`/send-otp?email=${email}&phoneNumber=${phoneNumber}`)
+              .then((response) => {
+                  if (!response.ok) {
+                      throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+                  return response.json();
+              })
+              .then((data) => {
+                  console.log("Response from server", data);
 
-        fetch(`/send_otp?email=${email}&phoneNumber=${phoneNumber}`)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log("Response from server", data);
+              if (data.error) {
+              // User already exists, display error message
+              Swal.fire({
+                  position: 'top-center',
+                  icon: 'error',
+                  title: data.error,
+                  showConfirmButton: false,
+                  timer: 1500
+              });
+              } else {
+              // User doesn't exist, continue with OTP sending logic
+              Swal.fire({
+                  position: 'top-center',
+                  icon: 'success',
+                  title: 'OTP sent to email successfully',
+                  showConfirmButton: false,
+                  timer: 1500
+              });
+              startResendTimer();
+              }
+              })
+              .catch((error) => {
+                  console.error("Error sending OTP", error);
+              });
+      } else {
+          // Form is not valid, display an error message or handle it accordingly
+          // alert('Form is not valid. Please check your inputs.');
+          // Swal.fire({
+          //     icon: "error",
+          //     title: "Oops...",
+          //     text: "Error sending OTP.",
+          //     footer: '<a href="#">Why do I have this issue?</a>'
+          //     });
+      }
+      enableVerifyButton(true);
+  });
 
-            if (data.error) {
-            // User already exists, display error message
-            Swal.fire({
-                position: 'top-center',
-                icon: 'error',
-                title: data.error,
-                showConfirmButton: false,
-                timer: 1500
-            });
-            } else {
-            // User doesn't exist, continue with OTP sending logic
-            Swal.fire({
-                position: 'top-center',
-                icon: 'success',
-                title: 'OTP sent successfully',
-                showConfirmButton: false,
-                timer: 1500
-            });
-            startResendTimer();
-            }
-            })
-            .catch((error) => {
-                console.error("Error sending OTP", error);
-            });
-          })
+  // Function to validate the form
+  function validateForm() {
     
-//verifyOTP
-    const verifyOTPButton = document.getElementById("verifyOTPButton");
+      // Reset previous error messages
+      resetErrorMessages();
+
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmpassword').value;
+      const phoneNumber = document.getElementById('phoneNumber').value;
+
+      // Validate username (should contain only characters without whitespace)
+      const usernamePattern = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
+      if (!username.match(usernamePattern)) {
+          showError('usernameError', 'Username should contain only characters with optional whitespace between first and last names');
+          return false;
+      }
+
+      // Validate email
+      const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+      if (!email.match(emailPattern)) {
+          showError('emailError', 'Invalid email address');
+          return false;
+      }
+
+      //password length
+      if (password.length < 6) {
+          showError('passwordError', 'Password must be at least 6 characters');
+          return false;
+      }
+
+      // Validate passwordconfirmation
+      if (password !== confirmPassword) {
+          showError('confirmpasswordError', 'Passwords do not match');
+          return false;
+      }
+
+      // Validate phoneNumber (should be a number with exactly 10 digits)
+      if (isNaN(phoneNumber) || phoneNumber.length !== 10) {
+          showError('phoneNumberError', 'Phone number must be a number with exactly 10 digits');
+          return false;
+      }
+
+      return true; // Placeholder, replace with your actual validation logic
+  }
+
+      // Function to show error message
+  function showError(elementId, message) {
+      const errorElement = document.getElementById(elementId);
+      errorElement.textContent = message;
+  }
+
+  // Function to reset error messages
+  function resetErrorMessages() {
+      const errorElements = document.querySelectorAll('.error-message');
+      errorElements.forEach((element) => {
+          element.textContent = '';
+      });
+  }
+  
+
+
+  // verify otp
+  const verifyOTPButton = document.getElementById("verifyOTPButton");
 
         verifyOTPButton.addEventListener("click", function(e) {
             e.preventDefault();
 
             // const phoneNumber = document.querySelector('input[name="phoneNumber"]').value;
             const otpInput = document.querySelector('input[name="otpInput"]').value;
-            fetch(`/verify_otp?otpInput=${otpInput},{
-                method: "POST"}`)
+            fetch(`/verify-otp?otpInput=${otpInput}`,{
+                method: "POST"})
             
             .then((Response) => {
                 if(!Response.ok) {
@@ -201,6 +238,7 @@
                     timer: 1500
                 })
                 // startResendTimer()
+                submitButton.disabled = false;  
 
             })
             .catch((error)=>{
@@ -214,9 +252,32 @@
             });
             })
         })
-      
+
+        let timerElement = document.getElementById('timer');
+        // let resendOTPButton = document.getElementById('resendButton');
+        let resendOTPButton = document.getElementById('sendOTPButton');
+        let countdown; 
+
+        function startResendTimer() {
+                let remainingTime = 60;
+                timerElement.style.display = "block";
+                resendOTPButton.style.display = "none";
+    
+                countdown = setInterval(() => {
+                    timerElement.textContent = `Resend in ${remainingTime} seconds`;
+                    remainingTime--;
+    
+                    if (remainingTime < 0) {
+                        clearInterval(countdown);
+                        timerElement.style.display = "none";
+                        resendOTPButton.style.display = "block";
+                    }
+                }, 1000);
+            }
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
       
-<%= include("../partials/footer")%>
+<%= include("../partials/user-footer")%>

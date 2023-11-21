@@ -1,4 +1,4 @@
-const adminCollection = require("../models/adminSchema");
+const adminCollection = require("../../models/adminSchema");
 
 // module.exports.getAdminRoute = (req, res) =>{
 //     if(req.session.admin){
@@ -9,7 +9,7 @@ const adminCollection = require("../models/adminSchema");
 //     res.render("adminLogin");
 // }
 
-module.exports.getAdminRoute = async (req, res) => {
+module.exports.getAdminLogin = async (req, res) => {
     if (req.session.admin) {
     //   users = await userCollection.find({});
       res.render("adminDashboard");
@@ -18,7 +18,7 @@ module.exports.getAdminRoute = async (req, res) => {
     }
   };
 
-module.exports.postAdminRoute = async (req, res) =>{
+module.exports.postAdminDashboard = async (req, res) =>{
     const data = await adminCollection.findOne({ email: req.body.email});
     if (data) {
         if(req.body.email !== data.email) {
@@ -39,41 +39,16 @@ module.exports.postAdminRoute = async (req, res) =>{
     }
 };
 
-
-
-// module.exports.postAdminRoute = async (req, res) => {
-//     const data = await adminCollection.findOne({ email: req.body.email });
-//     const users = await userCollection.find({});
-//     if (data) {
-//       if (req.body.email !== data.email && req.body.password === data.password) {
-//         res.redirect("/admin");
-//       } else if (
-//         req.body.email === data.email &&
-//         req.body.password !== data.password
-//       ) {
-//         res.redirect("/admin");
-//       } else {
-//         if (
-//           req.body.email === data.email &&
-//           req.body.password === data.password
-//         ) {
-//           req.session.admin = req.body.email;
-//           res.render("adminDashboard", { users });
-//         }
-//       }
-//     } else {
-//       res.redirect("/");
-//     }
-//   };
-
-
-module.exports.getAdminDashboard = (req, res) =>{
-    // if (req.session.admin) {
-    //     const admin = req.session.admin;
-        // res.render("adminDashboard", { admin });
-        res.render("adminDashboard");
+module.exports.getAdminDashboard = async (req, res) => {
+    if (req.session.admin) {
+    //   users = await userCollection.find({});
+      res.render("adminDashboard");
+    } else {
+      res.render("adminLogin");
     }
-// };
+  };
+
+
 
 module.exports.getAdminLogout = (req, res) =>{
     req.session.admin = null;
@@ -86,5 +61,9 @@ module.exports.getUserManage = (req, res) =>{
 };
 module.exports.getCreatorManage = (req, res) =>{
     res.render("admin-creatormanage");
+    // res.send("hello");
+};
+module.exports.getProductList = (req, res) =>{
+    res.render("admin-productlist");
     // res.send("hello");
 };

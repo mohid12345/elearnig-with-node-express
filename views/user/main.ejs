@@ -22,6 +22,7 @@
                 <a href="/about" class="nav-item nav-link">About</a>
                 <a href="/courses" class="nav-item nav-link">Courses</a>
                 <a href="/contact" class="nav-item nav-link">Contact</a>
+
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Teach on EdX?</a>
                     <div class="dropdown-menu fade-down m-0">
@@ -36,11 +37,17 @@
                         <a href="testimonial.html" class="dropdown-item">Wishlist</a>
                         <a href="404.html" class="dropdown-item">My Cart</a>
                         <hr />
+                        <%if(!loggedIn) {%>   
+                        <a href="/userSignup" class="dropdown-item">User SignUp</a>
                         <a href="/userlogin" class="dropdown-item">User Login</a>
+                        <%} else {%>
+                        <a href="#" class="dropdown-item">Offers</a>    
+                        <a href="/userLogout" class="dropdown-item">Log-Out</a>    
+                       <%}%>
                     </div>
                 </div>
             </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
+            <a href="/userSignup" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
                 >Join Now<i class="fa fa-arrow-right ms-3"></i
             ></a>
         </div>
@@ -62,11 +69,11 @@
                                 <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Best Online Courses</h5>
                                 <h1 class="display-3 text-white animated slideInDown">The Best Online Learning Platform</h1>
                                 <p class="fs-5 text-white mb-4 pb-2">
-                                    Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et
-                                    diam justo clita et kasd rebum sea sanctus eirmod elitr.
+                                    Empower your computer studies journey through our eLearning app – where
+                                     knowledge meets innovation for a dynamic learning experience.
                                 </p>
                                 <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                                <a href="/userSignup" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
                             </div>
                         </div>
                     </div>
@@ -86,11 +93,11 @@
                                     Get Educated Online From Your Home
                                 </h1>
                                 <p class="fs-5 text-white mb-4 pb-2">
-                                    Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et
-                                    diam justo clita et kasd rebum sea sanctus eirmod elitr.
+                                    "Unlock the allure of cutting-edge learning with our online educational application, 
+                                    revolutionizing Information Technology studies for a dynamic and engaging academic experience.
                                 </p>
                                 <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                                <a href="/userSignup" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
                             </div>
                         </div>
                     </div>
@@ -109,7 +116,7 @@
                         <div class="p-4">
                             <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
                             <h5 class="mb-3">Skilled Instructors</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                            <p>Learn from industry experts who bring real-world insights to every lesson in our eLearning app</p>
                         </div>
                     </div>
                 </div>
@@ -118,7 +125,7 @@
                         <div class="p-4">
                             <i class="fa fa-3x fa-globe text-primary mb-4"></i>
                             <h5 class="mb-3">Online Classes</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                            <p>Access engaging online classes anytime, anywhere, and elevate your learning experience</p>
                         </div>
                     </div>
                 </div>
@@ -127,7 +134,7 @@
                         <div class="p-4">
                             <i class="fa fa-3x fa-home text-primary mb-4"></i>
                             <h5 class="mb-3">Home Projects</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                            <p>Transform your living space with creative and rewarding home improvement projects.</p>
                         </div>
                     </div>
                 </div>
@@ -136,7 +143,7 @@
                         <div class="p-4">
                             <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
                             <h5 class="mb-3">Book Library</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                            <p>Discover worlds in a sanctuary of boundless book treasures.</p>
                         </div>
                     </div>
                 </div>
@@ -163,12 +170,13 @@
                     <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
                     <h1 class="mb-4">Welcome to eLEARNING</h1>
                     <p class="mb-4">
-                        Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat
-                        ipsum et lorem et sit.
+                        Embark on a transformative learning journey with the EDX eLearning application.
+                         Unleash your potential through a diverse range of courses, expertly crafted to enhance your skills. 
+                         
                     </p>
                     <p class="mb-4">
-                        Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat
-                        ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet
+                        Immerse yourself in interactive lessons, connect with renowned instructors, and achieve your goals. 
+                         Elevate your education experience — explore, learn, and excel with EDX today.
                     </p>
                     <div class="row gy-2 gx-4 mb-4">
                         <div class="col-sm-6">
@@ -512,8 +520,7 @@
                     <p>Profession</p>
                     <div class="testimonial-text bg-light text-center p-4">
                         <p class="mb-0">
-                            Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat
-                            ipsum et lorem et sit.
+                            Exceptional content diversity and interactive features, making learning engaging and enjoyable. Highly recommended for skill development.
                         </p>
                     </div>
                 </div>
@@ -527,8 +534,7 @@
                     <p>Profession</p>
                     <div class="testimonial-text bg-light text-center p-4">
                         <p class="mb-0">
-                            Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat
-                            ipsum et lorem et sit.
+                            User-friendly interface, top-notch courses, and excellent support. An enriching experience for lifelong learners.
                         </p>
                     </div>
                 </div>
@@ -542,8 +548,7 @@
                     <p>Profession</p>
                     <div class="testimonial-text bg-light text-center p-4">
                         <p class="mb-0">
-                            Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat
-                            ipsum et lorem et sit.
+                            EDX app offers quality education, flexible schedules, and expert instructors. Truly a game-changer for online learning
                         </p>
                     </div>
                 </div>
@@ -557,8 +562,7 @@
                     <p>Profession</p>
                     <div class="testimonial-text bg-light text-center p-4">
                         <p class="mb-0">
-                            Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat
-                            ipsum et lorem et sit.
+                            Innovative platform with practical courses. Easy navigation and credible certificates. A must-try for professional growth.
                         </p>
                     </div>
                 </div>
@@ -582,8 +586,8 @@
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-white mb-3">Contact</h4>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 7789876543</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>creator@edX.co.com</p>
                     <div class="d-flex pt-2">
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
@@ -616,7 +620,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-white mb-3">Newsletter</h4>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    <p>Exiting new up-trending programs will be updated to your mail</p>
                     <div class="position-relative mx-auto" style="max-width: 400px">
                         <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email" />
                         <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">
@@ -630,10 +634,8 @@
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
+                        &copy; <a class="border-bottom" href="#">EdX e-learning platform</a>, All Right Reserved. @mohidmohan
 
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <div class="footer-menu">

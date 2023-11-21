@@ -4,7 +4,7 @@
 <aside class="navbar-aside" id="offcanvas_aside">
     <div class="aside-top">
         <a href="index.html" class="brand-wrap">
-            <img src="/adminAssets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+            <img src="/adminAssets/imgs/theme/logo.png" class="logo " alt="Evara Dashboard">
         </a>
         <div>
             <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
@@ -12,25 +12,38 @@
     </div>
         <nav>
             <ul class="menu-aside">
-                <li class="menu-item active">
-                    <a class="menu-link" href="index.html"> <i class="icon material-icons md-home"></i>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/adminDashboard"> <i class="icon material-icons md-home"></i>
                         <span class="text">Dashboard</span>
                     </a>
                 </li>
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-products-list.html"> <i class="icon material-icons md-shopping_bag"></i>
-                        <span class="text">Products</span>
+
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin/course-list"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Courses</span>
                     </a>
-                    <div class="submenu">
-                        <a href="page-products-list.html">Product List</a>
-                        <a href="page-products-grid.html">Product grid</a>
-                        <a href="page-products-grid-2.html">Product grid 2</a>
-                        <a href="page-categories.html">Categories</a>
-                    </div>
                 </li>
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>
-                        <span class="text">Orders</span>
+
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/category-list"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Category</span> </a>
+                </li>
+
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/admin-usermanage"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Users</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/admin-usermanage"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Users</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/admin-creatormanage"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Creators</span>
+                    </a>
+                </li>
                     </a>
                     <div class="submenu">
                         <a href="page-orders-1.html">Order list 1</a>
@@ -49,14 +62,14 @@
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>
-                        <span class="text">Add product</span>
+                    <a class="menu-link" href="page-form-course-1.html"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Add course</span>
                     </a>
                     <div class="submenu">
-                        <a href="page-form-product-1.html">Add product 1</a>
-                        <a href="page-form-product-2.html">Add product 2</a>
-                        <a href="page-form-product-3.html">Add product 3</a>
-                        <a href="page-form-product-4.html">Add product 4</a>
+                        <a href="page-form-course-1.html">Add course 1</a>
+                        <a href="page-form-course-2.html">Add course 2</a>
+                        <a href="page-form-course-3.html">Add course 3</a>
+                        <a href="page-form-course-4.html">Add course 4</a>
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
@@ -123,7 +136,7 @@
                         <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
                     </div>
                     <datalist id="search_terms">
-                        <option value="Products">
+                        <option value="Courses">
                             <option value="New orders">
                         <option value="Apple iphone">
                         <option value="Ahmed Hassan">
@@ -179,78 +192,47 @@
                         <header class="card-header">
                             
                             <div class="container mt-5">
-                                <form action="/admin/postEdit-product/<%= productdata._id %>" method="post" enctype="multipart/form-data">
+                                <form action="/admin/postEdit-course/<%= coursedata._id %>" method="post" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <label for="productName">Product Name</label>
-                                        <input type="text" class="form-control" id="productName" name="productName" value="<%= productdata.productName %>" required>
+                                        <label for="courseName">Course Name</label>
+                                        <input type="text" class="form-control" id="courseName" name="courseName" value="<%= coursedata.courseName %>" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="productDiscription">Product Description</label>
-                                        <textarea class="form-control" id="productDiscription" name="productDiscription" value="<%= productdata.productDiscription %>" rows="3"><%= productdata.productDiscription %></textarea>
+                                        <label for="courseDiscription">Course Description</label>
+                                        <textarea class="form-control" id="courseDiscription" name="courseDiscription" value="<%= coursedata.courseDiscription %>" rows="3"><%= coursedata.courseDiscription %></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="category">Category</label>
-                                        <select class="form-control" id="category" name="productCategory" value="<%= productdata.productCategory %>">
+                                        <select class="form-control" id="category" name="courseCategory" value="<%= coursedata.courseCategory %>">
                                             <option value="">Select Catagory</option>
                                             <% categorydata.forEach(catagory => { %> 
-                                                <option value="<%= productdata.catgName %>"><%= catagory.catgName %></option> 
+                                                <option value="<%= coursedata.catgName %>"><%= catagory.catgName %></option> 
                                             <% }) %>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="brand">Brand</label>
-                                        <input type="text" class="form-control" id="productBrand" name="productBrand" value="<%= productdata.productBrand %>">
+                                        <input type="text" class="form-control" id="courseBrand" name="courseBrand" value="<%= coursedata.courseBrand %>">
                                     </div>
                                     <div class="form-group">
                                         <label for="amount">Amount (in Rupees)</label>
-                                        <input type="number" class="form-control" id="productAmount" name="productAmount" value="<%= productdata.productAmount %>" required>
+                                        <input type="number" class="form-control" id="courseAmount" name="courseAmount" value="<%= coursedata.courseAmount %>" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="Size">Size</label>
-                                        <input type="number" class="form-control" id="productSize" name="productSize" value="<%= productdata.productSize %>" required>
+                                        <input type="number" class="form-control" id="courseSize" name="courseSize" value="<%= coursedata.courseSize %>" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="amount">Stock</label>
-                                        <input type="number" class="form-control" id="productStock" name="productStock" required value="<%= productdata.productStock %>">
+                                        <input type="number" class="form-control" id="courseStock" name="courseStock" required value="<%= coursedata.courseStock %>">
                                     </div>
                                     <!-- <div class="form-group">
-                                        <label for="photo">Product Photo</label>
-                                        <input type="file" class="form-control-file" id="productImg" name="productImg" accept="image/*" multiple>
+                                        <label for="photo">Course Photo</label>
+                                        <input type="file" class="form-control-file" id="courseImg" name="courseImg" accept="image/*" multiple>
                                     </div> -->
                                     
-                                    <div class="col-lg-6">
-                                        <label for="amount">Photos</label>
-                                        <div class="card mb-4">
-                                            <div class="card-body">
-                                                <img src="\adminAssets\imgs\items\10.jpg" alt="img">
-                                                <img src="uploads\1699362972463-b4.webp" alt="img">
-                                                    <div class="input-upload">
-                                                    <img src="<%=productdata.productImg[0]%>" alt="img">
-                                                    <input class="form-control" type="file" name="productImg" >
-                                                    <%console.log(productdata.productImg[0])%>
-                                                </div>
-                                                <div class="input-upload">
-                                                    <img src="<%=productdata.productImg[1]%>" alt="img">
-                                                    <input class="form-control" type="file" name="productImg" >
-                                                    <%console.log(productdata.productImg[1])%>
-                                                </div>
-                                                <div class="input-upload">
-                                                    <img src="\<%=productdata.productImg[2]%>" alt="img">
-                                                    <input class="form-control" type="file" name="productImg" >
-                                                    <%console.log(productdata.productImg[2])%>
-                                                </div>
-                                                <div class="input-upload">
-                                                    <img src="/<%=productdata.productImg[3]%>" alt="img">
-                                                    <input class="form-control" type="file" name="productImg" >
-                                                    <%console.log(productdata.productImg[3])%>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
 
-                                    <button type="submit" class="btn btn-primary">Add Product</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </form>
                             </div>
                             

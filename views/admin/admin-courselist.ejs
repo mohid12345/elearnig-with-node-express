@@ -5,34 +5,37 @@
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
             <a href="index.html" class="brand-wrap">
-                <img src="/adminAssets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+                <img src="/adminAssets/imgs/theme/logo.png" class="logo" alt="Evara Dashboard">
             </a>
             <div>
                 <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
             </div>
         </div>
-        <nav>
-            <ul class="menu-aside">
-                <li class="menu-item">
-                    <a class="menu-link" href="index.html"> <i class="icon material-icons md-home"></i>
-                        <span class="text">Dashboard</span>
-                    </a>
-                </li>
-                <li class="menu-item ">
-                    <a class="menu-link" href="/admin/product-list"> <i class="icon material-icons md-shopping_bag"></i>
-                        <span class="text">Products</span>
-                    </a> 
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="/admin/category-list"> <i class="icon material-icons md-stars"></i>
-                        <span class="text">Category</span> </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
-                        <span class="text">Users</span>
-                    </a>
-                </li>
-
+        <ul class="menu-aside">
+            <li class="menu-item">
+                <a class="menu-link" href="/admin/adminDashboard"> <i class="icon material-icons md-home"></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li class="menu-item active">
+                <a class="menu-link" href="/admin/course-list"> <i class="icon material-icons md-shopping_bag"></i>
+                    <span class="text">Courses</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="/admin/category-list""> <i class="icon material-icons md-stars"></i>
+                    <span class="text">Category</span> </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="/admin/admin-usermanage"> <i class="icon material-icons md-person"></i>
+                    <span class="text">Users</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="/admin/admin-creatormanage"> <i class="icon material-icons md-person"></i>
+                    <span class="text">Creators</span>
+                </a>
+            </li>
                 <!-- <li class="menu-item has-submenu ">
                     <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>
                         <span class="text">Orders</span>
@@ -54,14 +57,14 @@
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>
-                        <span class="text">Add product</span>
+                    <a class="menu-link" href="page-form-course-1.html"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Add course</span>
                     </a>
                     <div class="submenu">
-                        <a href="page-form-product-1.html">Add product 1</a>
-                        <a href="page-form-product-2.html">Add product 2</a>
-                        <a href="page-form-product-3.html">Add product 3</a>
-                        <a href="page-form-product-4.html">Add product 4</a>
+                        <a href="page-form-course-1.html">Add course 1</a>
+                        <a href="page-form-course-2.html">Add course 2</a>
+                        <a href="page-form-course-3.html">Add course 3</a>
+                        <a href="page-form-course-4.html">Add course 4</a>
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
@@ -116,7 +119,7 @@
                         <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
                     </div>
                     <datalist id="search_terms">
-                        <option value="Products">
+                        <option value="Courses">
                         <option value="New orders">
                         <option value="Apple iphone">
                         <option value="Ahmed Hassan">
@@ -165,7 +168,7 @@
         <section class="content-main">
             <div class="content-header">
                 <div>
-                    <h2 class="content-title card-title">Products List</h2>
+                    <h2 class="content-title card-title">Courses List</h2>
                     <%if (typeof message !== 'undefined') {%>
                         <p class="text-center" style="color:red;"><%= message %></p>
                     <%}%>
@@ -177,7 +180,7 @@
                 <div>
                     <!-- <a href="#" class="btn btn-light rounded font-md">Export</a>
                     <a href="#" class="btn btn-light rounded  font-md">Import</a> -->
-                    <a href="/admin/add-product" class="btn btn-primary btn-sm rounded">Add Product</a>
+                    <a href="/admin/add-course" class="btn btn-primary btn-sm rounded">Add Course</a>
                 </div>
             </div>
             <div class="card mb-4">
@@ -248,33 +251,33 @@
                 </div> 
 
                 <div class="container">
-                    <!-- <h3>Product List</h3> -->
+                    <!-- <h3>Course List</h3> -->
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">Photo</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Price</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Brand</th>
-                                <th scope="col">Stock</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Duration in hr</th>
+                                <th scope="col">No Of Lessons</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% productdata.forEach(product => { %> 
+                            <% coursedata.forEach(course => { %> 
                                 <tr>
-                                    <td><img src="<%=product.productImg[0]%>" class="img-sm " alt="Item" height="68" width="68"></td>
-                                    <td><%= product.productName %></td>
-                                    <td><%= product.productAmount %></td>
-                                    <td><%= product.productCategory %></td>
-                                    <td><%= product.productBrand %></td>
-                                    <td><%= product.productStock %></td>
+                                    <td><img src="<%=course.courseImg[0]%>" class="img-sm " alt="Item" height="68" width="68"></td>
+                                    <td><%= course.courseName %></td>
+                                    <td><%= course.courseAmount %></td>
+                                    <td><%= course.courseAuthor %></td>
+                                    <td><%= course.courseDuration %></td>
+                                    <td><%= course.courseLessonNos %></td>
                                     <td>
-                                        <a href="/admin/edit-product/<%= product._id %>" class="btn btn-sm font-sm rounded btn-brand">
+                                        <a href="/admin/edit-course/<%= course._id %>" class="btn btn-sm font-sm rounded btn-brand">
                                             <i class="material-icons md-edit"></i> Edit
                                         </a>
-                                        <a href="/admin/delete-product/<%= product._id %>" class="btn btn-sm font-sm btn-light rounded">
+                                        <a href="/admin/delete-course/<%= course._id %>" class="btn btn-sm font-sm btn-light rounded">
                                             <i class="material-icons md-delete_forever"></i> Delete
                                         </a>
                                     </td>
@@ -303,15 +306,7 @@
         </section> <!-- content-main end// -->
         <footer class="main-footer font-xs">
             <div class="row pb-30 pt-15">
-                <div class="col-sm-6">
-                    <script>
-                    document.write(new Date().getFullYear())
-                    </script> ©, Evara - HTML Ecommerce Template .
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-sm-end">
-                        All rights reserved
-                    </div>
+                
                 </div>
             </div>
         </footer>

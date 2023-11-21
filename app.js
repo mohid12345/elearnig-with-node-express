@@ -41,11 +41,11 @@ app.use("/", (req, res, next) => {
   app.set("views", path.join(__dirname, "views", "user"));
   next();
 }, userRouter);
-app.use("/", (req, res, next) => {
+app.use("/admin", (req, res, next) => {
   app.set("views", path.join(__dirname, "views", "admin"));
   next();
 }, adminRouter);
-app.use("/", (req, res, next) => {
+app.use("/creator", (req, res, next) => {
   app.set("views", path.join(__dirname, "views", "creator"));
   next();
 }, creatorRouter);

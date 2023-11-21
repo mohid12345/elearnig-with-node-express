@@ -1,19 +1,9 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EdX - Admin Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  -->
-<!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
 <%- include("../partials/header") %>
 
 <body>
   <!-- <a href="/"> &nbsp; < < < Back</a> -->
   <a href="/"> &nbsp;
-  <!-- <button type="button" class="btn btn-light btn-lg btn-block pull-right">X</button> -->
-  <button type="button" class="btn btn-primary float-right mt-3 mx-3">X</button>
+<button type="button" class="btn btn-primary float-right mt-3 mx-3">X</button>
 </a>
   <form action="/userLogin" method="POST">
     <section  class="vh-100">
@@ -43,15 +33,8 @@
                     <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
                     <label class="form-check-label" for="form1Example3"> Remember me </label>
                   </div>
-                  <a href="#!">Forgot password?</a>
+                  <a href="/userForgetPwd">Forgot password?</a>
                 </div>
-
-                    
-                     
-                   
-                                   <!-- otp verification pop-over end -->
-
-
                 <div class="d-felx justify-content-around align-item-right mb-4">
                     <a href="/userSignup">Dont have an account ? Click Here</a>
                 </div>
