@@ -16,8 +16,9 @@ module.exports.getUserRoute_Course = async (req,res) => {
     try {
       const loggedIn = req.cookies.loggedIn;
       const coursedata = await courseCollection.find()
-      const unblockedCourses = coursedata.filter(course => course.courseStatus !== 'Block');
-      res.render("courses", {loggedIn, coursedata: unblockedCourses});
+      // const unblockedCourses = coursedata.filter(course => course.courseStatus !== 'Block');
+      // res.render("courses", {loggedIn, coursedata: unblockedCourses});
+      res.render("courses", {loggedIn, coursedata});
     } catch (error) {
       console.error(error);
     }

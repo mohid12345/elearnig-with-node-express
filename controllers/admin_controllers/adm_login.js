@@ -18,6 +18,16 @@ module.exports.getAdminLogin = async (req, res) => {
     }
   };
 
+module.exports.getAdminLogout = (req,res) =>{
+  req.session.admin = null
+  res.redirect("/")
+}
+// module.exports.getAdminLogout = (req,res) =>{
+//  if(req.session.admin){
+//   res.send("send logout")
+//  }
+// }
+
 module.exports.postAdminDashboard = async (req, res) =>{
     const data = await adminCollection.findOne({ email: req.body.email});
     if (data) {
@@ -47,6 +57,8 @@ module.exports.getAdminDashboard = async (req, res) => {
       res.render("adminLogin");
     }
   };
+//   res.render("adminDashboard");
+// }
 
 
 

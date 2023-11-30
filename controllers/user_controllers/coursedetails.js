@@ -10,7 +10,7 @@ module.exports.courseDetails = async(req,res) => {
     const loggedIn = req.cookies.loggedIn;
     const Idcourse = req.params.courseId;
     const coursedata = await courseCollection.findById({_id:Idcourse})
-    res.render("user-coursedetails", {loggedIn, coursedata})
+    res.render("courseDetails", {loggedIn, coursedata})
   } catch(error) {
     console.error(error)
   }

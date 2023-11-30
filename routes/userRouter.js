@@ -13,6 +13,9 @@ const loginControll = require("../controllers/user_controllers/login")
 const courseControll = require("../controllers/user_controllers/coursedetails")
 const path = require("path");
 
+
+userRouter.use("/uploads",express.static('uploads'));
+
 //homepage routes
 userRouter.get("/", homepageControll.getUserRoute);
 userRouter.get("/userLogout", homepageControll.getLogout);

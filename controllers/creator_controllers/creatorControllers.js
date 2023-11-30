@@ -42,18 +42,23 @@ module.exports.postCreatorSignup = async(req,res)=>{
     if (data) {
         res.render("creatorSignup",{error:"creator with this email already exist - try different ", });
     } else {
+
         await creatorCollection.create({
-            fname:req.body.fname,
+            creatorName:req.body.creatorName,
             email:req.body.email,
             phone:req.body.phone,
             password:req.body.password,
+            status: "unblocked",
         });
-        res.redirect("/");
+     
+        res.redirect("/creator/creatorLogin");
     }
 }
+
 
 module.exports.creatorLogout = (req,res) =>{
     res.clearCookie("token");
     res.clearCookie("loggedIn");
     res.redirect("/creatorLogin")
 }
+

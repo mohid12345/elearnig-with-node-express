@@ -22,13 +22,13 @@ const PORT = process.env.PORT || 8000;
 
 
 app.use(nocache());
-app.use(cookieParser());
-app.use(express.urlencoded({extended: true}));
+app.use(cookieParser()); // parsing the incoming data
+app.use(express.urlencoded({extended: true})); // parsing the incoming data
 app.set('view engine', 'ejs');
 // app.set("views","./views");
 // app.set("views", path.join(__dirname, "views","user"));
 // app.use(express.static("public"));
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public")); //serving public file
 app.use(
     session({    //setted up session middleware
     secret: uuidv4(),

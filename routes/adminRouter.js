@@ -1,18 +1,20 @@
 const express = require("express");
 const adminRouter = express.Router();
 const multer = require("multer")
+
+const adminMiddleware = require("../user-middleware/admin_authentication")
 // const adminControllers = require("../controllers/admin_controllers/adm_login");
 const loginControll = require("../controllers/admin_controllers/adm_login")
 const dashboardControll = require("../controllers/admin_controllers/adm_dashboard")
 const categoryControll = require("../controllers/admin_controllers/adm_category")
 const courseControll = require("../controllers/admin_controllers/adm_course")
 const usermanageControll = require("../controllers/admin_controllers/adm_usermanage")
-
+const creatormanageControll = require("../controllers/admin_controllers/adm_creatormanage")
 
 const path = require("path");
 
 
-adminRouter.use("/public/uploads",express.static('public/uploads'));
+// adminRouter.use("/public/uploads",express.static('public/uploads'));
 adminRouter.use("/uploads",express.static('uploads'));
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -27,11 +29,17 @@ const uploads=multer({storage:storage})
 
 
 //login
-adminRouter.get("/adminLogin", loginControll.getAdminLogin)
+adminRouter.get("/adminLogin",  loginControll.getAdminLogin)
+//logout
+adminRouter.get("/adminLogout", loginControll.getAdminLogout)
+// adminRouter.get("/adminLogout", (req,res)=>{
+//   console.log("hello")
+// })
 
 // homepage
 adminRouter.post("/adminDashboard", loginControll.postAdminDashboard)
 adminRouter.get("/adminDashboard", loginControll.getAdminDashboard)
+// adminRouter.get("/adminDashboard", adminMiddleware.verifyAdmin,  loginControll.getAdminDashboard)
 
 
 // Category
@@ -61,6 +69,11 @@ adminRouter.get("/unblock-user/:userId", usermanageControll.unblockUser)
 //     res.render("userLogin");
 //   });
   
+
+//Manage Creator
+adminRouter.get("/admin-creatormanage",creatormanageControll.getCreator)
+adminRouter.get("/block-creator/:creatorId",creatormanageControll.blockCreator)
+adminRouter.get("/unblock-creator/:creatorId",creatormanageControll.unblockCreator)
 
 module.exports = adminRouter;
 

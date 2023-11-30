@@ -118,7 +118,22 @@
         </div>
     </div>
     <!-- Categories Start -->
+<!-- 
+    <div class="container">
 
+        <% coursedata.forEach(course => { %>
+
+            <img src="/<%= course.courseImg[0] %>" alt="">
+
+        <%  }) %>    
+        <h1>fhsdfdkjkn</h1>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <hr>
+ -->
 
     <!-- Courses Start -->
     <div class="container-xxl py-5">
@@ -134,9 +149,9 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="course-item bg-light">
                         <div class="position-relative overflow-hidden">
-                            <!-- <img class="img-fluid" src="img/course-1.jpg" alt=""> -->
                             <!-- <a href="/course-details/<%= course._id %>"> -->
-                            <img class="img-fluid" src="/<%= course.courseImg[0] %>" alt="">
+                            <a href="/course-details/<%= course._id %>">
+                            <img class="img-fluid" src="<%= course.courseImg[0] %>" alt="">
                             <!-- </a> -->
                             <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
                                 <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
@@ -164,7 +179,7 @@
                         
                     </div>
                 </div>
-               <% })%>
+               <% }) %>
 
 
 

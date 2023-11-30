@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const creatorSchema = new mongoose.Schema({
-    fname: {
+    creatorName: {
         required: true,
         type: String,
     },
@@ -19,6 +19,7 @@ const creatorSchema = new mongoose.Schema({
         type: String,
     },
     status: {
+        require: true,
         type: String,
     },
 });
