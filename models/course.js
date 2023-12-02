@@ -32,7 +32,22 @@ const courseSchema = new mongoose.Schema ({
         require: true,
         type: String,
     },
+    couseLearn:{     //large points wabout course
+        require: true,
+        type: String,
+    },
+    courseIncludes:{  //this course includes listed points
+        require: true,
+        type: String,
+    },
     courseImg:{
+        require: true,
+        type: Array,
+    },
+    courseVid:{
+        // filename: String,
+        // mimeType: String,
+        // size: Number,
         require: true,
         type: Array,
     },

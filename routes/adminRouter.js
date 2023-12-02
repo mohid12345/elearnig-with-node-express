@@ -15,6 +15,20 @@ const path = require("path");
 
 
 // adminRouter.use("/public/uploads",express.static('public/uploads'));
+///////////old multer///////////////////////////////////////////////////////////////////////////////
+// adminRouter.use("/uploads",express.static('uploads'));
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, './uploads');
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname);
+//   },
+// });
+// const uploads=multer({storage:storage}) 
+////////////////////////////////////////////////////////////////////////////////////
+
+
 adminRouter.use("/uploads",express.static('uploads'));
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -24,7 +38,15 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-const uploads=multer({storage:storage}) 
+const limits = {
+  files: 5, // Maximum number of files for the 'courseImg' field
+};
+
+const uploads = multer({
+  storage: storage,
+  limits: limits,
+}).array('courseImg', 5);
+// const uploads=multer({storage:storage}) 
 
 
 
@@ -52,10 +74,12 @@ adminRouter.get("/delete-category/:categoryId", categoryControll.deleteCategory)
 //Courses
 adminRouter.get("/course-list", courseControll.getCourseList)
 adminRouter.get("/add-course", courseControll.getAddCourse)
-adminRouter.post("/postadd-course", uploads.array("courseImg"), courseControll.postCourse)
+// adminRouter.post("/postadd-course", uploads.array("courseImg"), courseControll.postCourse)
+adminRouter.post("/postadd-course", uploads, courseControll.postCourse)
 adminRouter.get("/delete-course/:courseId", courseControll.deleteCourse);
 adminRouter.get("/edit-course/:courseId", courseControll.editCourse)
-adminRouter.post("/postEdit-course/:courseId", uploads.array("courseImg"), courseControll.updateCourse)
+adminRouter.post("/postEdit-course/:courseId", uploads, courseControll.updateCourse)
+// adminRouter.post("/postEdit-course/:courseId", uploads.array("courseImg"), courseControll.updateCourse)
 
 
 

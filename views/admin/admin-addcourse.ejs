@@ -254,12 +254,41 @@
                                     $('#courseLessonNos').on('input', generateDynamicFields);
                                 </script>
                                  -->
-                            </div>
+                            
                             <br>
-                            <div class="form-group">
+                            <div class="form-group ">
                                 <label for="photo">Course Photo</label> &nbsp
                                 <input type="file" class="form-control-file" id="courseImg" name="courseImg" accept="image/*" multiple>
                             </div>
+                            <!-- Other form fields above -->
+
+<div class="form-group my-3">
+    <label for="video">Course Video</label> &nbsp;
+    <input type="file" class="form-control" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4">
+</div>
+
+<!-- Other form fields below -->
+
+                            <!-- second video input -->
+                            <!-- <div class="container mt-5">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-md-6">
+                                        <form method="post" action="#" id="#">
+                                            {% csrf_token %}
+                                            <div class="form-group files">
+                                                <label class="d-flex justify-content-center">Upload Your File </label>
+                                                <input type="file" class="form-control" multiple="" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*">
+                                            </div>
+                                            <div class="row row-cols-auto">
+                                                <div class="col mx-auto my-2">
+                                                    <button class="btn btn-primary" type="submit">Upload</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
                             <br>
                             <button type="submit" class="btn btn-primary">Add Product</button>
                             

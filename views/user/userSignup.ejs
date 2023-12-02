@@ -22,27 +22,27 @@
                   <form method="post" action="/userSignup" onsubmit="return validateForm()">
                     <div class="mb-3">
                       <input type="text" class="form-control" required name="username" placeholder="Username" id="username">
-                      <div id="usernameError" class="error-message"></div>
+                      <div id="usernameError" class="error-message text-danger"></div>
                     </div>
 
                     <div class="mb-3">
                       <input type="text" class="form-control" required name="email" placeholder="Email" id="email">
-                      <div id="emailError" class="error-message"></div>
+                      <div id="emailError" class="error-message text-danger"></div>
                     </div>
 
                     <div class="mb-3">
                       <input type="password" class="form-control" required name="password" placeholder="Password" id="password">
-                      <div id="passwordError" class="error-message"></div>
+                      <div id="passwordError" class="error-message text-danger"></div>
                     </div>
 
                     <div class="mb-3">
                       <input type="password" class="form-control" required name="confirmpassword" placeholder="Confirm password" id="confirmpassword">
-                      <div id="confirmpasswordError" class="error-message"></div>
+                      <div id="confirmpasswordError" class="error-message text-danger"></div>
                     </div>
 
                     <div class="mb-3">
                       <input type="number" class="form-control" required name="phoneNumber" placeholder="Phone Number" id="phoneNumber">
-                      <div id="phoneNumberError" class="error-message"></div>
+                      <div id="phoneNumberError" class="error-message text-danger"></div>
                     </div>
 
                     <div class="mb-3">
@@ -63,8 +63,9 @@
                     </div>
 
                     <div class="form-check mb-3">
-                      <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox12" value="">
+                      <input class="form-check-input" type="checkbox" name="checkbox" id="checkbox" value="" required>
                       <label class="form-check-label" for="exampleCheckbox12">I agree to terms &amp; Policy.</label>
+                      <div id="checkboxError" class="error-message text-danger"></div>
                     </div>
 
                   <div class="mb-3">
@@ -170,13 +171,14 @@
       // Validate email
       const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
       if (!email.match(emailPattern)) {
-          showError('emailError', 'Invalid email address');
+          showError('emailError', 'Invalid email address.');
           return false;
       }
 
       //password length
-      if (password.length < 6) {
-          showError('passwordError', 'Password must be at least 6 characters');
+      const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/;
+      if (!password.match(passwordPattern)) {
+          showError('passwordError', 'Password must be at least 6 characters with mixed alpha numberical and symbols');
           return false;
       }
 
@@ -187,11 +189,18 @@
       }
 
       // Validate phoneNumber (should be a number with exactly 10 digits)
-      if (isNaN(phoneNumber) || phoneNumber.length !== 10) {
+      const phoneNumberPattern = /^[6-9]\d{9}$/;
+      if (isNaN(phoneNumber) || !phoneNumber.match(phoneNumberPattern)) {
           showError('phoneNumberError', 'Phone number must be a number with exactly 10 digits');
           return false;
       }
+      // if (isNaN(phoneNumber) || phoneNumber.length !== 10) {
+      //     showError('phoneNumberError', 'Phone number must be a number with exactly 10 digits');
+      //     return false;
+      // }
+      if(checkbox)
 
+      
       return true; // Placeholder, replace with your actual validation logic
   }
 

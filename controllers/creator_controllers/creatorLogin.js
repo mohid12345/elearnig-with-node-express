@@ -1,2 +1,2 @@
-const creatorCollection = require("../../models/creatorSchema"))
+const creatorCollection = require("../../models/creatorSchema")
 

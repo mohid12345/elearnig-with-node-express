@@ -2,11 +2,12 @@ const creatorCollection = require("../../models/creatorSchema");
 
 module.exports.getCreatorLogin = (req,res)=>{
     if(req.session.creator){
-        res.render("creatorDashboard");
+        res.redirect("/creator/creatorDashboard");
     // res.send("creator dashboard reached")
     } else {
         // res.redirect("/creatorLogin");
         res.render("creatorLogin");
+        // console.log('error')
         // res.send("res from no creator session")
     }
 }
@@ -59,6 +60,6 @@ module.exports.postCreatorSignup = async(req,res)=>{
 module.exports.creatorLogout = (req,res) =>{
     res.clearCookie("token");
     res.clearCookie("loggedIn");
-    res.redirect("/creatorLogin")
+    res.redirect("/creator/creatorLogin")
 }
 
