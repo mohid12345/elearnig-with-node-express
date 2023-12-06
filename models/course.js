@@ -32,11 +32,11 @@ const courseSchema = new mongoose.Schema ({
         require: true,
         type: String,
     },
-    couseLearn:{     //large points wabout course
+    courseRequirements:{     //large points wabout course
         require: true,
         type: String,
     },
-    courseIncludes:{  //this course includes listed points
+    courseForwho:{  //this course includes listed points
         require: true,
         type: String,
     },

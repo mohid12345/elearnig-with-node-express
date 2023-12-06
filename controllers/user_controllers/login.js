@@ -55,9 +55,8 @@ module.exports.postLogin = async (req, res) => {
                     const token = jwt.sign(email, secretkey);
                     res.cookie("token", token, { maxAge: 24 * 60 * 60 * 1000 });
                     res.cookie("loggedIn", true, { maxAge: 24 * 60 * 60 * 1000 });
-                    res.status(200)
-                    // .json({ success: true });
-                    res.redirect("/")
+                    res.status(200).json({ success: true });
+                    // res.redirect("/about")
                 } catch (error) {
                     console.log(error);
                     res.status(500).json({ error: "Internal Server Error" });

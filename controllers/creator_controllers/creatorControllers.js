@@ -32,6 +32,25 @@ module.exports.postCreatorLogin = async(req,res)=>{
     }
 }
 }
+module.exports.getCreatorDash = async (req, res) => {
+//     if (req.session.creator) {
+//     //   users = await userCollection.find({});
+//       res.render("creatorDashboard");
+//     } else {
+//       res.render("creatorLogin");
+//     }
+//   };
+// //   res.render("adminDashboard");
+// // }
+       try{
+        res.render("creatorDashboard")
+
+       } catch(error){
+        console.log(error)
+       }
+    }
+
+
 
 
 module.exports.getCreatorSignup = (req,res)=>{

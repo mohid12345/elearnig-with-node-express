@@ -19,7 +19,7 @@ cloudinary.config({
 module.exports.getCourseList = async(req,res)=>{
     try{
         const coursedata = await courseCollection.find()
-        res.render("admin-courselist", {coursedata});
+        res.render("creatorCourselist", {coursedata});
     }
     catch(error){
         console.error(error);
@@ -33,7 +33,7 @@ module.exports.getAddCourse = async(req,res) => {
       const categories = Array.isArray(categorydata)
       ? categorydata
       : [categorydata];
-      res.render("admin-addcourse", {categories});
+      res.render("creator-addcourse", {categories});
     } catch (error) {
       console.error(error);
     }
@@ -63,7 +63,7 @@ module.exports.getAddCourse = async(req,res) => {
 //       });
 
 //       const coursedata = await courseCollection.find();
-//       res.render("admin-courselist", { coursedata });
+//       res.render("creator-courselist", { coursedata });
 //     } else {
 //       res.status(400).send("No images or videos selected for upload");
 //     }
@@ -102,7 +102,7 @@ module.exports.getAddCourse = async(req,res) => {
             courseImg.forEach((element) => {
               arr.push({ name: element.filename, path: element.path})
             });
-            
+          
             // const videoIds = arr.map((courseImg) => courseImg.path)
             // let arr1 = []
             // courseVid.forEach((element) =>{
@@ -123,8 +123,6 @@ module.exports.getAddCourse = async(req,res) => {
             courseAmount: req.body.courseAmount,
             courseDuration: req.body.courseDuration,
             courseLessonNos: req.body.courseLessonNos,
-            courseRequirements: req.body.courseRequirements,
-            courseForwho: req.body.courseForwho,
             courseImg: imageIds,
             // courseVid: videoIds,
           });
@@ -132,7 +130,7 @@ module.exports.getAddCourse = async(req,res) => {
         
 
           const coursedata = await courseCollection.find()
-          res.render("admin-courselist", {coursedata});
+          res.render("creator-courselist", {coursedata});
           console.log(imageIds)
         } else {
           res.status(400).send("No images selected for upload");
@@ -161,10 +159,6 @@ module.exports.getAddCourse = async(req,res) => {
           console.error(error);
         }
       }
-
-
-
-
     }
     
   
@@ -175,7 +169,7 @@ module.exports.getAddCourse = async(req,res) => {
       console.log(courseId)
       const result = await courseCollection.deleteOne({_id:courseId})
       if(result.deletedCount === 1) {
-        res.redirect("/admin/course-list")
+        res.redirect("/creator/course-list")
       } else {
         res.status(404).send("Category not found")
       }
@@ -190,7 +184,7 @@ module.exports.getAddCourse = async(req,res) => {
       const course = req.params.courseId;
       const coursedata = await courseCollection.findOne({_id:course})
       const categorydata = await categoryCollection.find();
-      res.render("admin-editcourse", {coursedata, categorydata})
+      res.render("creatorEditCourses", {coursedata, categorydata})
     } catch (error) {
       console.log(error);
     }
@@ -254,9 +248,9 @@ module.exports.getAddCourse = async(req,res) => {
       };
       const updatedCourse = await courseCollection.findByIdAndUpdate(editId, updatedData, { new: true });
       const successMessage = "Course updated successfully";
-      res.redirect('/admin/course-list');
+      res.redirect('/creator/course-list');
     } catch (error) {
       console.log(error);
-      res.redirect("/admin/edit-course", { error: "An error occurred while updating the course, please try again" });
+      res.redirect("/creator/edit-course", { error: "An error occurred while updating the course, please try again" });
     }
   };

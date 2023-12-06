@@ -43,7 +43,8 @@ userRouter.route("/userSignup")
 .get(userControllers.getUserSignup)
 .post(userControllers.postUserSignup);
 
-userRouter.get("/course-details/:courseId", userMiddleware.verifyUser, courseControll.courseDetails)
+// userRouter.get("/course-details/:courseId", userMiddleware.verifyUser, courseControll.courseDetails)
+userRouter.get("/course-details/:courseId", courseControll.courseDetails)
 
 
 

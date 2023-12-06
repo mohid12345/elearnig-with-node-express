@@ -5,13 +5,11 @@ const multer = require("multer")
 const adminMiddleware = require("../user-middleware/admin_authentication")
 // const adminControllers = require("../controllers/admin_controllers/adm_login");
 const loginControll = require("../controllers/admin_controllers/adm_login")
-const dashboardControll = require("../controllers/admin_controllers/adm_dashboard")
+// const dashboardControll = require("../controllers/admin_controllers/adm_dashboard")
 const categoryControll = require("../controllers/admin_controllers/adm_category")
 const courseControll = require("../controllers/admin_controllers/adm_course")
 const usermanageControll = require("../controllers/admin_controllers/adm_usermanage")
 const creatormanageControll = require("../controllers/admin_controllers/adm_creatormanage")
-
-const path = require("path");
 
 
 // adminRouter.use("/public/uploads",express.static('public/uploads'));

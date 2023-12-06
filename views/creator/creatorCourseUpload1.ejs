@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Creator Panel</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Course Creator Panel</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Order Status</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Lina
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item divider"></a></li>
+              <li><a class="dropdown-item" href="#">Log Out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <ul class="list-group">
+          <li class="list-group-item active">Upload Content</li>
+          <li class="list-group-item">Course Details</li>
+          <li class="list-group-item">Discount Offer</li>
+          <li class="list-group-item">Topic</li>
+          <li class="list-group-item">Publish</li>
+          <li class="list-group-item">Language</li>
+          <li class="list-group-item">Author</li>
+          <li class="list-group-item">Subtitle</li>
+        </ul>
+      </div>
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header">
+            Upload Content
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <h3 class="card-title">Add Course</h3>
+                <input type="text" class="form-control" placeholder="Add title course">
+              </div>
+              <div class="col-md-6">
+                <h3 class="card-title">Upload Course Contents</h3>
+                <div class="input-group mb-3">
+                  <input type="file" class="form-control" id="course-contents">
+                  <label class="input-
