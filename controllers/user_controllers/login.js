@@ -13,32 +13,6 @@ module.exports.getLogin = (req,res) => {
     }
   }
 
-
-// //postLogin start
-// module.exports.postLogin = async (req, res) => {
-//     if (req.session.user) {
-//         // The user is already logged in, redirect them to their dashboard
-//         return res.render("main");
-//     }
-//     const { email, password } = req.body;
-//     try {
-//         const user = await userCollection.findOne({ email }); //find email from db
-//         if (!user) {
-//             return res.render("userLogin", { error: "Incorrect email" });
-//         }
-//         // Compare the hashed password
-//         if (user.password !== password) {
-//             return res.render("userLogin", { error: "Incorrect password" });
-//         }
-//         req.session.user = user.email;
-//         return res.render("main");
-//     } catch (error) {
-//         console.error("Login error:", error);
-//         return res.render("errorPage", { error: "An error occurred during login" });
-//     }
-// };
-
-
 module.exports.postLogin = async (req, res) => {
     const logindata = await userCollection.findOne({ email: req.body.email });
     if (!logindata) {

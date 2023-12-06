@@ -24,11 +24,13 @@ module.exports.getUserRoute_Course = async (req,res) => {
     }
   }
   
-
 //logout
 module.exports.getLogout = (req,res) => {
     res.clearCookie("token");
     res.clearCookie("loggedIn");
     res.redirect("/")
   }
+  
+  //wishlist page
+  module.exports
 
