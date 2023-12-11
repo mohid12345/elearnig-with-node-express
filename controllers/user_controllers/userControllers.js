@@ -1,20 +1,5 @@
 // require('dotenv').config();
 const userCollection = require("../../models/userSchema");
-// const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
-// const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
-// const TWILIO_SERVICE_ID = process.env.TWILIO_SERVICE_ID;
-// const twilio = require("twilio")(TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN);
-// const jwt = require("jsonwebtoken");
-// const secretkey = process.env.JWT_SECRET_KEY
-
-
-
-// module.exports.getUserDashboard = (req, res) => {
-//     if (req.session.user) {
-//         const user = req.session.user;
-//         res.render("userDashboard", { user });
-//     }
-// };
 
 module.exports.getUserLogout = (req, res) => {
     req.session.user = null;

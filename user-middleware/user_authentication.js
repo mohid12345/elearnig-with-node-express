@@ -10,8 +10,7 @@ module.exports.verifyUser = (req,res,next) => {
     process.env.JWT_SECRET_KEY,
     (err, decoded) => {
       if(err) {
-        return res.redirect ("/");
-        
+        return res.redirect ("/");   
       }
       req.user = decoded;
       next();
@@ -20,16 +19,15 @@ module.exports.verifyUser = (req,res,next) => {
 };
 
 module.exports.checkBlockedStatus = async (req,res,next) => {
-  try {
-    const userId = req.user;
-    const user = await userCollection.findById(userId);
-    if (user.status === "Block") {
+    const user = req.user;
+    const curruser = await userCollection.findOne({email: user});
+    if (curruser.status === "Block") {
       res.clearCookie("token");
       res.clearCookie("loggedIn");
-      res.render("user-login", {subreddit: "Your account has been blocked"})
+      res.render("user-login", {subreddit: "User is blocked"})
     }
     next();
-  } catch(error) {
-    console.log(error)
-  }
-}
+  // } catch(error) {
+  //   console.log(error)
+  // }
+};

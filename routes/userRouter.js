@@ -57,6 +57,8 @@ userRouter.get("/userLogin", (req, res) => {
 });
 
 //Rendering the wishlist page
-userRouter.get("/userWishlist",wishlistControl.getWishlistPage);
+userRouter.get("/userWishlist",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.getWishlistPage);
+userRouter.post("/addWishlist",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.postWishlistPage);
+userRouter.get("/delete-wishlist",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.deleteWishlist);
 
 module.exports = userRouter;

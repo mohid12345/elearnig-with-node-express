@@ -1,10 +1,12 @@
 const courseCollection = require("../../models/course")
+const userRouter = require("../../routes/userRouter")
 
 //for homepage
 module.exports.getUserRoute = async(req, res) => {
     try{
         const loggedIn = req.cookies.loggedIn;
         const courseData = await courseCollection.find()
+        console.log(userRouter.locals);
         res.render("main",{loggedIn, courseData});
     }catch(error){
     console.error(error);
@@ -31,6 +33,3 @@ module.exports.getLogout = (req,res) => {
     res.redirect("/")
   }
   
-  //wishlist page
-  module.exports
-
