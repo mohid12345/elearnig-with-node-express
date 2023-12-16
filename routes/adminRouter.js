@@ -2,7 +2,7 @@ const express = require("express");
 const adminRouter = express.Router();
 const multer = require("multer")
 
-const adminMiddleware = require("../user-middleware/admin_authentication")
+const adminMiddleware = require("../middlewares/admin_authentication")
 // const adminControllers = require("../controllers/admin_controllers/adm_login");
 const loginControll = require("../controllers/admin_controllers/adm_login")
 // const dashboardControll = require("../controllers/admin_controllers/adm_dashboard")
@@ -86,11 +86,6 @@ adminRouter.get("/admin-usermanage", usermanageControll.getUsers)
 adminRouter.get("/block-user/:userId", usermanageControll.blockUser)
 adminRouter.get("/unblock-user/:userId", usermanageControll.unblockUser)
 
-// adminRouter.get("/user-login", (req, res) => {
-//     // Render the contact page
-//     res.render("userLogin");
-//   });
-  
 
 //Manage Creator
 adminRouter.get("/admin-creatormanage",creatormanageControll.getCreator)

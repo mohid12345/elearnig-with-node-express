@@ -1,12 +1,11 @@
 const courseCollection = require("../../models/course")
-const userRouter = require("../../routes/userRouter")
 
 //for homepage
 module.exports.getUserRoute = async(req, res) => {
     try{
         const loggedIn = req.cookies.loggedIn;
         const courseData = await courseCollection.find()
-        console.log(userRouter.locals);
+        // console.log(userRouter.locals); - this is  a express data storages systerm to further use
         res.render("main",{loggedIn, courseData});
     }catch(error){
     console.error(error);

@@ -47,9 +47,11 @@ module.exports.postWishlistPage = async (req, res) => {
         const existingCourseIndex = userWishlist.courses.findIndex(
             (course) => course.courseId.toString() === courseId
         );
+        // console.log(userWishlist);
 
         if(existingCourseIndex !== -1) {
             // userWishlist.courses[existingCourseIndex].quantity += 1;
+            // res.json({message: "Course already in wishlist.."});
         } else {
             userWishlist.courses.push({
                 courseId: new mongoose.Types.ObjectId(courseId),

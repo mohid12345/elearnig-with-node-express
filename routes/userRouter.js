@@ -4,13 +4,14 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 userRouter.use(cookieParser());
 
-const userMiddleware = require("../user-middleware/user_authentication");
+const userMiddleware = require("../middlewares/user_authentication");
 const userControllers = require("../controllers/user_controllers/userControllers");
 const otpVerification = require("../controllers/user_controllers/otpVerification");
 const homepageControll = require("../controllers/user_controllers/homepage");
 const loginControll = require("../controllers/user_controllers/login");
 const courseControll = require("../controllers/user_controllers/coursedetails");
 const wishlistControl = require("../controllers/user_controllers/wishlistCntrol");
+const cartControl = require("../controllers/user_controllers/cartController")
 const path = require("path");
 
 userRouter.use("/uploads", express.static("uploads"));
@@ -60,5 +61,11 @@ userRouter.get("/userLogin", (req, res) => {
 userRouter.get("/userWishlist",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.getWishlistPage);
 userRouter.post("/addWishlist",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.postWishlistPage);
 userRouter.get("/delete-wishlist",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.deleteWishlist);
+
+//Renderign the cart page
+userRouter.get("/userCart",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,cartControl.getCartPage);
+userRouter.post("/addCart",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,cartControl.postCartPage);
+userRouter.get("/delete-cart",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,cartControl.deleteCart);
+
 
 module.exports = userRouter;
