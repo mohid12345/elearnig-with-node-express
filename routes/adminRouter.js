@@ -87,6 +87,7 @@ adminRouter.get("/add-course", courseControll.getAddCourse)
 
 // adminRouter.post("/postadd-course", uploads.array("courseImg"), courseControll.postCourse)
 adminRouter.post("/postadd-course", uploads, courseControll.postCourse)
+adminRouter.post("/postadd-course-video", courseControll.postCourseVideo)
 
 
 
