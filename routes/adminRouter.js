@@ -1,6 +1,7 @@
 const express = require("express");
 const adminRouter = express.Router();
 const multer = require("multer")
+const cloudinaryUploadMiddleware = require('../middlewares/cloudinaryUploadMiddleware')
 
 const adminMiddleware = require("../middlewares/admin_authentication")
 // const adminControllers = require("../controllers/admin_controllers/adm_login");
@@ -87,12 +88,12 @@ adminRouter.get("/add-course", courseControll.getAddCourse)
 
 // adminRouter.post("/postadd-course", uploads.array("courseImg"), courseControll.postCourse)
 adminRouter.post("/postadd-course", uploads, courseControll.postCourse)
-adminRouter.post("/postadd-course-video", courseControll.postCourseVideo)
+adminRouter.post("/postadd-course-video", cloudinaryUploadMiddleware('courseVid'), courseControll.postCourseVideo)
 
 
 
 adminRouter.get("/delete-course/:courseId", courseControll.deleteCourse);
-adminRouter.get("/edit-course/:courseId", courseControll.editCourse)
+adminRouter.get("/edit-course/:courseId", cloudinaryUploadMiddleware('courseVid'),courseControll.editCourse)
 // adminRouter.post("/postEdit-course/:courseId", uploads, courseControll.updateCourse)
 // adminRouter.post("/postEdit-course/:courseId", uploads.array("courseImg"), courseControll.updateCourse)
 
