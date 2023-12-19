@@ -4,15 +4,11 @@ const multer = require("multer")
 const cloudinaryUploadMiddleware = require('../middlewares/cloudinaryUploadMiddleware')
 
 const adminMiddleware = require("../middlewares/admin_authentication")
-// const adminControllers = require("../controllers/admin_controllers/adm_login");
 const loginControll = require("../controllers/admin_controllers/adm_login")
-// const dashboardControll = require("../controllers/admin_controllers/adm_dashboard")
 const categoryControll = require("../controllers/admin_controllers/adm_category")
 const courseControll = require("../controllers/admin_controllers/adm_course")
 const usermanageControll = require("../controllers/admin_controllers/adm_usermanage")
 const creatormanageControll = require("../controllers/admin_controllers/adm_creatormanage")
-
-
 
 require("dotenv").config();
 const cloudinary = require("cloudinary").v2;
@@ -23,21 +19,7 @@ cloudinary.config({
 });
 console.log(cloudinary.config().cloud_name);
 
-// adminRouter.use("/public/uploads",express.static('public/uploads'));
-///////////old multer///////////////////////////////////////////////////////////////////////////////
-// adminRouter.use("/uploads",express.static('uploads'));
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, './uploads');
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, file.originalname);
-//   },
-// });
-// const uploads=multer({storage:storage}) 
-////////////////////////////////////////////////////////////////////////////////////
-
-
+//multer setup
 adminRouter.use("/uploads",express.static('uploads'));
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -47,32 +29,20 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-// const limits = {
-//   files: 5, // Maximum number of files for the 'courseImg' field
-// };
-
 const uploads = multer({
   storage: storage,
-  // limits: limits,
 }).array('courseImg', 5);
-//  const uploads=multer({storage:storage}) 
-// })
-
 
 
 //login
 adminRouter.get("/adminLogin",  loginControll.getAdminLogin)
 //logout
 adminRouter.get("/adminLogout", loginControll.getAdminLogout)
-// adminRouter.get("/adminLogout", (req,res)=>{
-//   console.log("hello")
-// })
 
 // homepage
 adminRouter.post("/adminDashboard", loginControll.postAdminDashboard)
 adminRouter.get("/adminDashboard", loginControll.getAdminDashboard)
 // adminRouter.get("/adminDashboard", adminMiddleware.verifyAdmin,  loginControll.getAdminDashboard)
-
 
 // Category
 adminRouter.get("/category-list", categoryControll.getCategory)
@@ -85,25 +55,17 @@ adminRouter.get("/delete-category/:categoryId", categoryControll.deleteCategory)
 adminRouter.get("/course-list", courseControll.getCourseList)
 adminRouter.get("/add-course", courseControll.getAddCourse)
 
-
-// adminRouter.post("/postadd-course", uploads.array("courseImg"), courseControll.postCourse)
+//Coures add & update
 adminRouter.post("/postadd-course", uploads, courseControll.postCourse)
 adminRouter.post("/postadd-course-video", cloudinaryUploadMiddleware('courseVid'), courseControll.postCourseVideo)
 
-
-
 adminRouter.get("/delete-course/:courseId", courseControll.deleteCourse);
-adminRouter.get("/edit-course/:courseId", cloudinaryUploadMiddleware('courseVid'),courseControll.editCourse)
-// adminRouter.post("/postEdit-course/:courseId", uploads, courseControll.updateCourse)
-// adminRouter.post("/postEdit-course/:courseId", uploads.array("courseImg"), courseControll.updateCourse)
-
-
+adminRouter.get("/edit-course/:courseId",courseControll.editCourse)
 
 // Manage User
 adminRouter.get("/admin-usermanage", usermanageControll.getUsers)
 adminRouter.get("/block-user/:userId", usermanageControll.blockUser)
 adminRouter.get("/unblock-user/:userId", usermanageControll.unblockUser)
-
 
 //Manage Creator
 adminRouter.get("/admin-creatormanage",creatormanageControll.getCreator)

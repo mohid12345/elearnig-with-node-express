@@ -9,9 +9,9 @@ require("dotenv").config();
 const app = express();
 const bodyparser = require("body-parser");
 const jsonParse = bodyparser.json();
-const fileUpload = require('express-fileupload')
+// const fileUpload = require('express-fileupload')
 
-app.use(fileUpload())
+// app.use(fileUpload())
 
 app.use(jsonParse);
 

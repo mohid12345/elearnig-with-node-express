@@ -124,7 +124,7 @@ module.exports.getAddCourse = async(req,res) => {
             courseDuration: req.body.courseDuration,
             courseLessonNos: req.body.courseLessonNos,
             courseImg: imageIds,
-            // courseVid: videoIds,
+            courseVid: videoIds
           });
 
         
@@ -140,7 +140,7 @@ module.exports.getAddCourse = async(req,res) => {
       }
 
 
-      const courseVid = req.body.courseVid;
+      // const courseVid = req.body.courseVid;
 
       // async function run() {
       //   try{
@@ -151,14 +151,14 @@ module.exports.getAddCourse = async(req,res) => {
       //   }
       // }
       // run()
-      if (courseVid) {
-        try {
-          const result = await cloudinary.uploader.upload(courseVid, { resource_type: 'video' });
-          console.log(`> Result: ${result.secure_url}`);
-        } catch (error) {
-          console.error(error);
-        }
-      }
+      // if (courseVid) {
+      //   try {
+      //     const result = await cloudinary.uploader.upload(courseVid, { resource_type: 'video' });
+      //     console.log(`> Result: ${result.secure_url}`);
+      //   } catch (error) {
+      //     console.error(error);
+      //   }
+      // }
     }
     
   

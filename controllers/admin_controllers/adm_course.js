@@ -38,7 +38,6 @@ module.exports.postCourse = async (req, res) => {
         // console.log(req.files);
         if (req.files) {
             const courseImg = req.files;
-            // const courseVid = req.files;
             let arr = [];
             courseImg.forEach((element) => {
                 arr.push({ name: element.filename, path: element.path });
@@ -46,20 +45,19 @@ module.exports.postCourse = async (req, res) => {
 
             const imageIds = arr.map((courseImg) => courseImg.path);
             console.log("IMAGE ID :" + imageIds);
-            // const videoIds = arr.map((courseVid) => courseVid.path);
-            // console.log("VIDEO ID" + videoIds);
-
+            
             await courseCollection.create({
                 courseName: req.body.courseName,
                 courseDiscription: req.body.courseDiscription,
+                courseRequirements: req.body.courseRequirements,
+                courseForwho: req.body.courseForwho,
                 courseCategory: req.body.courseCategory,
                 courseAuthor: req.body.courseAuthor,
                 courseAmount: req.body.courseAmount,
                 courseDuration: req.body.courseDuration,
                 courseLessonNos: req.body.courseLessonNos,
-                courseRequirements: req.body.courseRequirements,
-                courseForwho: req.body.courseForwho,
                 courseImg: imageIds,
+                // courseVid: videoIds
             });
 
             const coursedata = await courseCollection.find();

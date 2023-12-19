@@ -172,7 +172,6 @@
             <div class="row">
                 <div class="col-6">
                     <div class="content-header">
-                        /////////uncomment down//////////////////////
                         <h2 class="content-title">Add New Product</h2>
                         <!-- <div>
                             <button class="btn btn-light rounded font-sm mr-5 text-body hover-up">Save to draft</button>
@@ -184,118 +183,88 @@
                         <form action="/admin/postadd-course" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="courseName">Course Name</label>
-                                <input type="text" class="form-control" id="courseName" name="courseName" >
+                                <input type="text" class="form-control" id="courseName" name="courseName" />
                             </div>
                             <div class="form-group">
-                                <label for="courseDiscription">Product Description</label>
-                                <textarea class="form-control" id="courseDiscription" name="courseDiscription" rows="3"></textarea>
+                                <label for="courseDiscription">Course Description</label>
+                                <textarea
+                                    class="form-control"
+                                    id="courseDiscription"
+                                    name="courseDiscription"
+                                    rows="3"
+                                ></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="courseDiscription">Course Requirements</label>
+                                <textarea
+                                    class="form-control"
+                                    id="courseRequirements"
+                                    name="courseRequirements"
+                                    rows="3"
+                                ></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="courseDiscription">Who this course for ?</label>
+                                <textarea class="form-control" id="courseForwho" name="courseForwho" rows="3"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="category">Category</label>
                                 <select class="form-control" id="category" name="courseCategory">
                                     <option value="">Select a category</option>
-                                    <% categories.forEach(category => {%> 
-                                        <option value="<%= category.catgName %>"><%= category.catgName %></option> 
+                                    <% categories.forEach(category => {%>
+                                    <option value="<%= category.catgName %>"><%= category.catgName %></option>
                                     <%}) %>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="brand">Author</label>
-                                <input type="text" class="form-control" id="courseAuthor" name="courseAuthor">
+                                <input type="text" class="form-control" id="courseAuthor" name="courseAuthor" />
                             </div>
                             <div class="form-group">
                                 <label for="amount">Regular Price (in Rupees)</label>
-                                <input type="number" class="form-control" id="courseAmount" name="courseAmount" >
+                                <input type="number" class="form-control" id="courseAmount" name="courseAmount" />
                             </div>
-                            <!-- <div class="form-group">
-                                <label for="amount">Selling Price (in Rupees)</label>
-                                <input type="number" class="form-control" id="courseAmount" name="courseAmount" >
-                            </div> -->
                             <div class="form-group">
-                                <label for="Size">Duration</label>
-                                <input type="number" class="form-control" id="courseDuration" name="courseDuration" >
+                                <label for="amount">Total Duration (in Hours)</label>
+                                <input type="number" class="form-control" id="courseDuration" name="courseDuration" />
                             </div>
                             <div class="form-group">
                                 <label for="amount">No of Lessons</label>
-                                <input type="number" class="form-control" id="courseLessonNos" name="courseLessonNos" required>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="courseLessonNos"
+                                    name="courseLessonNos"
+                                    required
+                                />
                             </div>
-                            //////////////////uncomment up///////////////////////////
-
-                                <!-- <div id="dynamicFieldsContainer"></div>
-                                <script>
-                                    // Function to generate dynamic fields based on the number entered
-                                    function generateDynamicFields() {
-                                        // Clear previous dynamic fields
-                                        $('#dynamicFieldsContainer').empty();
-                                
-                                        // Get the number entered by the user
-                                        var numberOfSections = $('#courseLessonNos').val();
-                                
-                                        // Generate fields based on the number entered
-                                        for (var i = 1; i <= numberOfSections; i++) {
-                                            var sectionNameId = 'sectionName' + i;
-                                            var sectionUploadId = 'sectionUpload' + i;
-                                
-                                            var dynamicFieldsHTML = `
-                                                <div class="form-group">
-                                                    <label for="${sectionNameId}">Lesson Name ${i}</label>
-                                                    <input type="text" class="form-control" id="${sectionNameId}" name="${sectionNameId}" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="${sectionUploadId}">Lesson Uploads ${i}</label>
-                                                    <input type="file" class="form-control" id="${sectionUploadId}" name="${sectionUploadId}" required>
-                                                </div>
-                                            `;
-                                
-                                            // Append the dynamic fields to the container
-                                            $('#dynamicFieldsContainer').append(dynamicFieldsHTML);
-                                        }
-                                    }
-                                
-                                    // Attach the function to the input change event
-                                    $('#courseLessonNos').on('input', generateDynamicFields);
-                                </script>
-                                 -->
-                            
-                            <br>
-                            <div class="form-group ">
-                                <label for="photo">Course Photo</label> &nbsp
-                                <input type="file" class="form-control-file" id="courseImg" name="courseImg" accept="image/*" multiple>
+                            <hr />
+                            <div class="form-group my-3">
+                                <label for="video">Course Thumbnail</label> &nbsp;
+                                <input
+                                    type="file"
+                                    class="form-control"
+                                    id="courseImg"
+                                    name="courseImg"
+                                    accept="image/*"
+                                    multiple
+                                />
                             </div>
-                            <!-- Other form fields above -->
-
-<div class="form-group my-3">
-    <label for="video">Course Video</label> &nbsp;
-    <input type="file" class="form-control" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4">
-</div>
-
-<!-- Other form fields below -->
-
-                            <!-- second video input -->
-                            <!-- <div class="container mt-5">
-                                <div class="row d-flex justify-content-center">
-                                    <div class="col-md-6">
-                                        <form method="post" action="#" id="#">
-                                            {% csrf_token %}
-                                            <div class="form-group files">
-                                                <label class="d-flex justify-content-center">Upload Your File </label>
-                                                <input type="file" class="form-control" multiple="" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*">
-                                            </div>
-                                            <div class="row row-cols-auto">
-                                                <div class="col mx-auto my-2">
-                                                    <button class="btn btn-primary" type="submit">Upload</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div> -->
-                        </div>
-                            <br>
-                            <button type="submit" class="btn btn-primary">Add Product</button>
-                            
+                            <button type="submit" class="btn btn-primary">Submit Details</button>
                         </form>
-                        <br>
+                        <form action="/admin/postadd-course-video" method="post" enctype="multipart/form-data">
+                            <div class="form-group my-3">
+                                <label for="video">Course Video</label> &nbsp;
+                                <input
+                                    type="file"
+                                    class="form-control"
+                                    id="courseVid"
+                                    name="courseVid"
+                                    accept="video/mp4,video/x-m4v,video/*,mp4"
+                                />
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Video</button>
+                        </form>
                     </div>
 
                 </div>
