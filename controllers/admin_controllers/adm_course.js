@@ -2,15 +2,6 @@ const categoryCollection = require("../../models/category");
 const courseCollection = require("../../models/course");
 const multer = require("multer");
 
-// require("dotenv").config();
-// const cloudinary = require("cloudinary").v2;
-// cloudinary.config({
-//     cloud_name: process.env.API_CLOUD_NAME,
-//     api_key: process.env.API_KEY,
-//     api_secret: process.env.API_SECRET_KEY,
-// });
-// console.log(cloudinary.config().cloud_name);
-
 //render course list page
 module.exports.getCourseList = async (req, res) => {
     try {
@@ -92,55 +83,55 @@ module.exports.postCourseVideo = async (req, res) => {
     }
 };
 
-module.exports.postCourseVideo1 = async (req, res) => {
-    try {
-        if (req.files) {
-            const courseVid = req.files;
-            let arr = [];
-            courseVid.forEach((element) => {
-                arr.push({ name: element.filename, path: element.path });
-            });
-            const videoIds = arr.map((courseVid) => courseVid.path);
-            console.log("VIDEO ID :" + videoIds);
+// module.exports.postCourseVideo1 = async (req, res) => {
+//     try {
+//         if (req.files) {
+//             const courseVid = req.files;
+//             let arr = [];
+//             courseVid.forEach((element) => {
+//                 arr.push({ name: element.filename, path: element.path });
+//             });
+//             const videoIds = arr.map((courseVid) => courseVid.path);
+//             console.log("VIDEO ID :" + videoIds);
 
-            await courseCollection.create({
-                courseName: req.body.courseName,
-                courseDiscription: req.body.courseDiscription,
-                courseCategory: req.body.courseCategory,
-                courseAuthor: req.body.courseAuthor,
-                courseAmount: req.body.courseAmount,
-                courseDuration: req.body.courseDuration,
-                courseLessonNos: req.body.courseLessonNos,
-                courseRequirements: req.body.courseRequirements,
-                courseForwho: req.body.courseForwho,
-                courseImg: imageIds,
-                courseVid: videoIds,
-            });
+//             await courseCollection.create({
+//                 courseName: req.body.courseName,
+//                 courseDiscription: req.body.courseDiscription,
+//                 courseCategory: req.body.courseCategory,
+//                 courseAuthor: req.body.courseAuthor,
+//                 courseAmount: req.body.courseAmount,
+//                 courseDuration: req.body.courseDuration,
+//                 courseLessonNos: req.body.courseLessonNos,
+//                 courseRequirements: req.body.courseRequirements,
+//                 courseForwho: req.body.courseForwho,
+//                 courseImg: imageIds,
+//                 courseVid: videoIds,
+//             });
 
-            const coursedata = await courseCollection.find();
-            res.render("admin-courselist", { coursedata });
-            //   console.log(imageIds);
-        } else {
-            res.status(400).send("No video selected for upload");
-        }
-    } catch (error) {
-        console.log(error);
-    }
-    //   const courseVid = req.body.courseVid;
-    const courseVid = req.files;
+//             const coursedata = await courseCollection.find();
+//             res.render("admin-courselist", { coursedata });
+//             //   console.log(imageIds);
+//         } else {
+//             res.status(400).send("No video selected for upload");
+//         }
+//     } catch (error) {
+//         console.log(error);
+//     }
+//     //   const courseVid = req.body.courseVid;
+//     const courseVid = req.files;
 
-    async function run() {
-        try {
-            if (cousreVid) {
-                const result = await cloudinary.uploader.upload(courseVid, { resource_type: "video" });
-                console.log(`> Result: ${result.secure_url}`);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
-    run();
-};
+//     async function run() {
+//         try {
+//             if (cousreVid) {
+//                 const result = await cloudinary.uploader.upload(courseVid, { resource_type: "video" });
+//                 console.log(`> Result: ${result.secure_url}`);
+//             }
+//         } catch (error) {
+//             console.error(error);
+//         }
+//     }
+//     run();
+// };
 
 // delete a course
 module.exports.deleteCourse = async (req, res) => {

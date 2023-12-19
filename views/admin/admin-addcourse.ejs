@@ -139,91 +139,17 @@
                 </div>
 
                 <div class="container mt-5">
-                    <form action="/admin/postadd-course" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="courseName">Course Name</label>
-                            <input type="text" class="form-control" id="courseName" name="courseName" />
-                        </div>
-                        <div class="form-group">
-                            <label for="courseDiscription">Course Description</label>
-                            <textarea
-                                class="form-control"
-                                id="courseDiscription"
-                                name="courseDiscription"
-                                rows="3"
-                            ></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="courseDiscription">Course Requirements</label>
-                            <textarea
-                                class="form-control"
-                                id="courseRequirements"
-                                name="courseRequirements"
-                                rows="3"
-                            ></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="courseDiscription">Who this course for ?</label>
-                            <textarea class="form-control" id="courseForwho" name="courseForwho" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="category">Category</label>
-                            <select class="form-control" id="category" name="courseCategory">
-                                <option value="">Select a category</option>
-                                <% categories.forEach(category => {%>
-                                <option value="<%= category.catgName %>"><%= category.catgName %></option>
-                                <%}) %>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="brand">Author</label>
-                            <input type="text" class="form-control" id="courseAuthor" name="courseAuthor" />
-                        </div>
-                        <div class="form-group">
-                            <label for="amount">Regular Price (in Rupees)</label>
-                            <input type="number" class="form-control" id="courseAmount" name="courseAmount" />
-                        </div>
-                        <div class="form-group">
-                            <label for="amount">Total Duration (in Hours)</label>
-                            <input type="number" class="form-control" id="courseDuration" name="courseDuration" />
-                        </div>
-                        <div class="form-group">
-                            <label for="amount">No of Lessons</label>
-                            <input
-                                type="number"
-                                class="form-control"
-                                id="courseLessonNos"
-                                name="courseLessonNos"
-                                required
-                            />
-                        </div>
-                        <hr />
-                        <div class="form-group my-3">
-                            <label for="video">Course Thumbnail</label> &nbsp;
-                            <input
-                                type="file"
-                                class="form-control"
-                                id="courseImg"
-                                name="courseImg"
-                                accept="image/*"
-                                multiple
-                            />
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit Details</button>
-                    </form>
+                   
+
                     <form action="/admin/postadd-course-video" method="post" enctype="multipart/form-data">
                         <div class="form-group my-3">
                             <label for="video">Course Video</label> &nbsp;
-                            <input
-                                type="file"
-                                class="form-control"
-                                id="courseVid"
-                                name="courseVid"
-                                accept="video/mp4,video/x-m4v,video/*,mp4"
-                            />
+                            <input type="file" class="form-control" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4"/>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Video</button>
                     </form>
+
+                    <!-- VIDEO SECTION END -->
                 </div>
                 <br />
             </div>

@@ -19,6 +19,7 @@ cloudinary.config({
 });
 console.log(cloudinary.config().cloud_name);
 
+
 //multer setup
 adminRouter.use("/uploads",express.static('uploads'));
 const storage = multer.diskStorage({

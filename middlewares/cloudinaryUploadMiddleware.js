@@ -1,4 +1,4 @@
-require("dotenv").config();
+// require("dotenv").config();
 
 // cloudinaryUploadMiddleware.js
 const cloudinary = require("cloudinary").v2;
@@ -12,7 +12,7 @@ cloudinary.config({
 console.log(cloudinary.config().cloud_name);
 const cloudinaryUploadMiddleware = (courseVid) => async (req, res, next) => {
     try {
-        // console.log("data 1 is :", req.files); //working
+        console.log("data 1 is :", req.files); //working
         if (!req.files || !req.files[courseVid]) {
             return res.status(400).json({ error: "No file uploaded" });
         }
