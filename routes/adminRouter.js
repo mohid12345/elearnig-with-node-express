@@ -11,23 +11,6 @@ const courseControll = require("../controllers/admin_controllers/adm_course")
 const usermanageControll = require("../controllers/admin_controllers/adm_usermanage")
 const creatormanageControll = require("../controllers/admin_controllers/adm_creatormanage")
 
-// cloudinaryConfig.js
-const cloudinary = require('cloudinary').v2;
-require('dotenv').config();
-
-cloudinary.config({
-  cloud_name: process.env.API_CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET_KEY,
-});
-
-module.exports = cloudinary;
-
-console.log(cloudinary.config().cloud_name);
-
-// Use fileUpload middleware
-adminRouter.use(fileUpload());
-
 //multer setup
 adminRouter.use("/uploads",express.static('uploads'));
 const storage = multer.diskStorage({
@@ -66,7 +49,9 @@ adminRouter.get("/add-course", courseControll.getAddCourse)
 
 //Coures add & update
 adminRouter.post("/postadd-course", uploads, courseControll.postCourse)
-adminRouter.post("/postadd-course-video", cloudinaryUploadMiddleware('courseVid'), courseControll.postCourseVideo)
+adminRouter.post("/postadd-course-video",fileUpload(), cloudinaryUploadMiddleware('courseVid'), courseControll.postCourseVideo)
+//we are using expresss fileUpload methos for uploading vidoe. and it cant be set with
+// app.use( )  method globallly, then imgupload wont work
 
 adminRouter.get("/delete-course/:courseId", courseControll.deleteCourse);
 adminRouter.get("/edit-course/:courseId",courseControll.editCourse)

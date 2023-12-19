@@ -51,9 +51,9 @@ module.exports.postCourse = async (req, res) => {
                 // courseVid: videoIds
             });
 
-            const coursedata = await courseCollection.find();
-            res.render("admin-courselist", { coursedata });
-            console.log(imageIds);
+            // const coursedata = await courseCollection.find();
+            // res.render("admin-courselist", { coursedata });
+            console.log("imagesIds: ", imageIds);
         } else {
             res.status(400).send("No images selected for upload");
         }
