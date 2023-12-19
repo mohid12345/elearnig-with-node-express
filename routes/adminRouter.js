@@ -2,6 +2,7 @@ const express = require("express");
 const adminRouter = express.Router();
 const multer = require("multer")
 const cloudinaryUploadMiddleware = require('../middlewares/cloudinaryUploadMiddleware')
+const fileUpload = require('express-fileupload');
 
 const adminMiddleware = require("../middlewares/admin_authentication")
 const loginControll = require("../controllers/admin_controllers/adm_login")
@@ -10,15 +11,22 @@ const courseControll = require("../controllers/admin_controllers/adm_course")
 const usermanageControll = require("../controllers/admin_controllers/adm_usermanage")
 const creatormanageControll = require("../controllers/admin_controllers/adm_creatormanage")
 
-require("dotenv").config();
-const cloudinary = require("cloudinary").v2;
+// cloudinaryConfig.js
+const cloudinary = require('cloudinary').v2;
+require('dotenv').config();
+
 cloudinary.config({
-    cloud_name: process.env.API_CLOUD_NAME,
-    api_key: process.env.API_KEY,
-    api_secret: process.env.API_SECRET_KEY,
+  cloud_name: process.env.API_CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET_KEY,
 });
+
+module.exports = cloudinary;
+
 console.log(cloudinary.config().cloud_name);
 
+// Use fileUpload middleware
+adminRouter.use(fileUpload());
 
 //multer setup
 adminRouter.use("/uploads",express.static('uploads'));
