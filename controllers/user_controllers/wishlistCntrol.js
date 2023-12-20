@@ -33,6 +33,9 @@ module.exports.getWishlistPage = async (req,res) => {
 module.exports.postWishlistPage = async (req, res) => {
     try{
         const userData = await userCollection.findOne({email: req.user})
+        if(!userData){
+            res.redirect("/userLogin")
+        }
         const userId = userData._id;
         const courseId = req.query.courseId;
 

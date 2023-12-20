@@ -12,7 +12,7 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="main.ejs" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>eLEARNING</h2>
+            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>edX</h2>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -167,6 +167,7 @@
                <% }) %>
 
                <script>
+                                        // script for wishlist
                                         document.addEventListener("DOMContentLoaded", function () {
                                             const addingWishButtons = document.querySelectorAll(".add-wish-btn")
                                     
@@ -199,6 +200,7 @@
                                                         }
                                                     })
                                                     .catch(error => {
+                                                        window.location.href = '/userLogin';
                                                         console.error("Error adding to cart", error);
                                                         
                                                     });
@@ -208,6 +210,7 @@
                                     </script>
                                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+                                  <!-- //script for cart -->
                                     <script>
                                         document.addEventListener("DOMContentLoaded", function () {
                                             const addingCartButtons = document.querySelectorAll(".add-cart-btn")
@@ -223,7 +226,7 @@
                                                     })
                                                     .then(response => {
                                                         if (!response.ok) {
-                                                            throw new Error(`HTTP error! status: ${response.status}`);
+                                                           throw new Error(`HTTP error! status: ${response.status}`);
                                                         }
                                                         return response.json();
                                                     })
@@ -241,6 +244,7 @@
                                                         }
                                                     })
                                                     .catch(error => {
+                                                        window.location.href = '/userLogin';
                                                         console.error("Error adding to cart", error);
                                                         
                                                     });

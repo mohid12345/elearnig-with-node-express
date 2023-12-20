@@ -102,7 +102,7 @@ remove this -->
                                                 <!-- <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy magndapibus. -->
                                                 </p>
                                             </td>
-                                            <td class="price" data-title="Price"><span><%= course.courseId.courseAmount%> </span></td>
+                                            <td class="price" data-title="Price"><span>₹<%= course.courseId.courseAmount%> </span></td>
                                             <td class="text-center" data-title="Stock">
                                                 <span class="color3 font-weight-bold"><%= course.courseId.courseAuthor %></span>
                                             </td>
@@ -440,7 +440,12 @@ remove this -->
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <a href="#" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
+                                        <button type="button" onclick="location.href='/userCheckout'" class="btn" id="checkoutbtn">
+                                            <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut
+                                        </button>
+                                        <!-- <button type="button" href='/userCheckout' class="btn" id="checkoutbtn">
+                                            <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut
+                                        </button> -->
                                     </div>
                                 </div>
                             </div>

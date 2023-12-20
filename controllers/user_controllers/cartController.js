@@ -17,6 +17,7 @@ module.exports.getCartPage = async (req, res) => {
         const username = req.cookies.username;
 
         const cartDetails = await cartCollection.findOne({userId: userId}).populate('courses.courseId')
+        console.log("cart details are: ",cartDetails);
         res.render("userCart", {loggedIn, username,cartDetails})
 
     } catch (error){

@@ -26,8 +26,6 @@ userRouter.get("/userForgetPwd", loginControll.getForgetPwd);
 // userRouter.post("/userOtpLogin",userControllers.postOtpLogin);
 // userRouter.get("/userDashboard", userControllers.getUserDashboard);
 
-// userRouter.get("/send_otp", otpVerification.getSendOtp);
-// userRouter.post("/verify_otp", otpVerification.postVerifyOtp);
 userRouter.get("/send-otp", otpVerification.getSendOtp);
 userRouter.post("/verify-otp", otpVerification.postVerifyOtp);
 
@@ -67,5 +65,9 @@ userRouter.get("/userCart",userMiddleware.verifyUser,userMiddleware.checkBlocked
 userRouter.post("/addCart",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,cartControl.postCartPage);
 userRouter.get("/delete-cart",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,cartControl.deleteCart);
 
+//checkout 
+userRouter.get("/userCheckout", (req, res)=>{
+    res.render("userCheckout");
+})
 
 module.exports = userRouter;

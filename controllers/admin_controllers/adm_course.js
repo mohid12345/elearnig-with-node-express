@@ -1,6 +1,8 @@
 const categoryCollection = require("../../models/category");
 const courseCollection = require("../../models/course");
 const multer = require("multer");
+const mongoose = require("mongoose")
+const axios = require("axios")
 
 //render course list page
 module.exports.getCourseList = async (req, res) => {
@@ -23,6 +25,7 @@ module.exports.getAddCourse = async (req, res) => {
     }
 };
 
+let courseId
 // adding course test 0
 module.exports.postCourse = async (req, res) => {
     try {
@@ -35,9 +38,9 @@ module.exports.postCourse = async (req, res) => {
             });
 
             const imageIds = arr.map((courseImg) => courseImg.path);
-            console.log("IMAGE ID :" + imageIds);
+            // console.log("IMAGE ID :" + imageIds);
             
-            await courseCollection.create({
+            const newCourse = await courseCollection.create({
                 courseName: req.body.courseName,
                 courseDiscription: req.body.courseDiscription,
                 courseRequirements: req.body.courseRequirements,
@@ -50,38 +53,80 @@ module.exports.postCourse = async (req, res) => {
                 courseImg: imageIds,
                 // courseVid: videoIds
             });
-
-            // const coursedata = await courseCollection.find();
+            courseId = newCourse._id;
+            // console.log("new courseid id 11 : ", courseId);
+            // res.redirect(`/admin/postadd-course-video?courseId=${courseId}`);
+            //    axios.post(`/admin/postadd-course-video?courseId=${courseId}`);
+            // const coursedata = await courseCollection.find();//this will collect all data
+            // console.log("course data just uploded :", coursedata);
             // res.render("admin-courselist", { coursedata });
-            console.log("imagesIds: ", imageIds);
+            // console.log("imagesIds: ", imageIds);
         } else {
             res.status(400).send("No images selected for upload");
         }
     } catch (error) {
         console.log(error);
+        res.status(500).send("Internal Server Error");
     }
 };
 
-//video upload course
+//video upload course 0
 module.exports.postCourseVideo = async (req, res) => {
     try {
-        if (req.files) {
-            // If req.files exists, it means the file was successfully uploaded
-            const videoUrl = req.cloudinaryVideoUrl;
-            console.log("url is : ", videoUrl);
+        // let courseId = req.query.courseId;
+        // let courseId = courseId;
 
-            // Handle the video upload logic here, e.g., store the URL in the database
+        if (courseId) {
+            console.log(courseId);
+            if (req.files) {
+                const videoUrl = req.cloudinaryVideoUrl;
+                console.log("url is : ", videoUrl);
+                const course = await courseCollection.findById(courseId);
 
-            res.status(200).send("Video uploaded successfully");
+                if (course) {
+                    course.courseVid.push({ url: videoUrl });
+                    
+                    await course.save();
+
+                    res.status(200);
+                    // res.status(200).send("Video uploaded successfully");
+                    const coursedata = await courseCollection.find();//this will collect all data
+                    res.render("admin-courselist", { coursedata });
+                } else {
+                    res.status(404).send("Course not found");
+                }
+            } else {
+                res.status(400).send("No video selected for upload");
+            }
         } else {
-            // If req.files doesn't exist, it means no file was selected for upload
-            res.status(400).send("No video selected for upload");
+            res.status(400).send("Invalid courseId");
         }
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal server error");
     }
 };
+// // video upload course 1
+// module.exports.postCourseVideo = async (req, res) => {
+//     try {
+//         if (req.files) {
+//             // If req.files exists, it means the file was successfully uploaded
+//             const videoUrl = req.cloudinaryVideoUrl;
+//             console.log("url is : ", videoUrl);
+//             // console.log("new courseid id 22 : ", courseId);
+
+//             // Handle the video upload logic here, e.g., store the URL in the database
+
+//             res.status(200).send("Video uploaded successfully");
+//         } else {
+//             // If req.files doesn't exist, it means no file was selected for upload
+//             res.status(400).send("No video selected for upload");
+//         }
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send("Internal server error");
+//     }
+// };
 
 // module.exports.postCourseVideo1 = async (req, res) => {
 //     try {
