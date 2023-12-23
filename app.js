@@ -28,7 +28,7 @@ app.set('view engine', 'ejs');
 // app.use(express.static("public"));
 app.use(express.static(__dirname + "/public")); //serving public file
 app.use(
-    session({    //setted up session middleware
+    session({    
     secret: uuidv4(),
     resave: false,
     saveUninitialized: false,  

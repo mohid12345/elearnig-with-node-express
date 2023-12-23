@@ -26,16 +26,24 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Teach on EdX?</a>
                     <div class="dropdown-menu fade-down m-0">
-                        <a href="/creatorSignup" class="dropdown-item">start teaching!</a>
-                        <a href="/creatorLogin" class="dropdown-item">Creator Login</a>
+                        <a href="/creator/creatorSignup" class="dropdown-item">start teaching!</a>
+                        <a href="/creator/creatorLogin" class="dropdown-item">Creator Login</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Learning</a>
                     <div class="dropdown-menu fade-down m-0">
-                        <a href="team.html" class="dropdown-item">Profile</a>
+                        <a href="userAccount" class="dropdown-item">Profile</a>
                         <a href="userWishlist" class="dropdown-item">Wishlist</a>
-                        <a href="404.html" class="dropdown-item">My Cart</a>
+                        <a href="userCart" class="dropdown-item">My Cart</a>
+                        <hr />
+                        <%if(!loggedIn) {%>   
+                        <a href="/userSignup" class="dropdown-item">User SignUp</a>
+                        <a href="/userlogin" class="dropdown-item">User Login</a>
+                        <%} else {%>
+                        <a href="#" class="dropdown-item">Offers</a>    
+                        <a href="/userLogout" class="dropdown-item">Log-Out</a>    
+                       <%}%>
                         
                         </div>
                     </div>
@@ -167,7 +175,7 @@
                <% }) %>
 
                <script>
-                                        // script for wishlist
+
                                         document.addEventListener("DOMContentLoaded", function () {
                                             const addingWishButtons = document.querySelectorAll(".add-wish-btn")
                                     
@@ -210,7 +218,7 @@
                                     </script>
                                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-                                  <!-- //script for cart -->
+                            
                                     <script>
                                         document.addEventListener("DOMContentLoaded", function () {
                                             const addingCartButtons = document.querySelectorAll(".add-cart-btn")

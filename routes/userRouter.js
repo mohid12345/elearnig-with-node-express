@@ -12,6 +12,7 @@ const loginControll = require("../controllers/user_controllers/login");
 const courseControll = require("../controllers/user_controllers/coursedetails");
 const wishlistControl = require("../controllers/user_controllers/wishlistCntrol");
 const cartControl = require("../controllers/user_controllers/cartController")
+const accountControll = require("../controllers/user_controllers/account")
 const path = require("path");
 
 userRouter.use("/uploads", express.static("uploads"));
@@ -39,16 +40,11 @@ userRouter.route("/userSignup").get(userControllers.getUserSignup).post(userCont
 userRouter.get("/course-details/:courseId", courseControll.courseDetails);
 
 // Render the about page
-userRouter.get("/about", (req, res) => {
-    res.render("about");
-});
+userRouter.get("/about", homepageControll.getUserRoute_About);
 // Router the course page
 userRouter.get("/courses", homepageControll.getUserRoute_Course);
-
 // Render the contact page
-userRouter.get("/contact", (req, res) => { 
-    res.render("contact");
-});
+userRouter.get("/contact", homepageControll.getUserRoute_Contact);
 
 // Render the contact page
 userRouter.get("/userLogin", (req, res) => {
@@ -66,8 +62,12 @@ userRouter.post("/addCart",userMiddleware.verifyUser,userMiddleware.checkBlocked
 userRouter.get("/delete-cart",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,cartControl.deleteCart);
 
 //checkout 
-userRouter.get("/userCheckout", (req, res)=>{
+userRouter.get("/userCheckout",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus, (req, res)=>{
     res.render("userCheckout");
 })
+
+//account
+userRouter.get("/userAccount", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.getUserAccount)
+
 
 module.exports = userRouter;

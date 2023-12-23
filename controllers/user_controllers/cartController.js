@@ -1,5 +1,8 @@
 const cartCollection = require("../../models/cart")
 const userCollection = require("../../models/userSchema")
+const courseCollection = require("../../models/course");
+
+
 
 require('dotenv').config();
 const jwt = require("jsonwebtoken")
@@ -27,17 +30,13 @@ module.exports.getCartPage = async (req, res) => {
 
 module.exports.postCartPage = async (req, res) =>{
     try {
-        // console.log(req.user);
         const userData = await userCollection.findOne({email: req.user})
-        // console.log(userData);
         const userId = userData._id;
-        // console.log(userId);
         const courseId = req.query.courseId;
 
         let userCart = await cartCollection.findOne({userId: userId})
         if(!userCart){
-            console.log(userId, courses);
-            userCart = new userCollection({
+            userCart = new cartCollection({
                 userId,
                 courses: [],
             })
@@ -45,18 +44,19 @@ module.exports.postCartPage = async (req, res) =>{
         const existingCourseIndex = userCart.courses.findIndex(
             (course) => course.courseId.toString() === courseId
         );
-        // console.log(userCart);
+        console.log("dat6:",userCart);
         if(existingCourseIndex !== -1) {
             // res.json({message: "Course already in cart"})
         } else {
             userCart.courses.push({
                 courseId: new mongoose.Types.ObjectId(courseId),
-            })
+            });
         }
         await userCart.save()
         res.json({message: "Course added to the Cart"})
 
     } catch(error){
+        console.log("Error adding to the cart:", error);
         res.status(500).json({error:"Failed to add course to cart"})
     }
 } 

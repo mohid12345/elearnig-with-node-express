@@ -1,12 +1,14 @@
 const express = require("express");
 const creatorRouter = express.Router(); 
-const creatorControllers = require("../controllers/creator_controllers/creatorControllers");
-const creatorUploadControl = require("../controllers/creator_controllers/creatorUploads")
-const courseControll = require("../controllers/creator_controllers/creator_courses")
+const creatorControllers = require("../controllers/creator_controllers/creatorDashboard");
+const creatorCourseController = require("../controllers/creator_controllers/creatorCourses")
+const creatorLogin = require("../controllers/creator_controllers/creatorLogin")
+const creatorSignup = require("../controllers/creator_controllers/creatorSignup")
+
 const path = require("path");
-const multer = require("multer")
-
-
+const multer = require("multer");
+const fileUpload = require("express-fileupload");
+const cloudinaryUploadMiddleware = require("../middlewares/cloudinaryUploadMiddleware");
 
 creatorRouter.use("/uploads",express.static('uploads'));
 const storage = multer.diskStorage({
@@ -18,7 +20,7 @@ const storage = multer.diskStorage({
   },
 });
 const limits = {
-  files: 5, // Maximum number of files for the 'courseImg' field
+  files: 5,
 };
 
 const uploads = multer({
@@ -27,27 +29,28 @@ const uploads = multer({
 }).array('courseImg', 5);
 // const uploads=multer({storage:storage}) 
 
+//login
+creatorRouter.get("/creatorLogin", creatorLogin.getCreatorLogin)
+creatorRouter.post("/creatorDashboard", creatorLogin.postCreatorLogin)
+creatorRouter.get("/creatorLogout", creatorLogin.creatorLogout)
 
-creatorRouter.get("/creatorLogin", creatorControllers.getCreatorLogin)
-creatorRouter.post("/creatorDashboard", creatorControllers.postCreatorLogin)
-creatorRouter.get("/creatorDashboard", creatorControllers.getCreatorDash)
-creatorRouter.get("/creatorUpload",creatorUploadControl.getCreatorUpload)
+//signup
 creatorRouter.route("/creatorSignup")
-.get(creatorControllers.getCreatorSignup)
-.post(creatorControllers.postCreatorSignup)
-creatorRouter.get("/creatorLogout", creatorControllers.creatorLogout)
+.get(creatorSignup.getCreatorSignup)
+.post(creatorSignup.postCreatorSignup)
 
+//Dashboard
+creatorRouter.get("/creatorDashboard", creatorControllers.getCreatorDash)
 
-
-//Courses
-creatorRouter.get("/course-list", courseControll.getCourseList)
-creatorRouter.get("/add-course", courseControll.getAddCourse)
-// creatorRouter.post("/postadd-course", uploads.array("courseImg"), courseControll.postCourse)
-creatorRouter.post("/postadd-course", uploads, courseControll.postCourse)
-creatorRouter.get("/delete-course/:courseId", courseControll.deleteCourse);
-creatorRouter.get("/edit-course/:courseId", courseControll.editCourse)
-creatorRouter.post("/postEdit-course/:courseId", uploads, courseControll.updateCourse)
-// creatorRouter.post("/postEdit-course/:courseId", uploads.array("courseImg"), courseControll.updateCourse)
+//Courses manage
+creatorRouter.get("/creatorUpload",creatorCourseController.getCreatorUpload)
+creatorRouter.get("/creator-course-list", creatorCourseController.getCourseList)
+creatorRouter.get("creator-add-course", creatorCourseController.getAddCourse)
+creatorRouter.post("/postadd-course", uploads, creatorCourseController.postCourse)
+creatorRouter.post("/postadd-course-video",fileUpload(),cloudinaryUploadMiddleware('courseVid'),creatorCourseController.postCourseVideo)
+creatorRouter.get("/delete-course/:courseId", creatorCourseController.deleteCourse);
+creatorRouter.get("/edit-course/:courseId", creatorCourseController.editCourse)
+creatorRouter.post("/postEdit-course/:courseId", uploads, creatorCourseController.updateCourse)
 
 module.exports = creatorRouter;
 

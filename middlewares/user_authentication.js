@@ -24,10 +24,7 @@ module.exports.checkBlockedStatus = async (req,res,next) => {
     if (curruser.status === "Block") {
       res.clearCookie("token");
       res.clearCookie("loggedIn");
-      res.render("user-login", {subreddit: "User is blocked"})
+      res.render("userLogin", {subreddit: "User is blocked"})
     }
     next();
-  // } catch(error) {
-  //   console.log(error)
-  // }
 };

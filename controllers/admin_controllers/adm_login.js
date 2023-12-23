@@ -1,14 +1,5 @@
 const adminCollection = require("../../models/adminSchema");
 
-// module.exports.getAdminRoute = (req, res) =>{
-//     if(req.session.admin){
-//         res.redirect("admin/adminLogin");
-//     } else {
-//         res.render("main");
-//     }
-//     res.render("adminLogin");
-// }
-
 module.exports.getAdminLogin = async (req, res) => {
     if (req.session.admin) {
     //   users = await userCollection.find({});
@@ -20,7 +11,7 @@ module.exports.getAdminLogin = async (req, res) => {
 
 module.exports.getAdminLogout = (req,res) =>{
   req.session.admin = null
-  res.redirect("/")
+  res.redirect("/admin/adminLogin")
 }
 // module.exports.getAdminLogout = (req,res) =>{
 //  if(req.session.admin){

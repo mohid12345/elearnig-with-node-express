@@ -1,5 +1,6 @@
 <%- include("../partials/admin-header")%>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="screen-overlay"></div>
 <aside class="navbar-aside" id="offcanvas_aside">
@@ -140,14 +141,17 @@
                     <h2 class="content-title">Add New Product</h2>
                 </div>
 
+
                 <div class="container mt-5">
                     <form action="/admin/postadd-course" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="courseName">Course Name</label>
+                            <div id="courseNameError" class="error-message text-danger"></div>
                             <input type="text" class="form-control" id="courseName" name="courseName" />
                         </div>
                         <div class="form-group">
                             <label for="courseDiscription">Course Description</label>
+                            <div id="courseDiscriptionError" class="error-message text-danger"></div>
                             <textarea
                                 class="form-control"
                                 id="courseDiscription"
@@ -156,7 +160,8 @@
                             ></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="courseDiscription">Course Requirements</label>
+                            <label for="courseRequirements">Course Requirements</label>
+                            <div id="courseRequirementsError" class="error-message text-danger"></div>
                             <textarea
                                 class="form-control"
                                 id="courseRequirements"
@@ -165,7 +170,8 @@
                             ></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="courseDiscription">Who this course for ?</label>
+                            <label for="courseWho">Who this course for ?</label>
+                            <div id="courseWhoError" class="error-message text-danger"></div>
                             <textarea class="form-control" id="courseForwho" name="courseForwho" rows="3"></textarea>
                         </div>
                         <div class="form-group">
@@ -180,14 +186,15 @@
                         <div class="form-group">
                             <label for="brand">Author</label>
                             <input type="text" class="form-control" id="courseAuthor" name="courseAuthor" />
+                            <div id="courseAuthorError" class="error-message text-danger"></div>
                         </div>
                         <div class="form-group">
                             <label for="amount">Regular Price (in Rupees)</label>
-                            <input type="number" class="form-control" id="courseAmount" name="courseAmount" />
+                            <input type="number" class="form-control" id="courseAmount" name="courseAmount" required min="0"/>
                         </div>
                         <div class="form-group">
                             <label for="amount">Total Duration (in Hours)</label>
-                            <input type="number" class="form-control" id="courseDuration" name="courseDuration" />
+                            <input type="number" class="form-control" id="courseDuration" name="courseDuration" required min="0" />
                         </div>
                         <div class="form-group">
                             <label for="amount">No of Lessons</label>
@@ -212,7 +219,7 @@
                                 name="courseImg"
                                 accept="image/*"
                                 multiple
-                            />
+                             required/>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit Details</button>
                     </form>
@@ -226,10 +233,54 @@
                     <form action="/admin/postadd-course-video" method="post" enctype="multipart/form-data">
                         <div class="form-group my-3">
                             <label for="video">Course Video</label> &nbsp;
-                            <input type="file" class="form-control" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4"/>
+                            <input type="file" class="form-control" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4" required/>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Video</button>
                     </form>
+<!-- //sweetalert2 script -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            const form = document.querySelector("form"); // Adjust the selector based on your form structure
+                
+                            form.addEventListener("submit", async function (event) {
+                                event.preventDefault();
+                
+                                // Your existing form submission code
+                
+                                // Assuming you're using Fetch API for AJAX requests
+                                try {
+                                    const response = await fetch("/admin/postadd-course", {
+                                        method: "POST",
+                                        body: new FormData(form),
+                                    });
+                
+                                    const responseData = await response.json();
+                
+                                    if (response.ok) {
+                                        // Display success message using Swal
+                                        Swal.fire({
+                                            icon: "success",
+                                            title: "Success",
+                                            text: responseData.message,
+                                        });
+                
+                                        // You can also access courseId if needed: responseData.courseId
+                                    } else {
+                                        // Display an error message using Swal
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Error",
+                                            text: responseData.message,
+                                        });
+                                    }
+                                } catch (error) {
+                                    console.error("Error:", error);
+                                }
+                            });
+                        });
+                    </script>
 
                     <!-- VIDEO SECTION END -->
                 </div>
