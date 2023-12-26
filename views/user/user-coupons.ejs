@@ -72,96 +72,46 @@ remove this -->
     <!-- Header End -->
 
 
-    <!-- Table Start -->
- <div class="container-xxl py-5">
-        <div class="container">
-           <section class="mt-50 mb-50">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <% if (!cartDetails) { %>
-                                <div class="text-center">
-                                    <h5>There is no items in your cart</h5>
-                                </div>
-                            <% } else if (cartDetails.courses.length===0) {%>
-                                <div class="text-center">
-                                    <h5>there is now products in your cart 2</h5>
-                                </div>
-                                <% } else { %>
-
-                            <div class="table-responsive">
-                                <table class="table shopping-summery text-center">
-                                    <thead>
-                                        <tr class="main-heading">
-                                            <th scope="col" colspan="2">Product</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Author</th>
-                                            <!-- <th scope="col">Action</th> -->
-                                            <th scope="col">Remove</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% cartDetails.courses.forEach(course => { %>
-                                        <tr>
-                                            <td class="image product-thumbnail"><img src="<%= course.courseId.courseImg[0] %>" alt="#"></td>
-                                            <td class="product-des product-name">
-                                                <h5 class="product-name"><a href="shop-product-right.html"><%= course.courseId.courseName %></a></h5>
-                                                <!-- <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy magndapibus. -->
-                                                </p>
-                                            </td>
-                                            <td class="price" data-title="Price"><span>₹<%= course.courseId.courseAmount%> </span></td>
-                                            <td class="text-center" data-title="Stock">
-                                                <span class="color3 font-weight-bold"><%= course.courseId.courseAuthor %></span>
-                                            </td>
-                                            <!-- <td class="text-right" data-title="Cart">
-                                                <button class="btn btn-sm"><i class="fi-rs-shopping-bag mr-5"></i>Add to cart</button>
-                                            </td> -->
-                                            <td class="action" data-title="Remove"><a href="/delete-cart?courseId=<%= course.id %>" class="text-muted"><i class="fi-rs-trash"></i></a></td>
-                                            </tr>
-                                      
-                                        <% }) %>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="cart-action text-end">
-                                <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-shuffle mr-10"></i>Update Cart</a>
-                                <a href="courses" class="btn "><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
-                            </div>
-                            <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
-                            <div class="row mb-50">
-                                <div class="col-lg-6 col-md-12">
-                                   </div>
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="border p-md-4 p-30 border-radius cart-totals">
-                                        <div class="heading_s1 mb-3">
-                                            <h4>Cart Totals</h4>
+    <main class="main">
+        <section class="mt-50 mb-50">
+            <div class="container">
+                <div class="row">
+                    <% if (!coupons || coupons.length === 0) { %>
+                        <div class="col-12 text-center">
+                            <h5>No coupons available</h5>
+                        </div>
+                    <% } else { %>
+                        <% coupons.forEach(coupon => { %>
+                            <div class="col-md-4 mt-20 mb-30">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <div class="card text-center">
+                                        <div class="image"><img src="https://i.imgur.com/DC94rZe.png" width="150"></div>
+                                        
+                                        <h1>(<%= Math.floor((coupon.discountAmount / coupon.minimumPurchase) * 100) %> % OFF)</h1>
+                                        <span class="d-block"></span>
+                                        <h5 class="d-block">Purchase minimum of <%= coupon.minimumPurchase %></h5>
+                                        <div class="mt-2"><small>Expiry date: <%= coupon.expiryDate.toLocaleDateString() %></small></div>
+                                        <div class="mt-0">
+                                            <small>With Code:<br> <span class="coupon-code" style="font-size: 14px;"><%= coupon.couponCode %> <br></span></small>
+                                            <% if(coupon.redeemedUser.includes(userId)) { %>
+                                                <h4>Used coupon</h4>
+                                            <% } else if (new Date(coupon.expiryDate).getTime() < new Date().getTime()) { %>
+                                                <h4>Coupon expired</h4>
+                                            <% } else { %>
+                                                <a class="btn btn-sm font-sm rounded btn-dark copy-button" onclick="copyToClipboard('<%= coupon.couponCode %>')">
+                                                    Copy
+                                                </a>
+                                        <% } %>
                                         </div>
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td id="cart_total_amount" class="cart_total_amount">
-                                                            <strong><span class="font-xl fw-900 text-brand">₹0.00</span></strong>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <button type="button" onclick="location.href='/userCheckout'" class="btn" id="checkoutbtn">
-                                            <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut
-                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        </div>
-                    </div>
+                        <% }) %>
+                    <% } %>
                 </div>
-            </section>
-         </div>
-    </div>
-</div>
-<% } %>
+            </div>
+        </section>
+    </main>
     <!-- table End -->
 
     
@@ -185,32 +135,7 @@ remove this -->
         }
     </script> -->
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Fetch subtotal and stock availability from the server
-                fetch("/get-subtotal")
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const subtotalElement = document.getElementById("cart_total_amount");
-                            subtotalElement.innerHTML = `<strong><span class="font-xl fw-900 text-brand">₹${data.subtotal.toFixed(2)}</span></strong>`;
-
-                            // Disable the button if any product is out of stock
-                            if (data.isStockAvailable) {
-                                const checkoutbtn = document.getElementById("checkoutbtn");
-                                checkoutbtn.disabled = true;
-                                checkoutbtn.innerHTML += " (Out of Stock)";
-                            }
-                        } else {
-                            console.error("Failed to fetch subtotal");
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error fetching subtotal:", error);
-                    });
-            });
-        </script>
-
+      
 
 
     <!-- Footer Start -->
@@ -296,5 +221,73 @@ remove this -->
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <script>
+        function copyToClipboard(code) {
+            navigator.clipboard.writeText(code).then(()=> {
+                Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: "Coupon Code copied to Clipboard",
+                showConfirmButton: false,
+                timer: 1500
+                });
+            }).catch(err=>{
+                console.error('Unable to copy to clipboard', error);
+            });
+        }
+    </script>
+
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css"> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script> -->
+
+    <style>
+      body{
+      background:#eee;
+      }
+
+      .card {
+        width: 200px;
+        padding: 10px;
+        border-radius: 20px;
+        background: orange;
+        border: none;
+        color: #fff;
+        height: 250px;
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* .container {
+        height: 100px;
+      } */
+
+      .card h1 {
+        font-size: 35px;
+        margin-bottom: 0px;
+      }
+
+      .card span {
+        font-size: 17px;
+      }
+
+      .image {
+        position: absolute;
+        opacity: .1;
+        left: 0;
+        top: 0;
+      }
+
+      .image2 {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        opacity: .1;
+      }
+    </style>
+
+
+
 
     <%- include("../partials/footer") %>

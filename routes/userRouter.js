@@ -13,6 +13,7 @@ const courseControll = require("../controllers/user_controllers/coursedetails");
 const wishlistControl = require("../controllers/user_controllers/wishlistCntrol");
 const cartControl = require("../controllers/user_controllers/cartController")
 const accountControll = require("../controllers/user_controllers/account")
+const checkoutControll = require("../controllers/user_controllers/checkout")
 const path = require("path");
 
 userRouter.use("/uploads", express.static("uploads"));
@@ -60,14 +61,42 @@ userRouter.get("/delete-wishlist",userMiddleware.verifyUser,userMiddleware.check
 userRouter.get("/userCart",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,cartControl.getCartPage);
 userRouter.post("/addCart",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,cartControl.postCartPage);
 userRouter.get("/delete-cart",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,cartControl.deleteCart);
+userRouter.get("/get-subtotal", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, cartControl.subtotal)
+
 
 //checkout 
-userRouter.get("/userCheckout",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus, (req, res)=>{
-    res.render("userCheckout");
-})
+userRouter.get("/userCheckout", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.getCheckout)
+userRouter.get("/get-grandtotal", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.grandtotal)
+userRouter.post("/add-coupon", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.applyCoupon)
+userRouter.post("/remove-coupon", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.removeCoupon)
+userRouter.get("/order-placed", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.getPlaceOrder)
+userRouter.post("/cashOnDelivery", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.cashOnDelivery)
+userRouter.post("/razorpay", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.razorpayOrder)
+userRouter.get("/razorpayorder-placed", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.razorpayOrderPlaced)
+// userRouter.post("/walletPay", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.walletPay)
+
+
+
 
 //account
 userRouter.get("/userAccount", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.getUserAccount)
+userRouter.get("/get-usereditdetails", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.getUsereditdetails)
+userRouter.post("/post-userupdatedetails", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.postUserupdateddetails)
+userRouter.get("/get-changepswd", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.getChangepswd)
+userRouter.post("/post-changedpswd", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.postChangedswd)
+userRouter.get("/get-changeemail", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.getChangeEmail)
+userRouter.get("/newsend-otp", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.newSendotp)
+userRouter.post("/newverify-otp", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.newVerifyotp)
+
+userRouter.get("/get-address", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.addAddress)
+userRouter.post("/post-address", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.postAddress)
+userRouter.get("/edit-address/:objectId/:addressId", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.editAddress)
+userRouter.post("/post-editedaddress", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.postEditedaddress)
+userRouter.get("/order-details/:orderId", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.getOrderdetails)
+userRouter.post("/cancel-order", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.cancelOrder)
+userRouter.post("/return-order", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.returnOrder)
+userRouter.get("/get-coupons", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.getCoupons)
+
 
 
 module.exports = userRouter;

@@ -1,0 +1,338 @@
+<%- include("../partials/header") %>
+
+<link rel="stylesheet" href="userAssets-secondary/css/maind134.css?v=3.4"> 
+<!-- //this css is madatory for tabel to set properly - further need to 
+remove this -->
+
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>edX</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="/" class="nav-item nav-link">Home</a>
+                <a href="/about" class="nav-item nav-link">About</a>
+                <a href="/courses" class="nav-item nav-link">Courses</a>
+                <a href="/contact" class="nav-item nav-link active">Contact</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Teach on EdX?</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="/creatorSignup" class="dropdown-item">start teaching!</a>
+                        <a href="/creatorLogin" class="dropdown-item">Creator Login</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Learning</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="team.html" class="dropdown-item">Profile</a>
+                        <a href="testimonial.html" class="dropdown-item">Wishlist</a>
+                        <a href="404.html" class="dropdown-item">My Cart</a>
+                        
+                        </div>
+                    </div>
+                </div>
+            <a href="/userSignup" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Account</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Table Start -->
+
+
+
+
+
+
+
+    <section class="pt-80 pb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 m-auto">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="dashboard-menu">
+                                <ul class="nav flex-column" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>Account details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/userLogout"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <main class="main">
+                            <section class="mt-50 mb-50">
+                                <div class="container">
+                                    <div class="row justify-content-center"> <!-- Center the row -->
+                                        <div class="col-9">
+                                            <div class="tab-pane col-6 mx-auto" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
+                                                <div class="card">
+                                                    <div class="card-header text-center" style="background-color: white;">
+                                                        <h5>Update email</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                    <!-- <p>Already have an account? <a href="page-login-register.html">Log in instead!</a></p> -->
+                                                    <form method="post" action="/newverify-otp">
+                                                      <div class="form-group">
+                                                          <input type="text" required="" name="email" placeholder="Email" id="email">
+                                                          <div id="emailError" class="error-message"></div>
+                                                      </div>
+                                                      
+                                                      <div class="form-group">
+                                                          <button type="button" class="btn btn-sm btn-fill-out btn-block hover-up" data-mdb-ripple-color="dark" id="sendOTPButton" name="sendOTPBtn">Send OTP</button>
+                                                      </div>
+                    
+                                                      <div class="form-group">
+                                                          <input type="text" required="" name="otpInput" placeholder="Enter OTP" id="otpInput">
+                                                      </div>
+                    
+                                                      <!-- <div class="form-group">
+                                                          <div id="timer" class="mb-3" style="display: none; color: blue;"></div>
+                                                      </div>
+                                                      
+                                                      <div class="form-group d-flex justify-content-end">
+                                                          <button class="btn btn-primary" type="button" id="resendOTPButton" style="display: none;">Resend OTP</button>
+                                                      </div> -->
+                                                      
+                    
+                                                      <div class="form-group">
+                                                          <button type="submit" class="btn btn-sm btn-fill-out btn-block hover-up" id="verifyOTPButton" name="verifyOTPBtn">Verify & Submit</button>
+                                                      </div>
+                                                      <!-- <div class="form-group">
+                                                          <button type="submit" class="btn btn-fill-out btn-block hover-up" name="loginbtn" id="submitButton">Submit &amp; Register</button>
+                                                      </div> -->
+                                                  </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </main>
+
+
+                        <script>
+                            // let timerElement = document.getElementById('timer');
+                            // let countdown;
+                    
+                            const sendOTPButton = document.getElementById("sendOTPButton");
+                            const resendOTPButton = document.getElementById("resendOTPButton");
+                            const verifyOTPButton = document.getElementById("verifyOTPButton");
+                            
+                            sendOTPButton.addEventListener("click", function(e){
+                                e.preventDefault();
+                    
+                               
+                    
+                                    const email = document.querySelector('input[name="email"]').value;
+                                    console.log(email);
+                    
+                                    fetch(`/newsend-otp?email=${email}`)
+                                    .then((response)=>{
+                                        if(!response.ok) {
+                                            throw new Error(`HTTP error! status: ${response.status}`);
+                                        }
+                                        return response.json();
+                                    })
+                                    .then((data) => {
+                                            console.log("Response from server", data);
+                    
+                                        if (data.error) {
+                                        // User already exists, display error message
+                                        Swal.fire({
+                                            position: 'top-center',
+                                            icon: 'error',
+                                            title: data.error,
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        });
+                                        } else {
+                                        // User doesn't exist, continue with OTP sending logic
+                                        Swal.fire({
+                                            position: 'top-center',
+                                            icon: 'success',
+                                            title: 'OTP sent to email successfully',
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        });
+                                        startResendTimer();
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        console.error("Error sending OTP", error);
+                                    });
+                            })
+
+                            verifyOTPButton.addEventListener("click", function(e) {
+            e.preventDefault();
+
+            const otpInput = document.querySelector('input[name="otpInput"]').value;   
+            const email = document.querySelector('input[name="email"]').value; 
+            console.log("in script",otpInput);
+            fetch(`/newverify-otp?otpInput=${otpInput}&email=${email}`,{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            
+            .then((Response) => {
+                if(!Response.ok) {
+                    throw new Error(`HTTP error! status: ${Response.status}`)
+                }
+                return Response.json();
+            })
+            .then((data)=>{
+                console.log("Response from serve", data)
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'OTP verified succssfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                // startResendTimer()
+                window.location.href = '/logout'
+
+            })
+            .catch((error)=>{
+                console.error("Invalid OTP",error);
+                Swal.fire({
+                position: 'top-center',
+                icon: 'error',
+                title: "Invalid OTP",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            })
+        }) 
+    </script>
+
+                    
+    <!-- table End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Quick Link</h4>
+                    <a class="btn btn-link" href="">About Us</a>
+                    <a class="btn btn-link" href="">Contact Us</a>
+                    <a class="btn btn-link" href="">Privacy Policy</a>
+                    <a class="btn btn-link" href="">Terms & Condition</a>
+                    <a class="btn btn-link" href="">FAQs & Help</a>
+                </div>
+                <div class="text-white col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Contact</h4>
+                    <p class="mb-2 text-white"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                    <p class="mb-2 text-white"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
+                    <p class="mb-2 text-white"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Gallery</h4>
+                    <div class="row g-2 pt-2">
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Newsletter</h4>
+                    <p class="text-white">Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
+
+                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="">Home</a>
+                            <a href="">Cookies</a>
+                            <a href="">Help</a>
+                            <a href="">FQAs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <%- include("../partials/footer") %>

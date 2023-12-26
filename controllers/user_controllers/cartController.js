@@ -20,7 +20,7 @@ module.exports.getCartPage = async (req, res) => {
         const username = req.cookies.username;
 
         const cartDetails = await cartCollection.findOne({userId: userId}).populate('courses.courseId')
-        console.log("cart details are: ",cartDetails);
+        // console.log("cart details are: ",cartDetails);
         res.render("userCart", {loggedIn, username,cartDetails})
 
     } catch (error){
@@ -44,7 +44,6 @@ module.exports.postCartPage = async (req, res) =>{
         const existingCourseIndex = userCart.courses.findIndex(
             (course) => course.courseId.toString() === courseId
         );
-        console.log("dat6:",userCart);
         if(existingCourseIndex !== -1) {
             // res.json({message: "Course already in cart"})
         } else {
@@ -87,3 +86,32 @@ module.exports.deleteCart = async(req, res)=>{
         res.status(500).send("Internal Server Error")
     }
 }
+
+module.exports.subtotal = async (req, res) => {
+    try {
+      const userData = await userCollection.findOne({ email: req.user });
+      const userId = userData._id;
+      const cart = await cartCollection.findOne({ userId: userId });
+  
+      let subtotal = 0;
+    //   let isStockAvailable = true;
+  
+      // Iterate through courses and calculate subtotal
+      for (const courseItem of cart.courses) {
+        const course = await courseCollection.findById(courseItem.courseId);
+        //   console.log(course.courseAmount, courseItem);
+          const courseAmount = parseFloat(course.courseAmount);
+          if (!isNaN(courseAmount)) {
+          subtotal += courseAmount;
+          console.log(subtotal);
+      }   else {
+        console.error("Invalid numeric value detected for courseAmount.");
+      }
+    }
+    // Return the subtotal and stock availability as JSON
+    res.json({ success: true, subtotal });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
+  }
+};

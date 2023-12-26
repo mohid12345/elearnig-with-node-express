@@ -1,7 +1,25 @@
 const userCollection = require("../../models/userSchema")
+const mongoosePaginate = require("mongoose-paginate")
 
-
+pagenate = userCollection.schema.plugin(mongoosePaginate)
 // user manage page
+//test 0  
+// module.exports.getUsers1 = async(req, res) => {
+//   try {
+//     const page = parseInt(req.query.page) || 1;
+//     const perPage = parseInt(req.query.perPage) || 10
+
+//     const users = await userCollection.paginate({},{page, limit: perPage})
+//     console.log(users);
+//     // res.render('admin-usermanage', { users });
+
+//   } catch(error){
+//     console.error(error);
+//     res.status(500).send('Internal Server Error')
+//   }
+// }
+
+//test 1
 module.exports.getUsers = async(req,res) => {
   try {
     const usercollection = await userCollection.find()

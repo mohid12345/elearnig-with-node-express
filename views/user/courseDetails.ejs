@@ -26,16 +26,24 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Teach on EdX?</a>
                     <div class="dropdown-menu fade-down m-0">
-                        <a href="/creatorSignup" class="dropdown-item">start teaching!</a>
-                        <a href="/creatorLogin" class="dropdown-item">Creator Login</a>
+                        <a href="/creator/creatorSignup" class="dropdown-item">start teaching!</a>
+                        <a href="/creator/creatorLogin" class="dropdown-item">Creator Login</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Learning</a>
                     <div class="dropdown-menu fade-down m-0">
-                        <a href="team.html" class="dropdown-item">Profile</a>
-                        <a href="testimonial.html" class="dropdown-item">Wishlist</a>
-                        <a href="404.html" class="dropdown-item">My Cart</a>
+                        <a href="/userAccount" class="dropdown-item">Profile</a>
+                        <a href="/userWishlist" class="dropdown-item">Wishlist</a>
+                        <a href="/userCart" class="dropdown-item">My Cart</a>
+                        <hr />
+                        <%if(!loggedIn) {%>   
+                        <a href="/userSignup" class="dropdown-item">User SignUp</a>
+                        <a href="/userlogin" class="dropdown-item">User Login</a>
+                        <%} else {%>
+                        <a href="#" class="dropdown-item">Offers</a>    
+                        <a href="/userLogout" class="dropdown-item">Log-Out</a>    
+                       <%}%>
                         
                         </div>
                     </div>
@@ -53,7 +61,7 @@
         <%= coursedata.courseName %>
       </h4>
       <p class="card-text">
-         Author &nbsp; &nbsp;  &nbsp;    :&nbsp;   <%= coursedata.courseAuthor %>
+         Author &nbsp; &nbsp;  &nbsp;&nbsp; <%= coursedata.courseAuthor %>
       </p>
       <p class="card-text">
          Category &nbsp;&nbsp;: &nbsp;   <%= coursedata.courseCategory %>
@@ -65,9 +73,58 @@
       <h4><%= coursedata.courseAmount%> Inr</h4>
       <hr>
       <br>
-      <a href="#!" class="btn btn-primary float-right">Buy this course</a>
+      <button style="border: 0cap" class="btn btn-primary flex-fill text-center border-end py-2 add-cart-btn" course-dat-id-1="<%= coursedata._id %>">Buy This Course</button>
+
+      <!-- <a href="addCart" class="btn btn-primary float-right">Buy this course</a> -->
     </div>
   </div>
+  <!-- script -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const addingCartButtons = document.querySelectorAll(".add-cart-btn")
+
+        addingCartButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const courseId = button.getAttribute("course-dat-id-1");
+                fetch(`/addCart?courseId=${courseId}`, {
+                    method: 'POST',
+                    headers: {
+                        'content-Type': 'application/json',
+                    },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                       throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Response from server", data);
+                    // Check if the response contains a message
+                    if (data.message) {
+                        // Display Sweet Alert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Visit Cart to checkout',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                })
+                .catch(error => {
+                    window.location.href = '/userLogin';
+                    console.error("Error adding to cart", error);
+                    
+                });
+            });
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+  <!-- script -->
 <!-- card static top Right end-->
 
     <!-- Header Start -->
@@ -77,12 +134,7 @@
                 <div class="col-lg-10 text-center">
                     <h1 class="display-3 text-white animated slideInDown">Edx...</h1>
                     <nav aria-label="breadcrumb">
-                        <!-- <ol class="breadcrumb justify-content-center">
-                            <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Courses</li>
-                        </ol> -->
-                    </nav>
+                        </nav>
                 </div>
             </div>
         </div>
@@ -94,35 +146,50 @@
         <div class="">
             <div class="">
                <div>
-                <p >
+                <h3 >
                     <%= coursedata.courseDiscription %>
-                </p>
+                </h3>
             </div>
         </div>
-    
-    <!-- details end -->
 
-    <!-- syllabus details start -->
-
-<!--     
-        <button class="list-group-item list-group-item-primary dropdown-toggle" sty]=>test 1 heading</button> -->
-        <!-- <div class="">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-          </div> -->
-          <ul class="list-group-item list-group-item-secondary">
-            <li>
-                <a href="<%= coursedata.courseVid[0].url %>">test 1 heading</a>
-            </li>
+          <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />          <ul class="list-group-item list-group-item-secondary"> -->
+            <!-- <ul> 
+                <span class="material-symbols-outlined">
+                play_circle
+                </span>
+                <a href="<%= coursedata.courseVid[0].url %>">Video 1</a>
+            </ul> -->
         </ul>
-        <ul class="list-group-item list-group-item-primary">test 2 heading</ul>
-        <ul class="list-group-item list-group-item-secondary">test 3 heading</ul>
-        <ul class="list-group-item list-group-item-primary">test 4 heading</ul>
-    
-    <!-- syllabus details end -->
-    <!-- details 1 start -->
 
+      <!-- </ul> -->
+
+    <!-- test1 -->
+
+     <br>
+    <video id="myVideo" width="640" height="360" controls>
+        <source src="<%= coursedata.courseVid[0].url %>" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <br>
+    <!-- <button type="button" class="btn btn-outline-danger" onclick="playVideo()">
+        <span class="material-symbols-outlined">
+            play_circle
+            </span>
+        
+        Play Video</button> -->
+    <br>
+    <br>
+
+    <script>
+        function playVideo() {
+            var video = document.getElementById("myVideo");
+            video.play();
+        }
+    </script>
+
+    <!-- test1 end -->
+        
+  
     <div style=" padding: 20px; z-index: 3; border: 1px solid black;">
         <div class="">
             <div class="">

@@ -10,6 +10,9 @@ const categoryControll = require("../controllers/admin_controllers/adm_category"
 const courseControll = require("../controllers/admin_controllers/adm_course")
 const usermanageControll = require("../controllers/admin_controllers/adm_usermanage")
 const creatormanageControll = require("../controllers/admin_controllers/adm_creatormanage")
+const ordermanageControll = require("../controllers/admin_controllers/adm_ordermanage")
+const couponmanageControll = require("../controllers/admin_controllers/adm_couponmanage")
+
 
 //multer setup
 adminRouter.use("/uploads",express.static('uploads'));
@@ -65,6 +68,23 @@ adminRouter.get("/unblock-user/:userId", usermanageControll.unblockUser)
 adminRouter.get("/admin-creatormanage",creatormanageControll.getCreator)
 adminRouter.get("/block-creator/:creatorId",creatormanageControll.blockCreator)
 adminRouter.get("/unblock-creator/:creatorId",creatormanageControll.unblockCreator)
+
+// manage order
+adminRouter.get("/order-list", ordermanageControll.getOrderlist)
+adminRouter.get("/order-manage/:orderId",  ordermanageControll.getOrdermanage)
+adminRouter.post("/dispatch-order",  ordermanageControll.dispatchOrder)
+adminRouter.post("/deliver-order",  ordermanageControll.deliverOrder)
+adminRouter.post("/cancel-order",  ordermanageControll.cancelOrder)
+
+// manage coupon
+adminRouter.get("/coupon-list", couponmanageControll.getCouponlist)
+adminRouter.get("/add-coupon", couponmanageControll.addCoupon)
+adminRouter.post("/post-coupon", couponmanageControll.postCoupon)
+adminRouter.get("/edit-coupon/:couponId", couponmanageControll.editCoupon)
+adminRouter.post("/postEdit-coupon/:couponId", couponmanageControll.postEditcoupon)
+adminRouter.get("/block-coupon/:couponId", couponmanageControll.blockCoupon)
+adminRouter.get("/unblock-coupon/:couponId", couponmanageControll.unblockCoupon)
+
 
 module.exports = adminRouter;
 

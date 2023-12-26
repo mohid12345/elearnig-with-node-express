@@ -1,27 +1,7 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate")
 
 const userSchema = new mongoose.Schema({
-//     email: {
-//         type: String,
-//         required: true,
-//     },
-//     fname: {
-//         type: String,
-//         required: true,
-//       },
-//     lname: {
-//         type: String,
-//         require: true,
-//     },
-//     phone: {
-//         type: String,
-//         require: true,
-//     } ,
-//     password: {
-//         type: String,
-//         require: true,
-//     } ,
-// });
 username: {
     required: true,
     type: String,
@@ -43,7 +23,6 @@ username: {
     type: String,
   },
 });
-
 
 const userCollection = mongoose.model("userCollection", userSchema);
 

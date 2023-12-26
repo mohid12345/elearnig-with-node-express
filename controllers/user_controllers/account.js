@@ -2,6 +2,7 @@ const userCollection = require("../../models/userSchema")
 const courseCollection = require("../../models/course")
 const orderCollection = require("../../models/order")
 const nodemailer = require("nodemailer")
+const couponCollection = require("../../models/coupons")
 
 
 // render account page
@@ -9,6 +10,7 @@ module.exports.getUserAccount = async(req,res) => {
     try{
       const loggedIn = req.cookies.loggedIn;
       const username = req.cookies.username;
+      console.log(username);
   
       const userData = await userCollection.findOne({ email: req.user });
       const userId = userData._id;
@@ -170,14 +172,14 @@ module.exports.getUserAccount = async(req,res) => {
         secure: false,
         requireTLS: true,
         auth: {
-          user: "lakshmans218@gmail.com",
-          pass: "ueha hqfq nnxr oqcc",
+          user: "mohidmohan8482@gmail.com",
+          pass: "rrnq vrmh vaag prjr",
         },
       }); 
   
         //  Compose and Send an Email
       const mailOptions = {
-        from: 'lakshmans218@gmail.com',
+        from: 'mohidmohan8482@gmail.com',
         to: email,
         subject: 'Account verification mail',
         text: `Your OTP for verification is: ${generatedOTP}`,
@@ -431,4 +433,23 @@ module.exports.getUserAccount = async(req,res) => {
       res.status(500).json({error: "Error found while returning course"});
     }
   }
+
+  
+// get coupon page
+module.exports.getCoupons = async(req,res) => {
+  try{
+    const loggedIn = req.cookies.loggedIn;
+   
+    const userData = await userCollection.findOne({email: req.user})
+    const username = userData.username;
+    const userId = userData._id
+
+    const coupondata = await couponCollection.find()
+    const coupons = coupondata.filter(coupons => coupons.status !== 'Block');
+    
+    res.render("user-coupons", { loggedIn,username,coupons,userId })
+  }catch(error){
+    console.error("Error: ",error)
+  }
+}
 

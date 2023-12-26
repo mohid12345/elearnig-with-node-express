@@ -33,6 +33,16 @@
                     <span class="text">Users</span>
                 </a>
             </li>
+            <li class="menu-item ">
+                <a class="menu-link" href="/admin/order-list"> <i class="icon material-icons md-shopping_cart"></i>
+                    <span class="text">Orders</span>
+                </a>
+            </li>
+            <li class="menu-item active">
+                <a class="menu-link" href="/admin/coupon-list"> <i class="icon material-icons md-local_offer"></i>
+                    <span class="text">Coupons</span>
+                </a>
+            </li>
             <li class="menu-item">
                 <a class="menu-link" href="/admin/admin-creatormanage"> <i class="icon material-icons md-person"></i>
                     <span class="text">Creators</span>
@@ -174,16 +184,12 @@
         <section class="content-main">
             <div class="content-header">
                 <h3 class="content-title">Manage Users </h3>   
-                <!-- <div>
-                    <a href="#" class="btn btn-primary">Create new</a>
-                </div> -->
+
             </div>
             <div class="card mb-4">
                 <header class="card-header">
-                    <!-- <h4>Edit</h4> -->
-
                     <div class="col-md-12">
-                        <table class="table table-bordered table-lg">
+                        <table id="user" class="table table-bordered table-lg">
                             <thead>
                                 <tr>
                                     <th class="fs-5" style="width: 20%;"><h6>User Id</h6></th>
@@ -215,59 +221,28 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <!-- <div class="container">
-                        <h2>User Management</h2>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>User ID</th>
-                                    <th>Name</th>
-                                    <th>Email ID</th>
-                                    <th>Phone Number</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>John Doe</td>
-                                    <td>johndoe@example.com</td>
-                                    <td>123-456-7890</td>
-                                    <td>Active</td>
-                                    <td>
-                                        <button class="btn btn-danger">Block</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>maryjohnson@example.com</td>
-                                    <td>555-123-4567</td>
-                                    <td>Blocked</td>
-                                    <td>
-                                        <button class="btn btn-success">Unblock</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div> -->
-
                 </header>
-                <!-- <div class="card-body">
-                    <h5 class="card-title">Card content</h5>
-                    <div class="mt-4">
-                        <div class="text-muted font-size-14">
-                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam enim ad minima veniam quis</p>
-                        </div>
-                    </div>
-                </div> -->
             </div> 
+          <script>
+        $(document).ready(function () {
+            new DataTable('#user', {
+                order: [[0, 'desc']] 
+            });
+        });
+       </script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+         <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+         <script>
+            $(document).ready(function () {
+                new DataTable('#user', {
+                    order: [[0, 'desc']] 
+                });
+            });
+            </script>
         </section>
         <footer class="main-footer font-xs">
             <div class="row pb-30 pt-15">
-                
                 <div class="col-sm-6">
                  
                 </div>

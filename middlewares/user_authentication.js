@@ -10,7 +10,7 @@ module.exports.verifyUser = (req,res,next) => {
     process.env.JWT_SECRET_KEY,
     (err, decoded) => {
       if(err) {
-        return res.redirect ("/");   
+        return res.redirect ("/userLogin");   
       }
       req.user = decoded;
       next();

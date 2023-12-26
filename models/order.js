@@ -1,4 +1,4 @@
-const mongoose = require("mongoose") 
+const mongoose = require("mongoose")
 
 const orderSchema = new mongoose.Schema({
   userId: {
@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema({
     {
       courseId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "productCollection",
+        ref: "courseCollection",
         required: true,
       },
       price: {
@@ -37,10 +37,10 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  address: {
-    type: Object,
-    required: true,
-  },
+  // address: {
+  //   type: Object,
+  //   required: true,
+  // },
   cancelReason: {
     type: String
   },

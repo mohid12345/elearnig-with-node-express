@@ -15,9 +15,11 @@ module.exports.getCategory = async (req, res) => {
 module.exports.postCategory = async (req, res) => {
     try {
         const catgName = req.body.catgName;
+        console.log(catgName);
         const categorydata = await categoryCollection.findOne({ catgName: catgName });
         if (categorydata) {
-            res.status(409).json({ success: false, message: "Category already exists" });
+            // res.status(409).json({ success: false, message: "Category already exists" });
+             res.status(409).json({ success: false, message: "Category already exists" });
         } else {
             await categoryCollection.create({
                 catgName: catgName,
