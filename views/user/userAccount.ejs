@@ -133,13 +133,13 @@ remove this -->
                                                         <h5 class="d-flex  ml-200">Oops, there are no orders for the user !</h5>
                                                     <% } else { %>
                                                         <% orderDetails.reverse().forEach((order) => { %>
-                                                            <% order.products.reverse().forEach((product) => { %>
+                                                            <% order.courses.reverse().forEach((course) => { %>
                                                     <tbody>
                                                         <tr>
-                                                            <td><%= product.productId.productName %></td>
+                                                            <td><%= course.courseId.courseName %></td>
                                                             <td><%= order.createdAt.toLocaleDateString() %></td>
                                                             <td><%= order.orderStatus %></td>
-                                                            <td>₹<%= product.price * product.quantity %> for <%= product.quantity%> item</td>
+                                                            <td>₹<%= course.price * course.quantity %> for <%= course.quantity%> item</td>
                                                             <td><a href="/order-details/<%= order._id %>" class="btn-small d-block">View</a></td>
                                                         </tr>
                                                         <% }); %>

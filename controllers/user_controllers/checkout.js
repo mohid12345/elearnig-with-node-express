@@ -442,8 +442,9 @@ module.exports.razorpayOrderPlaced = async(req,res) => {
 //   if (couponCode) {
 //     const usedCoupon = await couponCollection.findOne({ couponCode: couponCode });
     
+
+
 //     if (usedCoupon) {
-      
 //       const minAmount = usedCoupon.minimumPurchase;
 //       const currentDate = new Date();
 //       console.log("inside checking", couponCode);
