@@ -231,14 +231,18 @@ remove this -->
                 showConfirmButton: false,
                 timer: 1500
                 });
-            }).catch(err=>{
-                console.error('Unable to copy to clipboard', error);
-            });
-        }
+            })
+            .then(() => {
+                redirect('userCheckout')
+            });
+            
+            .catch(err => {
+                console.error('Unable to copy to clipboard', err);
+            });
+    }
     </script>
 
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css"> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <style>
       body{
@@ -249,7 +253,7 @@ remove this -->
         width: 200px;
         padding: 10px;
         border-radius: 20px;
-        background: orange;
+        background: rgb(83, 147, 220);
         border: none;
         color: #fff;
         height: 250px;
@@ -266,10 +270,12 @@ remove this -->
       .card h1 {
         font-size: 35px;
         margin-bottom: 0px;
+        color: #fff;
       }
 
       .card span {
         font-size: 17px;
+        
       }
 
       .image {
