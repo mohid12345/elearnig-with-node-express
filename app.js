@@ -16,7 +16,8 @@ const adminRouter = require("./routes/adminRouter");
 const userRouter = require("./routes/userRouter");
 const creatorRouter = require("./routes/creatorRouter");
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT;
+//8000 port is 
 
 
 app.use(nocache());
@@ -57,7 +58,7 @@ app.listen(PORT, async () => {
       await mongoose.connect(MONGO_CNT);
       console.log(" SERVER CONNECTED");
       console.log(`http://localhost:${PORT}`);
-      console.log("DB Connected Sucessuflly");
+      console.log("DB Connected Successfully");
     } catch (err) {
       console.error(err);
     }

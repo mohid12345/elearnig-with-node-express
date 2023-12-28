@@ -4,7 +4,6 @@ const courseCollection = require("../../models/course")
 module.exports.getUserRoute = async(req, res) => {
     try{
         const loggedIn = req.cookies.loggedIn;
-       
         const courseData = await courseCollection.find()
         // console.log(userRouter.locals); - this is  a express data storages systerm to further use
         res.render("main",{loggedIn, courseData});
@@ -17,7 +16,6 @@ module.exports.getUserRoute = async(req, res) => {
 module.exports.getUserRoute_Course = async (req,res) => {
     try {
       const loggedIn = req.cookies.loggedIn;
-      console.log(loggedIn);
       const coursedata = await courseCollection.find()
       // const unblockedCourses = coursedata.filter(course => course.courseStatus !== 'Block');
       // res.render("courses", {loggedIn, coursedata: unblockedCourses});

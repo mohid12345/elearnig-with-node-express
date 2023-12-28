@@ -223,23 +223,23 @@ remove this -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     <script>
         function copyToClipboard(code) {
-            navigator.clipboard.writeText(code).then(()=> {
-                Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: "Coupon Code copied to Clipboard",
-                showConfirmButton: false,
-                timer: 1500
+            navigator.clipboard.writeText(code)
+                .then(() => {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: "Coupon Code copied to Clipboard",
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        // This will be executed after SweetAlert completes
+                        redirect('/');
+                    });
+                })
+                .catch(err => {
+                    console.error('Unable to copy to clipboard', err);
                 });
-            })
-            .then(() => {
-                redirect('userCheckout')
-            });
-            
-            .catch(err => {
-                console.error('Unable to copy to clipboard', err);
-            });
-    }
+        }
     </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

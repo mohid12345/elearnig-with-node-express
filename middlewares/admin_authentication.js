@@ -1,6 +1,4 @@
-const adminCollection = require("../models/adminSchema");
 const jwt = require("jsonwebtoken");
-const cookieparser = require("cookie-parser");
 require("dotenv").config();
 
 module.exports.verifyAdmin = (req,res,next) => {
@@ -13,22 +11,7 @@ module.exports.verifyAdmin = (req,res,next) => {
         return res.redirect ("/");
       }
       req.admin = decoded;
-      next(); //if success its passed to next callback route
+      next(); //if success passes to next callback
     }
   )
 };
-
-// module.exports.checkAdminBlockedStatus = async (req,res,next) => {
-//   try {
-//     const userId = req.user;
-//     const user = await userCollection.findById(userId);
-//     if (user.status === "Block") {
-//       res.clearCookie("token");
-//       res.clearCookie("loggedIn");
-//       res.render("user-login", {subreddit: "Your account has been blocked"})
-//     }
-//     next();
-//   } catch(error) {
-//     console.log(error)
-//   }
-// }

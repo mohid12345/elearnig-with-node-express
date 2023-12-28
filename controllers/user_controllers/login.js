@@ -5,13 +5,17 @@ require('dotenv').config();
 const jwt = require("jsonwebtoken");
 const secretkey = process.env.JWT_SECRET_KEY
 
-module.exports.getLogin = (req,res) => {
-    if(req.cookies.logindata) {
-      res.redirect("/");
-    } else { 
-      res.render("userLogin");
-    }
-  }
+// module.exports.getLogin = (req,res) => {
+//     if(req.cookies.logindata) {
+//       console.log("log 1");
+//       res.redirect("/");
+      
+//     } else { 
+//       console.log("log 2")
+//       res.render("userLogin");
+//       ;
+//     }
+//   }
 
 module.exports.postLogin = async (req, res) => {
     const logindata = await userCollection.findOne({ email: req.body.email });

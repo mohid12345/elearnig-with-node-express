@@ -139,7 +139,8 @@ remove this -->
                                                             <td><%= course.courseId.courseName %></td>
                                                             <td><%= order.createdAt.toLocaleDateString() %></td>
                                                             <td><%= order.orderStatus %></td>
-                                                            <td>₹<%= course.price * course.quantity %> for <%= course.quantity%> item</td>
+                                                            <!-- <td>₹<%= course.price * course.quantity %> for <%= course.quantity%> item</td> -->
+                                                            <td>₹<%= course.price%> </td>
                                                             <td><a href="/order-details/<%= order._id %>" class="btn-small d-block">View</a></td>
                                                         </tr>
                                                         <% }); %>

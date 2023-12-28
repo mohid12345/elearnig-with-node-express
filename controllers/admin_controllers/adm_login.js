@@ -1,8 +1,9 @@
 const adminCollection = require("../../models/adminSchema");
 
 module.exports.getAdminLogin = async (req, res) => {
-    if (req.session.admin) {
-    //   users = await userCollection.find({});
+    if (req.cookies.admin) {
+      admin = req.cookies.admin;
+      console.log(admin, "admin loggedIN...");
       res.render("adminDashboard");
     } else {
       res.render("adminLogin");
@@ -13,11 +14,6 @@ module.exports.getAdminLogout = (req,res) =>{
   req.session.admin = null
   res.redirect("/admin/adminLogin")
 }
-// module.exports.getAdminLogout = (req,res) =>{
-//  if(req.session.admin){
-//   res.send("send logout")
-//  }
-// }
 
 module.exports.postAdminDashboard = async (req, res) =>{
     const data = await adminCollection.findOne({ email: req.body.email});

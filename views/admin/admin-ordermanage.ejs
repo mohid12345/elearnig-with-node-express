@@ -21,8 +21,8 @@
                 </li>
 
                 <li class="menu-item">
-                    <a class="menu-link" href="/admin/product-list"> <i class="icon material-icons md-shopping_bag"></i>
-                        <span class="text">Products</span>
+                    <a class="menu-link" href="/admin/course-list"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Courses</span>
                     </a>
                 </li>
 
@@ -52,45 +52,10 @@
                         <span class="text">Offers</span>
                     </a>
                 </li>
-                <!-- <li class="menu-item">
-                    <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>
-                        <span class="text">Add product</span>
-                    </a>
-                </li> -->
-                <!-- <li class="menu-item">
-                    <a class="menu-link" href="page-transactions-1.html"> <i class="icon material-icons md-monetization_on"></i>
-                        <span class="text">Transactions</span>
-                    </a>
-                </li> -->
-                
-                <!-- <li class="menu-item">
-                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
-                        <span class="text">Reviews</span>
-                    </a>
-                </li> -->
-                
-                <!-- <li class="menu-item">
-                    <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
-                        <span class="text">Statistics</span>
-                    </a>
-                </li> -->
-            </ul>
+              </ul>
             <hr>
             <ul class="menu-aside">
-                <!-- <li class="menu-item has-submenu">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
-                        <span class="text">Settings</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-settings-1.html">Setting sample 1</a>
-                        <a href="page-settings-2.html">Setting sample 2</a>
-                    </div>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="page-blank.html"> <i class="icon material-icons md-local_offer"></i>
-                        <span class="text"> Starter page </span>
-                    </a>
-                </li> -->
+               
             </ul>
             <br>
             <br>
@@ -105,7 +70,7 @@
                         <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
                     </div>
                     <datalist id="search_terms">
-                        <option value="Products">
+                        <option value="Courses">
                         <option value="New orders">
                         <option value="Apple iphone">
                         <option value="Ahmed Hassan">
@@ -167,7 +132,7 @@
                                     <thead>
                                         <tr>
                                             <th>Photo</th>
-                                            <th>Product</th>
+                                            <th>Course</th>
                                             <th>Date</th>
                                             <th>Status</th>
                                             <th>PaymentStatus</th>
@@ -179,16 +144,16 @@
                                         <% if (!orderDetails || orderDetails.length === 0) { %>
                                             <h6>No orders</h6>
                                         <% } else { %>
-                                            <% orderDetails.products.forEach((item) => { %>
+                                            <% orderDetails.courses.forEach((item) => { %>
                                               
                                         <tr>
-                                            <td><img src="/<%= item.productId.productImg[0] %>" class="img-sm " alt="Item" height="68" width="68"></td>
-                                            <td><%= item.productId.productName %></td>
+                                            <td><img src="/<%= item.courseId.courseImg[0] %>" class="img-sm " alt="Item" height="68" width="68"></td>
+                                            <td><%= item.courseId.courseName %></td>
                                             <td><%= orderDetails.createdAt.toLocaleDateString() %></td>
                                             <td><%= item.status %></td>
                                             <td><%= orderDetails.paymentStatus %></td>
                                             <td><%= orderDetails.paymentMethod %></td>
-                                            <td>₹<%= item.price * item.quantity %> for <%= item.quantity%> item</td>
+                                            <td>₹<%= item.price %></td>
                                         </tr>
                                         
                                         <% }); %>
@@ -203,11 +168,11 @@
                                   <div class="d-flex justify-content-between col-3">
                                    
                                       <% if(orderDetails.orderStatus === "Order Placed" ) {%> 
-                                        <a href="#" order-id="<%= orderDetails._id %>" id="dispatchButton" class="btn btn-sm" style="background-color: rgb(8, 132, 185);">Dispatch product</a>
-                                        <a href="#" order-id="<%= orderDetails._id %>" id="cancelButton" class="btn btn-sm" style="background-color: rgb(185, 8, 14);">Cancel product</a>
+                                        <a href="#" order-id="<%= orderDetails._id %>" id="dispatchButton" class="btn btn-sm" style="background-color: rgb(8, 132, 185);">Dispatch course</a>
+                                        <a href="#" order-id="<%= orderDetails._id %>" id="cancelButton" class="btn btn-sm" style="background-color: rgb(185, 8, 14);">Cancel course</a>
                                         <%} else if(orderDetails.orderStatus === "Shipped") {%> 
-                                          <a href="#" order-id="<%= orderDetails._id %>" id="deliveryButton" class="btn btn-sm" style="background-color: rgb(6, 121, 2);">Deliver product</a>
-                                          <a href="#" order-id="<%= orderDetails._id %>" id="cancelButton" class="btn btn-sm" style="background-color: rgb(185, 8, 14);">Cancel product</a>
+                                          <a href="#" order-id="<%= orderDetails._id %>" id="deliveryButton" class="btn btn-sm" style="background-color: rgb(6, 121, 2);">Deliver course</a>
+                                          <a href="#" order-id="<%= orderDetails._id %>" id="cancelButton" class="btn btn-sm" style="background-color: rgb(185, 8, 14);">Cancel course</a>
                                           <%} else if(orderDetails.orderStatus === "Delivered") {%>
                                             <h5 style="color: rgb(2, 120, 36);">The order is Delivered</h5>
                                             <%} else if(orderDetails.orderStatus === "Cancelled") {%> 
@@ -294,7 +259,7 @@
                   }
                 })
                 .catch(error => {
-                  console.error("Error found while dispatch product", error);
+                  console.error("Error found while dispatch course", error);
                 });
             }
           })
@@ -342,7 +307,7 @@
                   }
                 })
                 .catch(error => {
-                  console.error("Error found while dispatch product", error);
+                  console.error("Error found while dispatch course", error);
                 });
             }
           })
@@ -391,7 +356,7 @@
                 }
                 })
                 .catch(error => {
-                console.error("Error cancelling product", error);
+                console.error("Error cancelling course", error);
                 });
             }
         });
