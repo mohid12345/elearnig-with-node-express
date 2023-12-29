@@ -1,8 +1,12 @@
 const adminCollection = require("../../models/adminSchema");
 
+require('dotenv').config();
+const jwt = require("jsonwebtoken");
+const secretkey = process.env.JWT_SECRET_KEY
+
 module.exports.getAdminLogin = async (req, res) => {
-    if (req.cookies.admin) {
-      admin = req.cookies.admin;
+    if (req.cookies.admindata) {
+      admin = req.cookies.admindata;
       console.log(admin, "admin loggedIN...");
       res.render("adminDashboard");
     } else {
@@ -11,33 +15,48 @@ module.exports.getAdminLogin = async (req, res) => {
   };
 
 module.exports.getAdminLogout = (req,res) =>{
-  req.session.admin = null
-  res.redirect("/admin/adminLogin")
+    res.clearCookie("token");
+    res.clearCookie("loggedIn");
+    res.redirect("/admin/adminLogin")
 }
 
-module.exports.postAdminDashboard = async (req, res) =>{
-    const data = await adminCollection.findOne({ email: req.body.email});
-    if (data) {
-        if(req.body.email !== data.email) {
-            res.render("adminLogin", {subreddit: "incorrect email"});
-        } else if ( req.body.password !== data.password) {
-            res.render("adminLogin", {subreddit:"incorrect password"});
-        } else {
-            if(req.body.email == data.email && req.body.password == data.password) {
-                req.session.admin = data.email;
-                const admin = req.session.admin;
-                res.render("adminDashboard", {admin});
-                // res.send("admin logged success")
-                // console.log("admin logged success")
-            }
-        }
+module.exports.postAdminDashboard = async(req,res) => {
+  const admindata = await adminCollection.findOne({ email: req.body.email});
+  if (!admindata) {
+    res.render("adminLogin", {subreddit: "The email is not registered"});
+  } else {
+    if (admindata){
+      if (req.body.email != admindata.email) 
+      {
+        res.render("adminLogin", {subreddit:"This email not registered"});
+      } else if (req.body.password != admindata.password) 
+      {
+        res.render("adminLogin", {subreddit: "Incorrect passaword"});
+      } else 
+      {
+        if ( req.body.email == admindata.email && req.body.password == admindata.password ) 
+        { 
+          try {
+          email = req.body.email;
+          const token = jwt.sign(email, secretkey);
+          res.cookie("token", token, { maxAge: 24 * 60 * 60 * 1000 });
+          res.cookie("loggedIn", true, { maxAge: 24 * 60 * 60 * 1000 });
+          res.status(200);
+          res.redirect("/admin/adminDashboard")
+          } catch (error) {
+              console.log(error);
+              res.status(500).json({ error: "Internal Server Error" });
+          }
+        } 
+      }
     } else {
-        res.redirect ("../");
+      res.redirect("/admin/adminLogin")
     }
-};
+  }
+}
 
 module.exports.getAdminDashboard = async (req, res) => {
-    if (req.session.admin) {
+    if (req.cookies.loggedIn) {
     //   users = await userCollection.find({});
       res.render("adminDashboard");
     } else {

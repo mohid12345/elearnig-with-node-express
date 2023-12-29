@@ -23,8 +23,10 @@ userRouter.get("/", homepageControll.getUserRoute);
 userRouter.get("/userLogout", homepageControll.getLogout);
 
 //userlogin
+userRouter.get("/userLogin", (req, res) => {
+    res.render("userLogin");
+});
 userRouter.post("/userLogin", loginControll.postLogin);
-// userRouter.get("/userLogin", loginControll.getLogin);//a post is enough
 userRouter.get("/userForgetPwd", loginControll.getForgetPwd);
 // userRouter.post("/userOtpLogin",userControllers.postOtpLogin);
 // userRouter.get("/userDashboard", userControllers.getUserDashboard);
@@ -48,9 +50,6 @@ userRouter.get("/courses", homepageControll.getUserRoute_Course);
 // Render the contact page
 userRouter.get("/contact", homepageControll.getUserRoute_Contact);
 // Render the contact page
-userRouter.get("/userLogin", (req, res) => {
-    res.render("userLogin");
-});
 
 //Rendering the wishlist page
 userRouter.get("/userWishlist",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.getWishlistPage);

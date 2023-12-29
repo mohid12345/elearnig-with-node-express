@@ -8,7 +8,7 @@ module.exports.verifyAdmin = (req,res,next) => {
     process.env.JWT_SECRET_KEY,
     (err, decoded) => {
       if(err) {
-        return res.redirect ("/");
+        return res.redirect ("/admin/adminLogin");
       }
       req.admin = decoded;
       next(); //if success passes to next callback

@@ -1,14 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EdX - Admin Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  -->
-<!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
 <%- include("../partials/header") %>
-<!-- </head> -->
 <body>
   <a href="/" class="btn btn-primary my-3 mx-3">  X</a>
     <form action="/creator/creatorDashboard" method="POST">
@@ -23,6 +13,13 @@
               <form>
                 <!-- Email input -->
                 <div class="form-outline mb-4">
+                  <!-- subreddit -->
+                  <div class="heading_s1">
+                    <%if (typeof subreddit !== 'undefined') {%>
+                        <p class="text-center" style="color:red;"><%= subreddit %></p>
+                    <%} %>
+                    <h3 class="mb-30"> Creator Login</h3>
+                </div>
                   <input type="email" id="form1Example13" name="email" class="form-control form-control-lg" />
                   <label class="form-label" for="form1Example13">Email address</label>
                   <div id="emailError" class="error-message text-danger"></div>
@@ -43,7 +40,6 @@
                   </div>
                   <a href="#!">Forgot password?</a>
                 </div>
-      
                 <!-- Submit button -->
                 <button type="submit" class="btn btn-primary btn-lg btn-block">Log in</button>
       
@@ -53,11 +49,4 @@
         </div>
       </section>
     </form>
-
-<!-- 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
-<!-- </body> -->
-
-
 <%- include("../partials/footer") %>
-<!-- </html> -->

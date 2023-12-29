@@ -5,6 +5,10 @@ const creatorCourseController = require("../controllers/creator_controllers/crea
 const creatorLogin = require("../controllers/creator_controllers/creatorLogin")
 const creatorSignup = require("../controllers/creator_controllers/creatorSignup")
 
+const cookieParser = require("cookie-parser");
+creatorRouter.use(cookieParser());
+const creatorMiddleware = require("../middlewares/creator_authentication");
+
 const path = require("path");
 const multer = require("multer");
 const fileUpload = require("express-fileupload");
@@ -32,7 +36,7 @@ const uploads = multer({
 //login
 creatorRouter.get("/creatorLogin", creatorLogin.getCreatorLogin)
 creatorRouter.post("/creatorDashboard", creatorLogin.postCreatorLogin)
-creatorRouter.get("/creatorLogout", creatorLogin.creatorLogout)
+creatorRouter.get("/creatorLogout",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, creatorLogin.creatorLogout)
 
 //signup
 creatorRouter.route("/creatorSignup")
@@ -40,17 +44,17 @@ creatorRouter.route("/creatorSignup")
 .post(creatorSignup.postCreatorSignup)
 
 //Dashboard
-creatorRouter.get("/creatorDashboard", creatorControllers.getCreatorDash)
+creatorRouter.get("/creatorDashboard",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, creatorControllers.getCreatorDash)
 
 //Courses manage
-creatorRouter.get("/creatorUpload",creatorCourseController.getCreatorUpload)
-creatorRouter.get("/creator-course-list", creatorCourseController.getCourseList)
-creatorRouter.get("creator-add-course", creatorCourseController.getAddCourse)
-creatorRouter.post("/postadd-course", uploads, creatorCourseController.postCourse)
-creatorRouter.post("/postadd-course-video",fileUpload(),cloudinaryUploadMiddleware('courseVid'),creatorCourseController.postCourseVideo)
-creatorRouter.get("/delete-course/:courseId", creatorCourseController.deleteCourse);
-creatorRouter.get("/edit-course/:courseId", creatorCourseController.editCourse)
-creatorRouter.post("/postEdit-course/:courseId", uploads, creatorCourseController.updateCourse)
+creatorRouter.get("/creatorUpload",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus,creatorCourseController.getCreatorUpload)
+creatorRouter.get("/creator-course-list",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, creatorCourseController.getCourseList)
+creatorRouter.get("creator-add-course",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, creatorCourseController.getAddCourse)
+creatorRouter.post("/postadd-course",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, uploads, creatorCourseController.postCourse)
+creatorRouter.post("/postadd-course-video",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus,fileUpload(),cloudinaryUploadMiddleware('courseVid'),creatorCourseController.postCourseVideo)
+creatorRouter.get("/delete-course/:courseId",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, creatorCourseController.deleteCourse);
+creatorRouter.get("/edit-course/:courseId",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, creatorCourseController.editCourse)
+creatorRouter.post("/postEdit-course/:courseId",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, uploads, creatorCourseController.updateCourse)
 
 module.exports = creatorRouter;
 

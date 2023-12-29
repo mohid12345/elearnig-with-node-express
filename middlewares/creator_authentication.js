@@ -1,15 +1,29 @@
-const express = require('express')
-const session = require('express-session')
+const creatorCollection = require("../models/creatorSchema");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-const creatorSessionMiddleware = session({
-    secret: 'JWT_SECRET_KEY',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 24*60*60*1000,
-        secure:false,
-        httpOnly: true,  
-    },
-})
+module.exports.verifyCreator = (req,res,next) => {
+  const token = req.cookies.token;
+  const verifyToken = jwt.verify(
+    token, 
+    process.env.JWT_SECRET_KEY,
+    (err, decoded) => {
+      if(err) {
+        return res.redirect ("/creatorLogin");   
+      }
+      req.user = decoded;
+      next();
+    }
+  )
+};
 
-module.exports = creatorSessionMiddleware
+module.exports.checkBlockedStatus = async (req,res,next) => {
+    const creator = req.creator;
+    const currcreator = await creatorCollection.findOne({email: creator});
+    if (currcreator.status === "Block") {
+      res.clearCookie("token");
+      res.clearCookie("loggedIn");
+      res.render("creatorLogin", {subreddit: "Creator is blocked"})
+    }
+    next();
+};

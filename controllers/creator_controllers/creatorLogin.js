@@ -1,9 +1,12 @@
 const creatorCollection = require("../../models/creatorSchema")
 
+require('dotenv').config();
+const jwt = require("jsonwebtoken");
+const secretkey = process.env.JWT_SECRET_KEY
 
 module.exports.getCreatorLogin = (req,res)=>{
     try{
-    if(req.session.creator){
+    if(req.cookies.creatordate){
         res.redirect("/creator/creatorDashboard");
     } else {
         res.render("creatorLogin");
@@ -17,7 +20,7 @@ module.exports.postCreatorLogin = async(req,res)=>{
     const creatorData = await creatorCollection.findOne({email:req.body.email})
     // console.log(creatorData)
      if(!creatorData){
-        res.render("creatorLogin")
+        res.render("creatorLogin",{subreddit:"The email is not registered"});
      } else {
         if(creatorData){    
             if(req.body.email!=creatorData.email){
@@ -26,17 +29,35 @@ module.exports.postCreatorLogin = async(req,res)=>{
             res.render("creatorLogin", {subreddit:"Incorrect password entered"});
         } else{
             if(req.body.email==creatorData.email&&req.body.password==creatorData.password){
-                res.render("creatorDashboard")
+                {
+                    try{
+                        email = req.body.email;
+                        const token = jwt.sign(email, secretkey);
+                        res.cookie("token", token, { maxAge: 24 * 60 * 60 * 1000});
+                        res.cookie("loggedIn", true, { maxAge: 24 * 60 * 60 * 1000});
+                        res.status(200);
+                        res.render("creatorDashboard")
+                        } catch ( error ) {
+                            console.log(error);
+                            res.status(500).json({error: "Internal Server Error"});
+                        }
+                }
             }
         }
      } else { 
-        res.redirect("")
+        res.redirect("/creator/creatorLogin")
     }
 }
 }
 
+// module.exports.creatorLogout = (req,res) =>{
+//     res.clearCookie("token");
+//     res.clearCookie("loggedIn");
+//     res.redirect("/creator/creatorLogin")
+// }
 module.exports.creatorLogout = (req,res) =>{
-    res.clearCookie("token");
-    res.clearCookie("loggedIn");
-    res.redirect("/creator/creatorLogin")
-}
+    req.session.creator = null;
+    console.log(req.session);
+    res.redirect("/creatorLogin");
+};
+    
