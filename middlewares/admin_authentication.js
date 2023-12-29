@@ -2,9 +2,9 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 module.exports.verifyAdmin = (req,res,next) => {
-  const token = req.cookies.token;
+  const token2 = req.cookies.token2;
   const verifyToken = jwt.verify(
-    token, 
+    token2, 
     process.env.JWT_SECRET_KEY,
     (err, decoded) => {
       if(err) {

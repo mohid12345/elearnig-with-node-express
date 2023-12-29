@@ -35,7 +35,7 @@ const uploads = multer({
 
 //login
 creatorRouter.get("/creatorLogin", creatorLogin.getCreatorLogin)
-creatorRouter.post("/creatorDashboard", creatorLogin.postCreatorLogin)
+creatorRouter.post("/postCreatorLogin", creatorLogin.postCreatorLogin)
 creatorRouter.get("/creatorLogout",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, creatorLogin.creatorLogout)
 
 //signup
@@ -49,7 +49,7 @@ creatorRouter.get("/creatorDashboard",creatorMiddleware.verifyCreator,creatorMid
 //Courses manage
 creatorRouter.get("/creatorUpload",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus,creatorCourseController.getCreatorUpload)
 creatorRouter.get("/creator-course-list",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, creatorCourseController.getCourseList)
-creatorRouter.get("creator-add-course",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, creatorCourseController.getAddCourse)
+// creatorRouter.get("creator-add-course",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, creatorCourseController.getAddCourse)
 creatorRouter.post("/postadd-course",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, uploads, creatorCourseController.postCourse)
 creatorRouter.post("/postadd-course-video",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus,fileUpload(),cloudinaryUploadMiddleware('courseVid'),creatorCourseController.postCourseVideo)
 creatorRouter.get("/delete-course/:courseId",creatorMiddleware.verifyCreator,creatorMiddleware.checkBlockedStatus, creatorCourseController.deleteCourse);

@@ -2,7 +2,7 @@ const creatorCollection = require("../../models/creatorSchema");
 
 module.exports.getCreatorDash = async (req, res) => {
    try{
-    if (req.session.creator) {
+    if (req.cookies.loggedIn) {
       creatorData = await creatorCollection.find({});
       res.render("creatorDashboard", creatorData);
     } else {
@@ -13,3 +13,16 @@ module.exports.getCreatorDash = async (req, res) => {
    res.status(500).send('internal server error')
   }
 }
+// module.exports.getCreatorDash = async (req, res) => {
+//    try{
+//     if (req.session.creator) {
+//       creatorData = await creatorCollection.find({});
+//       res.render("creatorDashboard", creatorData);
+//     } else {
+//       res.render("creatorLogin");
+//     }
+//   } catch (error) {
+//    console.error('error getting dashboard', error)
+//    res.status(500).send('internal server error')
+//   }
+// }

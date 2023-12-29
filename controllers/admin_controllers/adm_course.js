@@ -50,19 +50,7 @@ module.exports.postCourse = async (req, res) => {
                 courseImg: imageIds,
              });
             courseId = newCourse._id;
-            // console.log("new courseid id 11 : ", courseId);
-            // res.redirect(`/admin/postadd-course-video?courseId=${courseId}`);
-            //    axios.post(`/admin/postadd-course-video?courseId=${courseId}`);
-            // const coursedata = await courseCollection.find();//this will collect all data
-            // console.log("course data just uploded :", coursedata);
-            // res.render("admin-courselist", { coursedata });
-            // console.log("imagesIds: ", imageIds);
-            // res.status(200).json({
-            //     status: "success",
-            //     message: "Details and Image added successfully. Please upload Video",
-            //     courseId: courseId // You may want to include courseId in the response
-            // });
-            res.status(200);
+              res.status(200);
         } else {
             res.status(400).send("No images selected for upload");
         }
@@ -75,9 +63,6 @@ module.exports.postCourse = async (req, res) => {
 //video upload course 0
 module.exports.postCourseVideo = async (req, res) => {
     try {
-        // let courseId = req.query.courseId;
-        // let courseId = courseId;
-
         if (courseId) {
             console.log(courseId);
             if (req.files) {

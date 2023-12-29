@@ -24,7 +24,7 @@ module.exports.postCourse = async (req, res) => {
           });
           const imageIds = arr.map((courseImg) => courseImg.path);
 
-          await courseCollection.create({
+          const newCourse = await courseCollection.create({
               courseName: req.body.courseName,
               courseDiscription: req.body.courseDiscription,
               courseRequirements: req.body.courseRequirements,
@@ -51,7 +51,7 @@ module.exports.postCourse = async (req, res) => {
 //video posting by creator
 module.exports.postCourseVideo = async (req, res) => {
   try {
-      if (couseId) {
+      if (courseId) {
           console.log(courseId);
           if (req.files) {
               const videoUrl = req.cloudinarVideoUrl;
@@ -94,15 +94,15 @@ module.exports.getCourseList = async(req,res)=>{
 }
 
 // render add course page
-module.exports.getAddCourse = async(req,res) => {
-    try {
-      const categorydata = await categoryCollection.find();
-      const categories = Array.isArray(categorydata)? categorydata : [categorydata];
-      res.render("creator-addcourse", {categories});
-    } catch (error) {
-      console.error(error);
-    }
-  }
+// module.exports.getAddCourse = async(req,res) => {
+//     try {
+//       const categorydata = await categoryCollection.find();
+//       const categories = Array.isArray(categorydata)? categorydata : [categorydata];
+//       res.render("creator-addcourse", {categories});
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   }
    
   // delete a course
   module.exports.deleteCourse = async(req,res) => {
@@ -111,7 +111,7 @@ module.exports.getAddCourse = async(req,res) => {
       console.log(courseId)
       const result = await courseCollection.deleteOne({_id:courseId})
       if(result.deletedCount === 1) {
-        res.redirect("/creator/course-list")
+        res.redirect("/creator/creator-course-list")
       } else {
         res.status(404).send("Category not found")
       }
@@ -126,7 +126,8 @@ module.exports.getAddCourse = async(req,res) => {
       const course = req.params.courseId;
       const coursedata = await courseCollection.findOne({_id:course})
       const categorydata = await categoryCollection.find();
-      res.render("creatorEditCourses", {coursedata, categorydata})
+      res.render("creatorEditCourse", {coursedata, categorydata})
+      // res.redirect("/creator/creatorEditCourse", {coursedata, categorydata})
     } catch (error) {
       console.log(error);
     }

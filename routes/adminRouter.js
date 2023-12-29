@@ -35,8 +35,8 @@ adminRouter.get("/adminLogin",  loginControll.getAdminLogin)
 adminRouter.get("/adminLogout", loginControll.getAdminLogout)
 
 // homepage
-adminRouter.post("/adminDashboard",adminMiddleware.verifyAdmin, loginControll.postAdminDashboard)
-adminRouter.get("/adminDashboard",adminMiddleware.verifyAdmin, loginControll.getAdminDashboard)
+adminRouter.post("/adminDashboard", loginControll.postAdminDashboard)
+adminRouter.get("/adminDashboard", loginControll.getAdminDashboard)
 // adminRouter.get("/adminDashboard", adminMiddleware.verifyAdmin,  loginControll.getAdminDashboard)
 
 // Category

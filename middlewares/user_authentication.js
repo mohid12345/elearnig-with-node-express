@@ -4,10 +4,7 @@ require("dotenv").config();
 
 module.exports.verifyUser = (req,res,next) => {
   const token = req.cookies.token;
-  const verifyToken = jwt.verify(
-    token, 
-    process.env.JWT_SECRET_KEY,
-    (err, decoded) => {
+  const verifyToken = jwt.verify(token,process.env.JWT_SECRET_KEY,(err, decoded) => {
       if(err) {
         return res.redirect ("/userLogin");   
       }
@@ -18,7 +15,7 @@ module.exports.verifyUser = (req,res,next) => {
 };
 
 module.exports.checkBlockedStatus = async (req,res,next) => {
-    const user = req.user;
+    const user = req.user;//we have the email in hand
     const curruser = await userCollection.findOne({email: user});
     if (curruser.status === "Block") {
       res.clearCookie("token");

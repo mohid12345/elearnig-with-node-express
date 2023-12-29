@@ -19,9 +19,9 @@ const creatorSchema = new mongoose.Schema({
         type: String,
     },
     status: {
-        require: true,
-        type: String,
-    },
+    required: true,
+    type: String,
+  },
 });
 
 const creatorCollection = mongoose.model("creatorCollection", creatorSchema);
