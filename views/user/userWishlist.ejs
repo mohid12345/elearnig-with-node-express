@@ -85,7 +85,7 @@ remove this -->
                                 </div>
                             <% } else if (wishlistDetails.courses.length===0) {%>
                                 <div class="text-center">
-                                    <h5>there is now products in your cart 2</h5>
+                                    <h5>there is now courses in your cart 2</h5>
                                 </div>
                                 <% } else { %>
 
@@ -93,7 +93,7 @@ remove this -->
                                 <table class="table shopping-summery text-center">
                                     <thead>
                                         <tr class="main-heading">
-                                            <th scope="col" colspan="2">Product</th>
+                                            <th scope="col" colspan="2">Course</th>
                                             <th scope="col">Price</th>
                                             <th scope="col">Author</th>
                                             <th scope="col">Action</th>
@@ -103,9 +103,9 @@ remove this -->
                                     <tbody>
                                         <% wishlistDetails.courses.forEach(course => { %>
                                         <tr>
-                                            <td class="image product-thumbnail"><img src="<%= course.courseId.courseImg[0] %>" alt="#"></td>
-                                            <td class="product-des product-name">
-                                                <h5 class="product-name"><a href="shop-product-right.html"><%= course.courseId.courseName %></a></h5>
+                                            <td class="image course-thumbnail"><img src="<%= course.courseId.courseImg[0] %>" alt="#"></td>
+                                            <td class="course-des course-name">
+                                                <h5 class="course-name"><a href="shop-course-right.html"><%= course.courseId.courseName %></a></h5>
                                                 <!-- <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy magndapibus. -->
                                                 </p>
                                             </td>
@@ -114,14 +114,63 @@ remove this -->
                                                 <span class="color3 font-weight-bold"><%= course.courseId.courseAuthor %></span>
                                             </td>
                                             <td class="text-right" data-title="Cart">
-                                                <button class="btn btn-sm"><i class="fi-rs-shopping-bag mr-5"></i>Add to cart</button>
+                                                <% if(course.courseId) {%>
+                                                        <a aria-label="Buy now" class="btn btn-sm hover-up addingcart-btn" data-course-id="<%= course.courseId._id %>" id="addingcart">
+                                                            <i class="fi-rs-shopping-bag-add"> Add to Cart</i>
+                                                        </a>
+                                                        <%} %>
+                                                
                                             </td>
                                             <td class="action" data-title="Remove"><a href="/delete-wishlist?courseId=<%= course.id %>" class="text-muted"><i class="fi-rs-trash"></i></a></td>
                                             </tr>
+
+
+                                            
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const addingcartButtons = document.querySelectorAll(".addingcart-btn");
+    
+            addingcartButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    const courseId = button.getAttribute("data-course-id");
+                    fetch(`/addCart?courseId=${courseId}`, {
+                        method: 'POST',
+                        headers: {
+                            'content-Type': 'application/json',
+                        },
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("Response from server", data);
+                        // Check if the response contains a message
+                        if (data.message) {
+                            // Display Sweet Alert
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Course Added to Cart',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error adding to cart", error);
+                    });
+                });
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
                                         <!-- <tr>
-                                            <td class="image"><img src="userAssets-secondary/imgs/shop/product-2-1.jpg" alt="#"></td>
-                                            <td class="product-des">
-                                                <h5 class="product-name"><a href="shop-product-right.html">Amazon Essentials Women's Tank</a></h5>
+                                            <td class="image"><img src="userAssets-secondary/imgs/shop/course-2-1.jpg" alt="#"></td>
+                                            <td class="course-des">
+                                                <h5 class="course-name"><a href="shop-course-right.html">Amazon Essentials Women's Tank</a></h5>
                                                 <p class="font-xs">Sit at ipsum amet clita no est,<br> sed amet sadipscing et gubergren</p>
                                             </td>
                                             <td class="price" data-title="Price"><span>$75.00 </span></td>
@@ -134,9 +183,9 @@ remove this -->
                                             <td class="action" data-title="Remove"><a href="#"><i class="fi-rs-trash"></i></a></td>
                                         </tr>
                                         <tr>
-                                            <td class="image"><img src="userAssets-secondary/imgs/shop/product-3-1.jpg" alt="#"></td>
-                                            <td class="product-des">
-                                                <h5 class="product-name"><a href="shop-product-right.html">Amazon Brand - Daily Ritual Women's Jersey </a></h5>
+                                            <td class="image"><img src="userAssets-secondary/imgs/shop/course-3-1.jpg" alt="#"></td>
+                                            <td class="course-des">
+                                                <h5 class="course-name"><a href="shop-course-right.html">Amazon Brand - Daily Ritual Women's Jersey </a></h5>
                                                 <p class="font-xs">Erat amet et et amet diam et et.<br> Justo amet at dolore
                                                 </p>
                                             </td>

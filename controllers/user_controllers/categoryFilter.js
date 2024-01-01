@@ -52,9 +52,9 @@ module.exports.filterCategory = async (req, res) => {
     const username = userData.username;
     let coursedata;
     let { sort, categories } = req.body;
-    console.log("sort",sort);
+    console.log("sort", sort);
 
-    sort = (sort == "highToLow") ? 1 : -1;
+    sort = (sort === "highToLow") ? -1 : 1; // Updated this line
 
     const categorydata = await categoryCollection.find({});
 
@@ -64,15 +64,13 @@ module.exports.filterCategory = async (req, res) => {
 
       coursedata = await courseCollection
         .find({ courseCategory: categoryName })
-        .sort({ sellingPrice: sort });
-      coursedata = coursedata.filter(course => course.courseStatus !== 'Block');
+        .sort({ courseAmount: sort }); // Updated this line
       const courseCount = coursedata.length;
 
       res.render("courses", { username, loggedIn, coursedata, categorydata, courseCount });
     } else {
       coursedata = await courseCollection.find({})
-        .sort({ courseAmount: sort });
-      coursedata = coursedata.filter(course => course.courseStatus !== 'Block');
+        .sort({ courseAmount: sort }); // Updated this line
       const courseCount = coursedata.length;
       console.log(coursedata);
       res.render("courses", { username, loggedIn, coursedata, categorydata, courseCount });
@@ -106,11 +104,10 @@ module.exports.searchCourses = async(req,res) => {
         })
     
         const categorydata = await categoryCollection.find();
-        const category = categorydata.filter(category => category.categoryStatus !== 'Block');
-
+        
         let coursedata = await courseCollection.find();
-        coursedata = coursedata.filter(course => course.courseStatus !== 'Block');
-
+        
+console.log(search_course);
       if(search_course) {
         const regexPattern = new RegExp(search_course, 'i');
        coursedata = await courseCollection.find({
@@ -119,21 +116,21 @@ module.exports.searchCourses = async(req,res) => {
             $or: [
               { courseName: { $regex: regexPattern } },
               { courseCategory: { $regex: regexPattern } },
-              { courseBrand: { $regex: regexPattern } },
+              { courseAuthor: { $regex: regexPattern } },
             ],
           },
-          { courseStatus: 'Unblock' },
         ],
       });
+      console.log("hey 111",coursedata);
       }
     
 
       if(req.user){
         const userData = await userCollection.findOne({email:req.user})
         const username = userData.username;
-        res.render("courses", { loggedIn, username, coursedata, categorydata: category });
+        res.render("courses", { loggedIn, username, coursedata, categorydata });
       } else {
-        res.render("courses", { loggedIn, coursedata, categorydata: category });
+        res.render("courses", { loggedIn, coursedata, categorydata });
       }
 
   } catch(error) {

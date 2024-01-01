@@ -18,7 +18,7 @@ const courseSchema = new mongoose.Schema ({
     },
     courseAmount:{
         require: true,
-        type: String,
+        type: Number,
     },
     courseDuration:{
         require: true,

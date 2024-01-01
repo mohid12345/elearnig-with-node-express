@@ -102,7 +102,7 @@ userRouter.get("/get-coupons", userMiddleware.verifyUser, userMiddleware.checkBl
 
 // filter
 userRouter.post("/filter-category", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, filterControll.filterCategory)
-// userRouter.post("/search", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, filterControll.searchProducts)
+userRouter.post("/search", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, filterControll.searchCourses)
 
 
 
