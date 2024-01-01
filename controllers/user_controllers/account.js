@@ -10,7 +10,6 @@ module.exports.getUserAccount = async(req,res) => {
     try{
       const loggedIn = req.cookies.loggedIn;
       const username = req.cookies.username;
-      console.log("11 : ",username);
   
       const userData = await userCollection.findOne({ email: req.user });
       const userId = userData._id;

@@ -1,4 +1,5 @@
-const courseCollection = require("../../models/course")
+const courseCollection = require("../../models/course");
+const categoryCollection = require("../../models/category");
 
 //for homepage
 module.exports.getUserRoute = async(req, res) => {
@@ -36,7 +37,8 @@ module.exports.getUserRoute_Course = async (req,res) => {
 
       const loggedIn = req.cookies.loggedIn;
       const coursedata = await courseCollection.find()
-      res.render("courses", {loggedIn, coursedata});
+      const categorydata = await categoryCollection.find();
+      res.render("courses", {loggedIn, coursedata, categorydata});
     } catch (error) {
       console.error(error);
     }

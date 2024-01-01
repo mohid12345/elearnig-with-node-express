@@ -7,10 +7,10 @@ remove this -->
 
 <body>
     <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
-        </div>
+        </div> -->
     </div>
     <!-- Spinner End -->
 
@@ -57,7 +57,7 @@ remove this -->
         <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
-                    <h1 class="display-3 text-white animated slideInDown">Account</h1>
+                    <h1 class="display-3 text-white animated slideInDown">Order Details</h1>
                 </div>
             </div>
         </div>
@@ -66,139 +66,82 @@ remove this -->
 
 
     <!-- Table Start -->
-
-
-
-
     <section class="pt-80 pb-100">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 m-auto">
                     <div class="row">
-                        <!-- <div class="col-md-4">
-                            <div class="dashboard-menu">
-                                <ul class="nav flex-column" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>Account details</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/userLogout"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div> -->
-                        <main class="main col-md-8">
-                            <section class="">
+                       
+                        <main class="main">
+                            <section class="mt-50 mb-50">
                                 <div class="container">
-                                    <div class="row justify-content-center"> <!-- Center the row -->
-                                        <div class="col-9">
-                                            <div class="tab-pane col-6 mx-auto" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
-                                                <div class="card">
-                                                    <div class="card-header text-center" style="background-color: white;">
-                                                        <h5>Change password</h5>
+                                  <div class="row">
+                                    <div class="col-12">
+                                        
+                                      <div class="tab-pane " id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">Your Orders</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Photo</th>
+                                                                <th>Course</th>
+                                                                <th>Date</th>
+                                                                <th>PaymentStatus</th>
+                                                                <th>PaymentMethod</th>
+                                                                <th>Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% if (!orderDetails || orderDetails.length === 0) { %>
+                                                                <h6 class="text-center" style="font-size: large;">No orders</h6>
+                                                            <% } else { %>
+                                                                <% orderDetails.courses.forEach((item) => { %>
+                                                                  
+                                                            <tr>
+                                                                <td><img src="/<%= item.courseId.courseImg[0] %>" class="img-sm " alt="Item" height="60" width="90"></td>
+                                                                <td><%= item.courseId.courseName %></td>
+                                                                <td><%= orderDetails.createdAt.toLocaleDateString() %></td>
+                                                                <td><%= orderDetails.paymentStatus %></td>
+                                                                <td><%= orderDetails.paymentMethod %></td>
+                                                                <td>₹<%= item.price %> </td>
+                                                               </tr>
+                                                            
+                                                            <% }); %>
+                                                        
+                                                        </tbody>
+                                                    </table>
+                                                    <div>
+                                                        <h5 class="d-flex justify-content-end p-10">Total Amount: ₹ <%= orderDetails.totalAmount %></h5>
+                                                        <h5 class="d-flex justify-content-end p-10">Order Status: <%= orderDetails.orderStatus %></h5>
                                                     </div>
-                                                    <div class="card-body">
-                                                    <!-- <p>Already have an account? <a href="page-login-register.html">Log in instead!</a></p> -->
-                                                    <form method="post" name="enq" action="/post-changedpswd">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label>Current Password <span class="required">*</span></label>
-                                                                <input required="" class="form-control square" name="oldpassword" type="password">
-                                                            </div>
-                                                            <div class="form-group col-md-12">
-                                                                <label>New Password <span class="required">*</span></label>
-                                                                <input required="" class="form-control square" name="newpassword" type="password">
-                                                            </div>
-                                                            <div class="form-group col-md-12">
-                                                                <label>Confirm Password <span class="required">*</span></label>
-                                                                <input required="" class="form-control square" name="confirmpassword" type="password">
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <button type="submit" class="btn btn-fill-out hover-up submit" id="submitButton"  name="submitButton" value="Submit">Save</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
+                                                    <div class="d-flex justify-content-center">
+                                                      <div class="d-flex justify-content-between col-3">
+                                                                   <button class="button returnButton"><a href="/" class="btn btn-sm">Continue Shopping</a> 
+                                                                   </button> 
+                                                      </div>
+                                                  </div>  
+                                                  
+                                                  <% } %>
+                    
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    </div>
+                                  </div>
                                 </div>
                             </section>
                         </main>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-
-
-
-                        <script>
-                            const submitButton = document.getElementById("submitButton");
-                     
-                             submitButton.addEventListener("click", function (e) {
-                                 e.preventDefault();
-                     
-                                 const oldpassword = document.querySelector('input[name="oldpassword"]').value;
-                                 const newpassword = document.querySelector('input[name="newpassword"]').value;
-                                 const confirmpassword = document.querySelector('input[name="confirmpassword"]').value;
-                     
-                                 fetch('/post-changedpswd', {
-                                     method: 'POST',
-                                     headers: {
-                                         "Content-Type": "application/json"
-                                     },
-                                     body: JSON.stringify({ oldpassword, newpassword, confirmpassword })
-                                 })
-                                 .then(response => {
-                                     if (!response.ok) {
-                                         throw new Error(`HTTP error! status: ${response.status}`);
-                                     }
-                                     return response.json();
-                                 })
-                                 .then(data => {
-                                     console.log(data);
-                                     if (data.message) {
-                                         swal.fire({
-                                             position: 'top-center',
-                                             icon: 'success',
-                                             title: data.message,
-                                             showConfirmButton: false,
-                                             timer: 1500
-                                         }).then(() => {
-                                             window.location.href = '/userLogout';
-                                         });
-                                     }
-                                 })
-                                 .catch(error => {
-                                     // Swal.fire({
-                                     //     position: 'top-center',
-                                     //     icon: 'error',
-                                     //     title: error.message || "An error occurred",
-                                     //     showConfirmButton: false,
-                                     //     timer: 1500
-                                     // });
-                                     alert(error.message || "An error occurred");
-                                     console.error("Error:", error);
-                                     
-                                     console.error("Error:", error);
-                                 });
-                             });
-                         </script>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+                    </div>
+                    </div>
+                    </div>
+                    </div>          
     <!-- table End -->
-
-
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">

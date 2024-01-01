@@ -25,26 +25,34 @@ remove this -->
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="/" class="nav-item nav-link">Home</a>
+                <a href="/" class="nav-item nav-link active">Home</a>
                 <a href="/about" class="nav-item nav-link">About</a>
                 <a href="/courses" class="nav-item nav-link">Courses</a>
-                <a href="/contact" class="nav-item nav-link active">Contact</a>
+                <a href="/contact" class="nav-item nav-link">Contact</a>
+
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Teach on EdX?</a>
                     <div class="dropdown-menu fade-down m-0">
-                        <a href="/creatorSignup" class="dropdown-item">start teaching!</a>
-                        <a href="/creatorLogin" class="dropdown-item">Creator Login</a>
+                        <a href="/creator/creatorSignup" class="dropdown-item">start teaching!</a>
+                        <a href="/creator/creatorLogin" class="dropdown-item">Creator Login</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Learning</a>
                     <div class="dropdown-menu fade-down m-0">
-                        <a href="team.html" class="dropdown-item">Profile</a>
-                        <a href="testimonial.html" class="dropdown-item">Wishlist</a>
-                        <a href="404.html" class="dropdown-item">My Cart</a>
-                        
-                        </div>
+                        <a href="userAccount" class="dropdown-item">Profile</a>
+                        <a href="userWishlist" class="dropdown-item">Wishlist</a>
+                        <a href="userCart" class="dropdown-item">My Cart</a>
+                        <hr />
+                        <%if(!loggedIn) {%>   
+                        <a href="/userSignup" class="dropdown-item">User SignUp</a>
+                        <a href="/userlogin" class="dropdown-item">User Login</a>
+                        <%} else {%>
+                        <a href="#" class="dropdown-item">Offers</a>    
+                        <a href="/userLogout" class="dropdown-item">Log-Out</a>    
+                       <%}%>
                     </div>
+                </div>
                 </div>
             <a href="/userSignup" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
@@ -64,9 +72,7 @@ remove this -->
     </div>
     <!-- Header End -->
 
-
     <!-- Table Start -->
-
 
 
 
@@ -75,10 +81,10 @@ remove this -->
 
     <section class="pt-80 pb-100">
         <div class="container">
-            <div class="row">
+            <div class="row" >
                 <div class="col-lg-10 m-auto">
                     <div class="row">
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                             <div class="dashboard-menu">
                                 <ul class="nav flex-column" role="tablist">
                                     <li class="nav-item">
@@ -98,9 +104,10 @@ remove this -->
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
+                        <div class="col-md-8">
                         <main class="main">
-                            <section class="mt-50 mb-50">
+                            <section class="">
                                 <div class="container">
                                     <div class="row justify-content-center"> <!-- Center the row -->
                                         <div class="col-9">
@@ -138,6 +145,12 @@ remove this -->
                                     </div>
                             </section>
                         </main>
+                    </div>
+                </div>
+                    </div>
+                    </div>
+                    </div>
+                    </section>
 
                         <script>
                             // edited address
@@ -199,6 +212,7 @@ remove this -->
 
 
     <!-- table End -->
+
 
 
     <!-- Footer Start -->

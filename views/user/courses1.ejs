@@ -75,7 +75,7 @@
 
 
     <!-- Categories Start -->
-    <!-- <div class="container-xxl py-5 category">
+    <div class="container-xxl py-5 category">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="section-title bg-white text-center text-primary px-3">Categories</h6>
@@ -124,75 +124,15 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <!-- Courses Start -->
-    <!-- <div class="container-xxl py-5">
+    <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
                 <h1 class="mb-5">Popular Courses</h1>
-            </div> -->
-
-
-            <section class="product-tabs pt-25 pb-20 wow fadeIn animated">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-3">
-
-
-            <!-- nav part start -->
-
-
-            <form action="filter-category" method="post" class="row">
-                <div class="col-md-12">
-                    <div class="widget-category mb-30 pt-5">
-                        <h5 class=" mb-30 wow fadeIn animated">
-                            Categories
-                        </h5>
-                        <ul class="categories">
-                            <% categorydata.forEach((catgory) => { %>
-                                <li class="form-check">
-                                    <input type="checkbox" class="form-check-input " id="<%= catgory.categoryName%>" name="categories" value="<%= catgory._id%>">
-                                    <label class="form-check-label" for="<%= catgory.categoryName%>"><%= catgory.catgName%></label>
-                                </li>
-                            <% }) %>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-12 pt-5">
-                    <div class="widget-category mb-30">
-                        <h5 class=" mb-30 wow fadeIn animated">
-                            Sort by
-                        </h5>
-                        <ul class="categories">
-                            <!-- <li class="form-check">
-                                <input type="radio" class="form-check-input" id="viewAll" value="viewAll" name="sort" >
-                                <label class="form-check-label" for="popularity">View All</label>
-                            </li> -->
-                            <li class="form-check">
-                                <input type="radio" class="form-check-input" id="lowToHigh" value="lowToHigh" name="sort">
-                                <label class="form-check-label" for="lowToHigh">Price: Low to High</label>
-                            </li>
-                            <li class="form-check">
-                                <input type="radio" class="form-check-input" id="highToLow" value="highToLow" name="sort">
-                                <label class="form-check-label" for="highToLow">Price: High to Low</label>
-                            </li>
-                        </ul>
-                    </div>                
-                </div>
-                <div class="col-md-12 d-flex align-items-center justify-content-center mt--30">
-                    <button type="submit" class="btn btn-sm hover-up btn-primary"><i class="fi-rs-filter mr-5"></i>Apply Filter</button>
-                </div>
-            </form>
             </div>
-
-            
-            <!-- nav part end -->
-
-            <div class="col-lg-9">
-
-
             <div class="row g-4 justify-content-center">
                 <% coursedata.forEach(course => {%> 
 
@@ -230,8 +170,7 @@
                         </div>
                     </div>
                 </div>
-               <% }) %>  
-           
+               <% }) %>               
                <script> 
                 document.addEventListener("DOMContentLoaded", function () {
                     const addingWishButtons = document.querySelectorAll(".add-wish-btn")

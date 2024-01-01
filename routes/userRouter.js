@@ -15,6 +15,7 @@ const wishlistControl = require("../controllers/user_controllers/wishlistCntrol"
 const cartControl = require("../controllers/user_controllers/cartController")
 const accountControll = require("../controllers/user_controllers/account")
 const checkoutControll = require("../controllers/user_controllers/checkout")
+const filterControll = require("../controllers/user_controllers/categoryFilter");
 const path = require("path");
 
 userRouter.use("/uploads", express.static("uploads"));
@@ -86,8 +87,8 @@ userRouter.post("/post-userupdatedetails", userMiddleware.verifyUser, userMiddle
 userRouter.get("/get-changepswd", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.getChangepswd)
 userRouter.post("/post-changedpswd", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.postChangedswd)
 userRouter.get("/get-changeemail", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.getChangeEmail)
-userRouter.get("/newsend-otp", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.newSendotp)
-userRouter.post("/newverify-otp", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.newVerifyotp)
+userRouter.get("/newsend-otp", userMiddleware.verifyUser,  accountControll.newSendotp)
+userRouter.post("/newverify-otp", userMiddleware.verifyUser,  accountControll.newVerifyotp)
 
 userRouter.get("/get-address", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.addAddress)
 userRouter.post("/post-address", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.postAddress)
@@ -97,6 +98,11 @@ userRouter.get("/order-details/:orderId", userMiddleware.verifyUser, userMiddlew
 userRouter.post("/cancel-order", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.cancelOrder)
 userRouter.post("/return-order", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.returnOrder)
 userRouter.get("/get-coupons", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.getCoupons)
+
+
+// filter
+userRouter.post("/filter-category", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, filterControll.filterCategory)
+// userRouter.post("/search", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, filterControll.searchProducts)
 
 
 

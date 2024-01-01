@@ -12,6 +12,7 @@ const usermanageControll = require("../controllers/admin_controllers/adm_userman
 const creatormanageControll = require("../controllers/admin_controllers/adm_creatormanage")
 const ordermanageControll = require("../controllers/admin_controllers/adm_ordermanage")
 const couponmanageControll = require("../controllers/admin_controllers/adm_couponmanage")
+const adminFilter = require("../controllers/admin_controllers/adminFilter");
 
 
 //multer setup
@@ -87,6 +88,9 @@ adminRouter.get("/edit-coupon/:couponId",adminMiddleware.verifyAdmin, couponmana
 adminRouter.post("/postEdit-coupon/:couponId",adminMiddleware.verifyAdmin, couponmanageControll.postEditcoupon)
 adminRouter.get("/block-coupon/:couponId",adminMiddleware.verifyAdmin, couponmanageControll.blockCoupon)
 adminRouter.get("/unblock-coupon/:couponId",adminMiddleware.verifyAdmin, couponmanageControll.unblockCoupon)
+
+//filter
+adminRouter.post("/fetchData/:time",adminFilter.fetchDataGraph)
 
 
 module.exports = adminRouter;

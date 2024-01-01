@@ -25,26 +25,34 @@ remove this -->
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="/" class="nav-item nav-link">Home</a>
+                <a href="/" class="nav-item nav-link active">Home</a>
                 <a href="/about" class="nav-item nav-link">About</a>
                 <a href="/courses" class="nav-item nav-link">Courses</a>
-                <a href="/contact" class="nav-item nav-link active">Contact</a>
+                <a href="/contact" class="nav-item nav-link">Contact</a>
+
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Teach on EdX?</a>
                     <div class="dropdown-menu fade-down m-0">
-                        <a href="/creatorSignup" class="dropdown-item">start teaching!</a>
-                        <a href="/creatorLogin" class="dropdown-item">Creator Login</a>
+                        <a href="/creator/creatorSignup" class="dropdown-item">start teaching!</a>
+                        <a href="/creator/creatorLogin" class="dropdown-item">Creator Login</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Learning</a>
                     <div class="dropdown-menu fade-down m-0">
-                        <a href="team.html" class="dropdown-item">Profile</a>
-                        <a href="testimonial.html" class="dropdown-item">Wishlist</a>
-                        <a href="404.html" class="dropdown-item">My Cart</a>
-                        
-                        </div>
+                        <a href="userAccount" class="dropdown-item">Profile</a>
+                        <a href="userWishlist" class="dropdown-item">Wishlist</a>
+                        <a href="userCart" class="dropdown-item">My Cart</a>
+                        <hr />
+                        <%if(!loggedIn) {%>   
+                        <a href="/userSignup" class="dropdown-item">User SignUp</a>
+                        <a href="/userlogin" class="dropdown-item">User Login</a>
+                        <%} else {%>
+                        <a href="#" class="dropdown-item">Offers</a>    
+                        <a href="/userLogout" class="dropdown-item">Log-Out</a>    
+                       <%}%>
                     </div>
+                </div>
                 </div>
             <a href="/userSignup" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
@@ -91,9 +99,6 @@ remove this -->
                                         <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a class="nav-link" href="/userLogout"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
                                     </li>
                                 </ul>
@@ -122,57 +127,44 @@ remove this -->
                                                     
                                                     <thead>
                                                         <tr>
+                                                            <th>Sl. No</th>
                                                             <th>Order</th>
                                                             <th>Date</th>
                                                             <th>Status</th>
                                                             <th>Total</th>
                                                             <th>Actions</th>
+                                                            <th>View Details</th>
                                                         </tr>
                                                     </thead>
-                                                    <% if (!orderDetails || orderDetails.length === 0) { %>
-                                                        <h5 class="d-flex  ml-200">Oops, there are no orders for the user !</h5>
-                                                    <% } else { %>
-                                                        <% orderDetails.reverse().forEach((order) => { %>
-                                                            <% order.courses.reverse().forEach((course) => { %>
                                                     <tbody>
-                                                        <tr>
-                                                            <td><%= course.courseId.courseName %></td>
-                                                            <td><%= order.createdAt.toLocaleDateString() %></td>
-                                                            <td><%= order.orderStatus %></td>
-                                                            <!-- <td>₹<%= course.price * course.quantity %> for <%= course.quantity%> item</td> -->
-                                                            <td>₹<%= course.price%> </td>
-                                                            <td><a href="/order-details/<%= order._id %>" class="btn-small d-block">View</a></td>
-                                                        </tr>
-                                                        <% }); %>
-                                                        <% }); %>
-                                                    <% } %>
+                                                        <% if (!orderDetails || orderDetails.length === 0) { %>
+                                                            <tr>
+                                                                <td colspan="6" class="text-center">Oops, there are no orders for the user!</td>
+                                                            </tr>
+                                                        <% } else { %>
+                                                            <% let serialNumber = 1; %>
+                                                            <% orderDetails.reverse().forEach((order) => { %>
+                                                                <% let orderInfoDisplayed = false; %>
+                                                                <% order.courses.reverse().forEach((course) => { %>
+                                                                    <tr>
+                                                                        <% if (!orderInfoDisplayed) { %>
+                                                                            <td rowspan="<%= order.courses.length %>"><%= serialNumber %></td>
+                                                                            <td rowspan="<%= order.courses.length %>"><%= order._id %></td>
+                                                                            <td rowspan="<%= order.courses.length %>"><%= order.createdAt.toLocaleDateString() %></td>
+                                                                            <td rowspan="<%= order.courses.length %>"><%= order.paymentStatus %></td>
+                                                                            <% orderInfoDisplayed = true; %>
+                                                                        <% } %>
+                                                                        <td><%= course.courseId.courseName %></td>
+                                                                        <td>₹<%= course.price %></td>
+                                                                        <td><a href="/order-details/<%= order._id %>" class="btn-small d-block">View</a></td>
+                                                                    </tr>
+                                                                    <% serialNumber++; %>
+                                                                <% }); %>
+                                                            <% }); %>
+                                                        <% } %>
                                                     </tbody>
+                                                    
                                                 </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="track-orders" role="tabpanel" aria-labelledby="track-orders-tab">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="mb-0">Orders tracking</h5>
-                                        </div>
-                                        <div class="card-body contact-from-area">
-                                            <p>To track your order please enter your OrderID in the box below and press "Track" button. This was given to you on your receipt and in the confirmation email you should have received.</p>
-                                            <div class="row">
-                                                <div class="col-lg-8">
-                                                    <form class="contact-form-style mt-30 mb-50" action="#" method="post">
-                                                        <div class="input-style mb-20">
-                                                            <label>Order ID</label>
-                                                            <input name="order-id" placeholder="Found in your order confirmation email" type="text" class="square">
-                                                        </div>
-                                                        <div class="input-style mb-20">
-                                                            <label>Billing email</label>
-                                                            <input name="billing-email" placeholder="Email you used during checkout" type="email" class="square">
-                                                        </div>
-                                                        <button class="submit submit-auto-width" type="submit">Track</button>
-                                                    </form>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -221,13 +213,7 @@ remove this -->
                                     </div>
                                 </div>
 
-                                <!-- <script>
-                                    function togglePasswordVisibility(inputId) {
-                                        const passwordInput = document.getElementById(inputId);
-                                        passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
-                                    }
-                                </script> -->
-                                
+                                                           
                             </div>
                         </div>
                     </div>
