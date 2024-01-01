@@ -75,6 +75,9 @@ adminRouter.get("/order-manage/:orderId", adminMiddleware.verifyAdmin, ordermana
 adminRouter.post("/dispatch-order", adminMiddleware.verifyAdmin, ordermanageControll.dispatchOrder)
 adminRouter.post("/deliver-order", adminMiddleware.verifyAdmin, ordermanageControll.deliverOrder)
 adminRouter.post("/cancel-order",adminMiddleware.verifyAdmin,  ordermanageControll.cancelOrder)
+adminRouter.get("/sales-report",adminMiddleware.verifyAdmin, ordermanageControll.getSalesReport)
+adminRouter.post("/filter-sales",adminMiddleware.verifyAdmin, ordermanageControll.filterSales)
+
 
 // manage coupon
 adminRouter.get("/coupon-list",adminMiddleware.verifyAdmin, couponmanageControll.getCouponlist)

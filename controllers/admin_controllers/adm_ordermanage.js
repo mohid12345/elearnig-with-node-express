@@ -95,3 +95,30 @@ module.exports.cancelOrder = async(req,res) => {
     res.status(500).json({error: "Error found while cancelling course"});
   }
 }
+
+module.exports.getSalesReport = async(req, res) => {
+  try{
+  const orderData =  await orderCollection.find({paymentStatus : "Success",});
+  res.render("admin-salesreport",{orderData});
+} catch(error){
+  console.log("Error: ", error);
+}
+}
+
+//sales report filtering
+module.exports.filterSales = async(req,res) => {
+  try {
+    const startDate = req.body.startDate
+    const endDate = req.body.endDate
+    // console.log("2222222222: ",startDate, endDate);
+
+    const orderData = await orderCollection.find({
+      paymentStatus : "Success",
+      createdAt: { $gte: startDate, $lte: endDate },
+    });
+
+    res.render("admin-salesreport", { orderData });
+  } catch(error) {
+    console.log("Error: ", error)
+  }
+}

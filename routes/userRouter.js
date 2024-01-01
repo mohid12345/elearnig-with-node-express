@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 userRouter.use(cookieParser());
 
+const paginationMiddleware = require("../middlewares/paginat_middleware")
 const userMiddleware = require("../middlewares/user_authentication");
 const userControllers = require("../controllers/user_controllers/userControllers");
 const otpVerification = require("../controllers/user_controllers/otpVerification");
@@ -46,6 +47,7 @@ userRouter.get("/course-details/:courseId", courseControll.courseDetails);
 // Render the about page
 userRouter.get("/about", homepageControll.getUserRoute_About);
 // Router the course page
+// userRouter.get("/courses",paginationMiddleware(10), homepageControll.getUserRoute_Course);
 userRouter.get("/courses", homepageControll.getUserRoute_Course);
 // Render the contact page
 userRouter.get("/contact", homepageControll.getUserRoute_Contact);

@@ -5,7 +5,7 @@
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
             <a href="index.html" class="brand-wrap">
-                <img src="/adminAssets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+                <img href="/admin/adminDashboard" src="/adminAssets/imgs/theme/logo.png" class="logo" alt="EdX Dashboard">
             </a>
             <div>
                 <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
@@ -14,52 +14,49 @@
         <nav>
           <ul class="menu-aside">
 
-            <li class="menu-item ">
-                <a class="menu-link" href="/admin/adminDashboard"> <i class="icon material-icons md-home"></i>
-                    <span class="text">Dashboard</span>
-                </a>
-            </li>
+              <li class="menu-item ">
+                  <a class="menu-link" href="/admin/admin-dash"> <i class="icon material-icons md-home"></i>
+                      <span class="text">Dashboard</span>
+                  </a>
+              </li>
 
-            <li class="menu-item">
-                <a class="menu-link" href="/admin/course-list"> <i class="icon material-icons md-shopping_bag"></i>
-                    <span class="text">Courses</span>
-                </a>
-            </li>
+              <li class="menu-item">
+                  <a class="menu-link" href="/admin/product-list"> <i class="icon material-icons md-shopping_bag"></i>
+                      <span class="text">Products</span>
+                  </a>
+              </li>
 
-            <li class="menu-item">
-                <a class="menu-link" href="/admin/category-list"> <i class="icon material-icons md-category"></i>
-                    <span class="text">Category</span> </a>
-            </li>
+              <li class="menu-item">
+                  <a class="menu-link" href="/admin/category-list"> <i class="icon material-icons md-category"></i>
+                      <span class="text">Category</span> </a>
+              </li>
 
-            <li class="menu-item ">
-                <a class="menu-link " href="/admin/admin-usermanage"> <i class="icon material-icons md-person"></i>
-                    <span class="text">Users</span>
-                </a>
-            </li>
-            <li class="menu-item ">
-                <a class="menu-link" href="/admin/order-list"> <i class="icon material-icons md-shopping_cart"></i>
-                    <span class="text">Orders</span>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a class="menu-link" href="/admin/coupon-list"> <i class="icon material-icons md-local_offer"></i>
-                    <span class="text">Coupons</span>
-                </a>
-            </li>
-            <li class="menu-item active">
-                <a class="menu-link" href="/admin/admin-creatormanage"> <i class="icon material-icons md-person"></i>
-                    <span class="text">Creators</span>
-                </a>
-                <li class="menu-item ">
-                    <a class="menu-link" href="/admin/sales-report"> <i class="icon material-icons md-assessment"></i>
-                        <span class="text">Sales Report</span>
-                    </a>
-                </li>
-              
+              <li class="menu-item">
+                  <a class="menu-link" href="/admin/user-manage"> <i class="icon material-icons md-person"></i>
+                      <span class="text">Users</span>
+                  </a>
+              </li>
+
+              <li class="menu-item">
+                  <a class="menu-link" href="/admin/order-list"> <i class="icon material-icons md-shopping_cart"></i>
+                      <span class="text">Orders</span>
+                  </a>
+              </li>
+
+              <li class="menu-item">
+                  <a class="menu-link" href="/admin/coupon-list"> <i class="icon material-icons md-local_offer"></i>
+                      <span class="text">Coupons</span>
+                  </a>
+              </li>
+              <li class="menu-item active">
+                  <a class="menu-link" href="/admin/sales-report"> <i class="icon material-icons md-assessment"></i>
+                      <span class="text">Sales Report</span>
+                  </a>
+              </li>
           </ul>
           <hr>
           <ul class="menu-aside">
-            </ul>
+             </ul>
           <br>
           <br>
       </nav>
@@ -144,16 +141,10 @@
         padding: 8px; 
         text-align: center; ">Ordered At</th>
                                 <th style="border: 1px solid #cccccc; 
-        padding: 8px; 
-        text-align: center; ">Delivery Date</th>
-                                <th style="border: 1px solid #cccccc; 
-        padding: 8px; 
+       padding: 8px; 
         text-align: center; ">Payment Status</th>
                                 <th style="border: 1px solid #cccccc; 
-        padding: 8px; 
-        text-align: center; ">Order Status</th>
-                                <th style="border: 1px solid #cccccc; 
-        padding: 8px; 
+       padding: 8px; 
         text-align: center; ">Total Amount</th>
                                 
                                 
@@ -171,16 +162,11 @@
         text-align: center; "><%= order.createdAt.toLocaleDateString() %></td>
                                 <td style="border: 1px solid #cccccc; 
         padding: 8px; 
-        text-align: center; "><%= order.deliveryDate ? order.deliveryDate.toLocaleDateString() : 'Not delivered' %></td>
-                                <td style="border: 1px solid #cccccc; 
-        padding: 8px; 
         text-align: center; "><%= order.paymentStatus %></td>
                                 <td style="border: 1px solid #cccccc; 
+        
         padding: 8px; 
-        text-align: center; "><%= order.orderStatus %></td>
-                                <td style="border: 1px solid #cccccc; 
-        padding: 8px; 
-        text-align: center; ">₹ <%= order.totalAmount.toFixed(0) %></td>
+        text-align: center; ">Rs <%= order.totalAmount.toFixed(0) %></td>
                                 
                                 </tr>
                             <% }); %>
@@ -197,13 +183,70 @@
             <!-- print -->
             <div class="row d-flex align-items-center col-lg-12">
                 <div class="col-md-12 d-flex justify-content-center">
-                    <a href="#" class="btn btn-primary mt-1" style="background-color: brown;" onclick="printTable('printSection')">Print</a>
+                    <a href="#" class="btn btn-primary mt-1" style="background-color: brown;" onclick="printTable('printSection')">Print Pdf</a> &nbsp;&nbsp;&nbsp;
+                    <a href="#" class="btn btn-primary mt-1" style="background-color: brown;" onclick="downloadCSV()">Download CSV</a>
                 </div>
             </div>
         </section>
 
-        <script>
-            function printTable(sectionId) {
+
+<style media="print">
+    h3 { 
+        text-align: center; 
+        margin-bottom: 20px; 
+    }
+
+    #salesReport { 
+        width: 100%; 
+        border-collapse: collapse; 
+        margin-bottom: 20px; 
+    }
+
+    #salesReport th, #salesReport td { 
+        border: 1px solid #cccccc; 
+        padding: 8px; 
+        text-align: center; 
+    }
+
+    #salesReport th { 
+        background-color: #f2f2f2; 
+    }
+
+    #print-button { 
+        display: none; /* Hide the print button when printing */
+    }
+</style>
+
+<!-- csv file download -->
+
+<script>
+//   csv download
+    function downloadCSV() {
+        var csvContent = "data:text/csv;charset=utf-8,";
+        var rows = document.querySelectorAll('#salesReport tbody tr');
+
+        // Add header row
+        var header = Array.from(rows[0].querySelectorAll('td, th')).map(cell => cell.innerText);
+        csvContent += header.join(',') + '\n';
+
+        // Add data rows
+        rows.forEach(row => {
+            var rowData = Array.from(row.querySelectorAll('td')).map(cell => cell.innerText);
+            csvContent += rowData.join(',') + '\n';
+        });
+
+        // Create a data URI and trigger download
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "sales_report.csv");
+        document.body.appendChild(link);
+        link.click();
+    }
+
+    // pff download
+
+    function printTable(sectionId) {
               var printWindow = window.open('', '_blank');
               var tableToPrint = document.getElementById(sectionId).querySelector('.card-body').outerHTML;
           
@@ -232,47 +275,15 @@
                 };
               };
             }
-        </script>
+</script>
 
-<style media="print">
-    h3 { 
-        text-align: center; 
-        margin-bottom: 20px; 
-    }
-
-    #salesReport { 
-        width: 100%; 
-        border-collapse: collapse; 
-        margin-bottom: 20px; 
-    }
-
-    #salesReport th, #salesReport td { 
-        border: 1px solid #cccccc; 
-        padding: 8px; 
-        text-align: center; 
-    }
-
-    #salesReport th { 
-        background-color: #f2f2f2; 
-    }
-
-    #print-button { 
-        display: none; /* Hide the print button when printing */
-    }
-</style>
   
 
         <footer class="main-footer font-xs">
             <div class="row pb-30 pt-15">
+                
                 <div class="col-sm-6">
-                    <script>
-                    document.write(new Date().getFullYear())
-                    </script> ©, Evara - HTML Ecommerce Template .
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-sm-end">
-                        All rights reserved
-                    </div>
+                   
                 </div>
             </div>
         </footer>

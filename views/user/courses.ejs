@@ -168,143 +168,117 @@
                             <button style="border: 0cap; background-color: inherit" class="flex-fill text-center border-end py-2 add-cart-btn" course-dat-id-1="<%= course._id %>"><i class="fa fa-shopping-cart text-primary me-2"></i></button>
                             <button style="border: 0cap; background-color: inherit" class="flex-fill text-center py-2 add-wish-btn" course-dat-id="<%= course._id %>" ><i class="bi bi-heart-fill text-primary me-2 "></i></button>
                         </div>
-
-                        
                     </div>
                 </div>
-               <% }) %>
-
-               <script>
-
-                                        document.addEventListener("DOMContentLoaded", function () {
-                                            const addingWishButtons = document.querySelectorAll(".add-wish-btn")
-                                    
-                                            addingWishButtons.forEach(button => {
-                                                button.addEventListener("click", function () {
-                                                    const courseId = button.getAttribute("course-dat-id");
-                                                    fetch(`/addWishlist?courseId=${courseId}`, {
-                                                        method: 'POST',
-                                                        headers: {
-                                                            'content-Type': 'application/json',
-                                                        },
-                                                    })
-                                                    .then(response => {
-                                                        if (!response.ok) {
-                                                            throw new Error(`HTTP error! status: ${response.status}`);
-                                                        }
-                                                        return response.json();
-                                                    })
-                                                    .then(data => {
-                                                        console.log("Response from server", data);
-                                                        // Check if the response contains a message
-                                                        if (data.message) {
-                                                            // Display Sweet Alert
-                                                            Swal.fire({
-                                                                icon: 'success',
-                                                                title: 'Product Added to Wishlist',
-                                                                showConfirmButton: false,
-                                                                timer: 1500
-                                                            });
-                                                        }
-                                                    })
-                                                    .catch(error => {
-                                                        window.location.href = '/userLogin';
-                                                        console.error("Error adding to cart", error);
-                                                        
-                                                    });
-                                                });
-                                            });
-                                        });
-                                    </script>
-                                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+               <% }) %>               
+               <script> 
+                document.addEventListener("DOMContentLoaded", function () {
+                    const addingWishButtons = document.querySelectorAll(".add-wish-btn")
+            
+                    addingWishButtons.forEach(button => {
+                        button.addEventListener("click", function () {
+                            const courseId = button.getAttribute("course-dat-id");
+                            fetch(`/addWishlist?courseId=${courseId}`, {
+                                method: 'POST',
+                                headers: {
+                                    'content-Type': 'application/json',
+                                },
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log("Response from server", data);
+                                // Check if the response contains a message
+                                if (data.message) {
+                                    // Display Sweet Alert
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Product Added to Wishlist',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                window.location.href = '/userLogin';
+                                console.error("Error adding to cart", error);
+                                
+                            });
+                        });
+                    });
+                });
+            </script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
                             
-                                    <script>
-                                        document.addEventListener("DOMContentLoaded", function () {
-                                            const addingCartButtons = document.querySelectorAll(".add-cart-btn")
-                                    
-                                            addingCartButtons.forEach(button => {
-                                                button.addEventListener("click", function () {
-                                                    const courseId = button.getAttribute("course-dat-id-1");
-                                                    fetch(`/addCart?courseId=${courseId}`, {
-                                                        method: 'POST',
-                                                        headers: {
-                                                            'content-Type': 'application/json',
-                                                        },
-                                                    })
-                                                    .then(response => {
-                                                        if (!response.ok) {
-                                                           throw new Error(`HTTP error! status: ${response.status}`);
-                                                        }
-                                                        return response.json();
-                                                    })
-                                                    .then(data => {
-                                                        console.log("Response from server", data);
-                                                        // Check if the response contains a message
-                                                        if (data.message) {
-                                                            // Display Sweet Alert
-                                                            Swal.fire({
-                                                                icon: 'success',
-                                                                title: 'Product Added to Cart',
-                                                                showConfirmButton: false,
-                                                                timer: 1500
-                                                            });
-                                                        }
-                                                    })
-                                                    .catch(error => {
-                                                        window.location.href = '/userLogin';
-                                                        console.error("Error adding to cart", error);
-                                                        
-                                                    });
-                                                });
-                                            });
-                                        });
-                                    </script>
-                                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-                     <!-- <script>
-                        document.addEventListener("DOMContentLoaded",function(){
-                            const addingCartButtons = document.querySelectorAll(".add-cart-btn")
-                             console.log("khey");
-
-                            addingCartButtons.forEach(button => {
-                      
-                               button.addEventListener("click", function () {
-                                const courseId = button.getAttribute("course-dat-id-1")
-                                // console.log(courseId);
-                                fetch(`/addCart?courseId=${courseId}`,{
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    },
-                                })
-                                .then(response => {
-                                    if(!response.ok) {
-                                        throw new Error(`HTTP error! status: ${response.status}`)
-                                    }
-                                    return response.json()
-                                })
-                                .then(data =>{
-                                    console.log("Response from server", data);
-                                    if(data.message) {
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: 'Product Added to Cart',
-                                            showConfirmButton: false,
-                                            timer: 1500
-                                        })
-                                    }
-                                })
-                                .catch(error => {
-                                    console.log("Error adding to cart", error)
-                                })
-                               })
-                            })
-                        })
-                     </script> -->
-            </div>
+ <script>
+     document.addEventListener("DOMContentLoaded", function () {
+         const addingCartButtons = document.querySelectorAll(".add-cart-btn")
+ 
+         addingCartButtons.forEach(button => {
+             button.addEventListener("click", function () {
+                 const courseId = button.getAttribute("course-dat-id-1");
+                 fetch(`/addCart?courseId=${courseId}`, {
+                     method: 'POST',
+                     headers: {
+                         'content-Type': 'application/json',
+                     },
+                 })
+                 .then(response => {
+                     if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                     }
+                     return response.json();
+                 })
+                 .then(data => {
+                     console.log("Response from server", data);
+                     // Check if the response contains a message
+                     if (data.message) {
+                         // Display Sweet Alert
+                         Swal.fire({
+                             icon: 'success',
+                             title: 'Product Added to Cart',
+                             showConfirmButton: false,
+                             timer: 1500
+                         });
+                     }
+                 })
+                 .catch(error => {
+                     window.location.href = '/userLogin';
+                     console.error("Error adding to cart", error);
+                     
+                 });
+             });
+         });
+     });
+ </script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>     
+            </div>            
         </div>
+      <!-- Courses End -->
+    <!-- pagination -->
+    <div class="container-xxl pt-5 d-flex justify-content-center" style="background-color: rgb(193, 193, 193);">
+        <div>
+            <nav aria-label="">
+                <ul class="pagination">
+                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                    <li class="page-item"><a class="page-link" href="#">02</a></li>
+                    <li class="page-item"><a class="page-link" href="#">03</a></li>
+                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">16</a></li>
+                    <!-- <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li> -->
+                </ul>
+            </nav>
+        </div>   
     </div>
-    <!-- Courses End -->
+    
+    <!-- pagination end -->
+    </div>
+  
 
 
     <!-- Testimonial Start -->

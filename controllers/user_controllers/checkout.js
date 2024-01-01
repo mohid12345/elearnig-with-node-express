@@ -354,7 +354,7 @@ module.exports.razorpayOrderPlaced = async(req,res) => {
         //     await usedCoupon.save();
         //   }
         // }
-        console.log("finally....");
+        // console.log("finally....");
         
         const orderCourses = await Promise.all(cartDetails.courses.map(async (courseItem) => {
           const course = await courseCollection.findById(courseItem.courseId);
