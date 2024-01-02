@@ -60,16 +60,18 @@ module.exports.updateCategory = async (req, res) => {
 // delete category
 module.exports.deleteCategory = async (req, res) => {
     try {
-        const catagoryId = req.params.categoryId;
-        console.log(catagoryId);
-        const result = await categoryCollection.deleteOne({ _id: catagoryId });
+        const categoryId = req.params.categoryId;
+        const result = await categoryCollection.deleteOne({ _id: categoryId });
 
         if (result.deletedCount === 1) {
-            res.redirect("/admin/category-list");
+            // Successful deletion
+            res.json({ success: true, message: 'Category deleted successfully' });
         } else {
-            res.status(404).send("Category not found");
+            // Category not found
+            res.status(404).json({ success: false, error: 'Category not found' });
         }
     } catch (error) {
         console.error(error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
 };

@@ -4,15 +4,6 @@ require('dotenv').config();
 const jwt = require("jsonwebtoken");
 const secretkey = process.env.JWT_SECRET_KEY
 
-// module.exports.getAdminLogin = async (req, res) => {
-//     if (req.cookies.admindata) {
-//       admin = req.cookies.admindata;
-//       console.log(admin, "admin loggedIN...");
-//       res.render("adminDashboard");
-//     } else {
-//       res.render("adminLogin");
-//     }
-//   };
 module.exports.getAdminLogin = async (req, res) => {
    try {
        res.render("adminLogin")
@@ -23,10 +14,9 @@ module.exports.getAdminLogin = async (req, res) => {
 }
 
 module.exports.getAdminLogout = (req,res) =>{
-    // res.clearCookie("token");
-    // res.clearCookie("loggedIn");
+    res.clearCookie("token2");
+    res.clearCookie("loggedIn2");
     res.redirect("/admin/adminLogin")
-    // res.render("adminLogin")
 }
 
 module.exports.postAdminDashboard = async(req,res) => {
@@ -65,32 +55,19 @@ module.exports.postAdminDashboard = async(req,res) => {
 }
 
 module.exports.getAdminDashboard = async (req, res) => {
-    if (req.cookies.loggedIn) {
-    //   users = await userCollection.find({});
+    if (req.cookies.loggedIn2) {
       res.render("adminDashboard");
     } else {
       res.render("adminLogin");
     }
   };
-//   res.render("adminDashboard");
-// }
 
-
-
-// module.exports.getAdminLogout = (req, res) =>{
-//     req.session.admin = null;
-//     console.log(req.session);
-//     res.redirect("/admin");
-// };
 module.exports.getUserManage = (req, res) =>{
     res.render("admin-usermanage");
-    // res.send("hello");
 };
 module.exports.getCreatorManage = (req, res) =>{
     res.render("admin-creatormanage");
-    // res.send("hello");
 };
 module.exports.getProductList = (req, res) =>{
     res.render("admin-productlist");
-    // res.send("hello");
 };

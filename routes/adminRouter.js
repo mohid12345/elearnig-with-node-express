@@ -38,14 +38,13 @@ adminRouter.get("/adminLogout", loginControll.getAdminLogout)
 // homepage
 adminRouter.post("/adminDashboard", loginControll.postAdminDashboard)
 adminRouter.get("/adminDashboard", loginControll.getAdminDashboard)
-// adminRouter.get("/adminDashboard", adminMiddleware.verifyAdmin,  loginControll.getAdminDashboard)
 
 // Category
 adminRouter.get("/category-list",adminMiddleware.verifyAdmin, categoryControll.getCategory)
 adminRouter.post("/add-category",adminMiddleware.verifyAdmin, categoryControll.postCategory)
 adminRouter.get("/edit-category/:categoryId",adminMiddleware.verifyAdmin, categoryControll.editCategory)
 adminRouter.post("/postEdit-category/:categoryId",adminMiddleware.verifyAdmin, categoryControll.updateCategory)
-adminRouter.get("/delete-category/:categoryId",adminMiddleware.verifyAdmin, categoryControll.deleteCategory)
+adminRouter.post("/delete-category/:categoryId",adminMiddleware.verifyAdmin, categoryControll.deleteCategory)
 
 //Courses
 adminRouter.get("/course-list",adminMiddleware.verifyAdmin, courseControll.getCourseList)
