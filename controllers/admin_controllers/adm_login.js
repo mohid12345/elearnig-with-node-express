@@ -23,9 +23,10 @@ module.exports.getAdminLogin = async (req, res) => {
 }
 
 module.exports.getAdminLogout = (req,res) =>{
-    res.clearCookie("token");
-    res.clearCookie("loggedIn");
+    // res.clearCookie("token");
+    // res.clearCookie("loggedIn");
     res.redirect("/admin/adminLogin")
+    // res.render("adminLogin")
 }
 
 module.exports.postAdminDashboard = async(req,res) => {
@@ -76,11 +77,11 @@ module.exports.getAdminDashboard = async (req, res) => {
 
 
 
-module.exports.getAdminLogout = (req, res) =>{
-    req.session.admin = null;
-    console.log(req.session);
-    res.redirect("/admin");
-};
+// module.exports.getAdminLogout = (req, res) =>{
+//     req.session.admin = null;
+//     console.log(req.session);
+//     res.redirect("/admin");
+// };
 module.exports.getUserManage = (req, res) =>{
     res.render("admin-usermanage");
     // res.send("hello");
