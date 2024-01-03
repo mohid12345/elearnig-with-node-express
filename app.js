@@ -17,8 +17,6 @@ const userRouter = require("./routes/userRouter");
 const creatorRouter = require("./routes/creatorRouter");
 
 const PORT = process.env.PORT;
-//8000 port is 
-
 
 app.use(nocache());
 app.use(cookieParser()); // parsing the incoming data
@@ -48,9 +46,6 @@ app.use("/creator", (req, res, next) => {
   app.set("views", path.join(__dirname, "views", "creator"));
   next();
 }, creatorRouter);
-
-// app.use("/admin", adminRouter);
-// app.use("/creator",creatorRouter);
 
 const MONGO_CNT = "mongodb://127.0.0.1:27017/EdX-db";
 app.listen(PORT, async () => {

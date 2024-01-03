@@ -38,7 +38,7 @@ module.exports.getUserRoute_Course = async (req,res) => {
       const loggedIn = req.cookies.loggedIn;
       const coursedata = await courseCollection.find()
       const categorydata = await categoryCollection.find();
-      res.render("courses", {loggedIn, coursedata, categorydata});
+      res.render("courses", {loggedIn, coursedata, categorydata,categories:null,sort:null});
     } catch (error) {
       console.error(error);
     }

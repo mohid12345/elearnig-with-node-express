@@ -27,10 +27,10 @@ module.exports.getSendOtp = async (req,res) => {
       }
   } else 
   {
-
     const email = req.query.email;
 
     generatedOTP = generateOTP();
+    console.log(generatedOTP);
 
       // Create a Transporter
     const transporter = nodemailer.createTransport({

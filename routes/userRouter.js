@@ -86,9 +86,9 @@ userRouter.get("/get-usereditdetails", userMiddleware.verifyUser, userMiddleware
 userRouter.post("/post-userupdatedetails", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.postUserupdateddetails)
 userRouter.get("/get-changepswd", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.getChangepswd)
 userRouter.post("/post-changedpswd", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.postChangedswd)
-userRouter.get("/get-changeemail", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.getChangeEmail)
-userRouter.get("/newsend-otp", userMiddleware.verifyUser,  accountControll.newSendotp)
-userRouter.post("/newverify-otp", userMiddleware.verifyUser,  accountControll.newVerifyotp)
+// userRouter.get("/get-changeemail", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.getChangeEmail)
+// userRouter.get("/newsend-otp", userMiddleware.verifyUser,  accountControll.newSendotp)
+// userRouter.post("/newverify-otp", userMiddleware.verifyUser,  accountControll.newVerifyotp)
 
 userRouter.get("/get-address", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.addAddress)
 userRouter.post("/post-address", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, accountControll.postAddress)

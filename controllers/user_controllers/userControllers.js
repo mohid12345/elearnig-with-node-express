@@ -9,7 +9,12 @@ module.exports.getUserLogout = (req, res) => {
 };
 
 module.exports.getUserSignup = (req, res) => {
-    res.render("userSignup");
+    try{
+        res.render("userSignup");
+    } catch(error) {
+        console.error(error);
+        res.status(500).render("500");
+    }
 };
 
 module.exports.postUserSignup = async (req, res) => {

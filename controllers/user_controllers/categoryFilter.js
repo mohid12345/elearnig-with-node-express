@@ -52,7 +52,6 @@ module.exports.filterCategory = async (req, res) => {
     const username = userData.username;
     let coursedata;
     let { sort, categories } = req.body;
-    console.log("sort", sort);
 
     sort = (sort === "highToLow") ? -1 : 1; // Updated this line
 
@@ -61,19 +60,18 @@ module.exports.filterCategory = async (req, res) => {
     if (sort && categories) {
       const category = await categoryCollection.findById(categories);
       const categoryName = category.catgName;
-
+      
       coursedata = await courseCollection
         .find({ courseCategory: categoryName })
         .sort({ courseAmount: sort }); // Updated this line
       const courseCount = coursedata.length;
-
-      res.render("courses", { username, loggedIn, coursedata, categorydata, courseCount });
+      res.render("courses", { username, loggedIn, coursedata, categorydata, courseCount,categories,sort });
     } else {
       coursedata = await courseCollection.find({})
         .sort({ courseAmount: sort }); // Updated this line
       const courseCount = coursedata.length;
-      console.log(coursedata);
-      res.render("courses", { username, loggedIn, coursedata, categorydata, courseCount });
+      
+      res.render("courses", { username, loggedIn, coursedata, categorydata, courseCount,categories,sort});
     }
   } catch (error) {
     console.log(error);
