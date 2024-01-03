@@ -85,68 +85,7 @@
         </div>
         </div>
 
-    <!-- Categories Start -->
-    <!-- <div class="container-xxl py-5 category">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Categories</h6>
-                <h1 class="mb-5">Courses Categories</h1>
-            </div>
-            <div class="row g-3">
-                <div class="col-lg-7 col-md-6">
-                    <div class="row g-3">
-                        <div class="col-lg-12 col-md-12 wow zoomIn" data-wow-delay="0.1s">
-                            <a class="position-relative d-block overflow-hidden" href="">
-                                <img class="img-fluid" src="img/cat-1.jpg" alt="">
-                                <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin: 1px;">
-                                    <h5 class="m-0">Web Design</h5>
-                                    <small class="text-primary">49 Courses</small>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.3s">
-                            <a class="position-relative d-block overflow-hidden" href="">
-                                <img class="img-fluid" src="img/cat-2.jpg" alt="">
-                                <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin: 1px;">
-                                    <h5 class="m-0">Graphic Design</h5>
-                                    <small class="text-primary">49 Courses</small>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.5s">
-                            <a class="position-relative d-block overflow-hidden" href="">
-                                <img class="img-fluid" src="img/cat-3.jpg" alt="">
-                                <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin: 1px;">
-                                    <h5 class="m-0">Video Editing</h5>
-                                    <small class="text-primary">49 Courses</small>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5 col-md-6 wow zoomIn" data-wow-delay="0.7s" style="min-height: 350px;">
-                    <a class="position-relative d-block h-100 overflow-hidden" href="">
-                        <img class="img-fluid position-absolute w-100 h-100" src="img/cat-4.jpg" alt="" style="object-fit: cover;">
-                        <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin:  1px;">
-                            <h5 class="m-0">Online Marketing</h5>
-                            <small class="text-primary">49 Courses</small>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- Courses Start -->
-    <!-- <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
-                <h1 class="mb-5">Popular Courses</h1>
-            </div> -->
-
-
-            <section class="product-tabs pt-25 pb-20 wow fadeIn animated">
+   <section class="product-tabs pt-25 pb-20 wow fadeIn animated">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3">
@@ -164,7 +103,9 @@
                         <ul class="categories">
                             <% categorydata.forEach((catgory) => { %>
                                 <li class="form-check">
-                                    <input type="checkbox" class="form-check-input " id="<%= catgory.categoryName%>" name="categories" value="<%= catgory._id%>">
+                                    <!-- <input type="checkbox" class="form-check-input" id="<%= catgory.categoryName%>" name="categories" value="<%= catgory._id%>"> -->
+                                    <input type="checkbox" class="form-check-input <%= selectedCategories.includes(String(category._id)) ? 'active' : '' %>" 
+                                    id="<%= category.categoryName %>" name="categories" value="<%= category._id %>">
                                     <label class="form-check-label" for="<%= catgory.categoryName%>"><%= catgory.catgName%></label>
                                 </li>
                             <% }) %>
@@ -181,14 +122,22 @@
                                 <input type="radio" class="form-check-input" id="viewAll" value="viewAll" name="sort" >
                                 <label class="form-check-label" for="popularity">View All</label>
                             </li> -->
-                            <li class="form-check">
+                            <!-- <li class="form-check">
                                 <input type="radio" class="form-check-input" id="lowToHigh" value="lowToHigh" name="sort">
                                 <label class="form-check-label" for="lowToHigh">Price: Low to High</label>
                             </li>
                             <li class="form-check">
                                 <input type="radio" class="form-check-input" id="highToLow" value="highToLow" name="sort">
                                 <label class="form-check-label" for="highToLow">Price: High to Low</label>
+                            </li> -->
+                            <li class="form-check">
+                                <input type="radio" class="form-check-input <%= sort === 'lowToHigh' ? 'active' : '' %>" id="lowToHigh" value="lowToHigh" name="sort">
+                                <label class="form-check-label" for="lowToHigh">Price: Low to High</label>
                             </li>
+                            <li class="form-check">
+                                <input type="radio" class="form-check-input <%= sort === 'highToLow' ? 'active' : '' %>" id="highToLow" value="highToLow" name="sort">
+                                <label class="form-check-label" for="highToLow">Price: High to Low</label>
+                            </li>   
                         </ul>
                     </div>                
                 </div>
@@ -243,7 +192,7 @@
                 </div>
                <% }) %>  
            
-               <script> 
+           <script> 
                 document.addEventListener("DOMContentLoaded", function () {
                     const addingWishButtons = document.querySelectorAll(".add-wish-btn")
             
@@ -277,8 +226,7 @@
                             })
                             .catch(error => {
                                 window.location.href = '/userLogin';
-                                console.error("Error adding to cart", error);
-                                
+                                console.error("Error adding to cart", error);       
                             });
                         });
                     });
@@ -333,7 +281,7 @@
         </div>
       <!-- Courses End -->
     <!-- pagination -->
-    <div class="container-xxl pt-5 d-flex justify-content-center" style="">
+    <div class="container-xxl pt-5 d-flex justify-content-center" >
         <div>
             <nav aria-label="">
                 <ul class="pagination">
