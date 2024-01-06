@@ -5,62 +5,198 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <div class="card">
+            <!-- //form1 -->
+            <div class="card" id="form-otp">
                 <div class="card-body">
                     <h4 class="card-title text-center mb-4">Forget Password</h4>
-                    <form id="forgetPasswordForm">
+                    <form>
+                    <!-- <form id="forgetPasswordForm" method="post" action="/userForgetSubmit" onsubmit="return validateForm()"> -->
                     <div class="mb-3">
                         <div class="form-group">
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email">
                             <div id="emailError" class="error-message text-danger"></div>
                         </div>
                     </div>
                        <div class="mb-3">
-                            <button type="button" class="btn btn-primary btn-block" id="sendOTPButton">Send OTP</button>
+                            <button type="button" class="btn btn-primary btn-block" id="sendOTPButton" name="sendOTPButton" >Send OTP</button>
                         </div>
+
+                        <div id="timer" style="display: none;"></div>
+
                         <div class="mb-3">
                             <label for="otp">Enter OTP</label>
-                            <input type="text" class="form-control" id="otp" placeholder="Enter OTP" required>
+                            <input type="text" class="form-control" id="otpInput" placeholder="Enter OTP" name="otpInput">
                         </div>
-                        <div class="text-center">
+                        <!-- <div class="text-center"> -->
                             <!-- otp countdown -->
-                            <span id="countdown"></span>
+                            <!-- <span id="countdown"></span>
                             <a href="#" id="resendOTP">Resend OTP</a>
-                        </div>
+                        </div> -->
                         <div class="mb-3">
-                            <button type="button" class="btn btn-success btn-block" id="verifyOTPButton">Verify OTP</button>
+                            <button type="button" class="btn btn-success btn-block" id="verifyOTPButton" name="verifyOTPBtn">Verify OTP</button>
                         </div>
+                        <!-- <div class="mb-3">
+                            <button type="submit" class="btn btn-primary btn-block" id="submitButton" name="submitButton" >Submit</button>
+                        </div> -->
+                    </form>
+                </div>
+            </div>
+            <!-- form1 end -->
+
+<!-- form2 start -->
+            <div class="card" id="form-password" >
+                <div class="card-body">
+                    <h4 class="card-title text-center mb-4">Forget Password</h4>
+                    <form id="forgetPasswordForm2" method="post" action="/userForgetSubmit" onsubmit="return validateForm()">
+                    <div class="mb-3">
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="password" placeholder="Enter new password " name="password">
+                            <div id="password1Error" class="error-message text-danger"></div>
+                        </div>
+                    </div>
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary btn-block" id="submitButton">Submit</button>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="password2" placeholder="Re-enter new password " name="password2">
+                                <div id="password2Error" class="error-message text-danger"></div>
+                            </div>
+                        </div>
+                    <div class="mb-3">
+                            <button type="submit" class="btn btn-primary btn-block" id="submitButton" name="submitButton" >Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
+            <!-- form2 end -->
+
+            
         </div>
     </div>
 </div>
+<!-- Your HTML code remains unchanged -->
+<!-- Your HTML code remains unchanged -->
 
 <script>
     const sendOTPButton = document.getElementById("sendOTPButton");
-    const resendOTPButton = document.getElementById("resendOTP");
     const verifyOTPButton = document.getElementById("verifyOTPButton");
     const submitButton = document.getElementById("submitButton");
-    const timerElement = document.getElementById("countdown");
     let countdown;
+    let form1 = document.getElementById("form-otp");
+    let form2 = document.getElementById("form-password");
+    form2.style.display = "none";
 
-    sendOTPButton.addEventListener("click", function () {
-        // Add your logic to send OTP
-        startResendTimer();
+    verifyOTPButton.disabled = true;
+
+    sendOTPButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (validateForm()) {
+            const email = document.querySelector('input[name="email"]').value;
+
+            fetch(`/forget-send-otp?email=${email}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log("Response from server", data);
+
+                    if (data.error) {
+                        Swal.fire({
+                            position: 'top-center',
+                            icon: 'error',
+                            title: data.error,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else {
+                        Swal.fire({
+                            position: 'top-center',
+                            icon: 'success',
+                            title: 'OTP sent to email successfully',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        verifyOTPButton.disabled = false;
+                        startResendTimer();
+
+                        // Hide form 1 and show form 2
+                        // form1.style.display = "none";
+                        // form2.style.display = "block";
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error sending OTP", error);
+                });
+        }
     });
 
-    resendOTPButton.addEventListener("click", function () {
-        // Add your logic to resend OTP
-        startResendTimer();
-    });
+    function validateForm() {
+        resetErrorMessages();
+        const email = document.getElementById('email').value;
+        const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+        if (!email.match(emailPattern)) {
+            showError('emailError', 'Invalid email address');
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-    verifyOTPButton.addEventListener("click", function () {
-        // Add your logic to verify OTP
+    function resetErrorMessages() {
+        const errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach((element) => {
+            element.textContent = '';
+        });
+    }
+
+    verifyOTPButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    const otpInput = document.querySelector('input[name="otpInput"]').value;
+    
+    fetch(`/forget-verify-otp?otpInput=${otpInput}`, {
+        method: "POST"
+    })
+    .then((response) => {
+        // if (!response.ok) {
+        //     throw new Error(`HTTP error! status: ${response.status}`);
+        // }
+        return response.json();
+    })
+    .then((data) => {
+        console.log("Response from server", data);
+
+        Swal.fire({
+            position: 'top-center',
+            icon: (data.message) ? 'success' : 'error',
+            title: (data.message) ?  'success' : 'error',
+            text:  (data.message) ? data.message : data.error,
+            showConfirmButton: false,
+            timer: 1500
+        });
+
+        if (data.message) {
+            // OTP verification successful, hide Form 1 and show Form 2
+            form1.style.display = "none";
+            form2.style.display = "block";
+        }
+    })
+    .catch((error) => {
+        console.error("Error verifying OTP", error);
+        
+        Swal.fire({
+            position: 'top-center',
+            icon: 'error',
+            title: 'Error verifying OTP',
+            showConfirmButton: false,
+            timer: 1500
+        });
     });
+});
+
+
+    let timerElement = document.getElementById('timer');
+    let resendOTPButton = document.getElementById('sendOTPButton');
 
     function startResendTimer() {
         let remainingTime = 60;
@@ -80,7 +216,7 @@
     }
 </script>
 
-
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<!-- Your include for footer -->
 <%- include("../partials/footer") %>

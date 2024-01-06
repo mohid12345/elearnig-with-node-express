@@ -8,6 +8,7 @@ const paginationMiddleware = require("../middlewares/paginat_middleware")
 const userMiddleware = require("../middlewares/user_authentication");
 const userControllers = require("../controllers/user_controllers/userControllers");
 const otpVerification = require("../controllers/user_controllers/otpVerification");
+const userForget = require("../controllers/user_controllers/userForget");
 const homepageControll = require("../controllers/user_controllers/homepage");
 const loginControll = require("../controllers/user_controllers/login");
 const courseControll = require("../controllers/user_controllers/coursedetails");
@@ -30,15 +31,19 @@ userRouter.get("/userLogin", (req, res) => {
 });
 userRouter.post("/userLogin", loginControll.postLogin);
 userRouter.get("/userForgetPwd", loginControll.getForgetPwd);
-// userRouter.post("/userOtpLogin",userControllers.postOtpLogin);
-// userRouter.get("/userDashboard", userControllers.getUserDashboard);
 
+
+
+//for sign-up page
 userRouter.get("/send-otp", otpVerification.getSendOtp);
 userRouter.post("/verify-otp", otpVerification.postVerifyOtp);
 
 //forgetpasswordRoutes
-// userRouter.get("/forget-send-otp", otpVerification.getSendOtp);
-// userRouter.post("/forget-verify-otp", otpVerification.postVerifyOtp);
+//set as same script for signup
+userRouter.get("/forget-send-otp", userForget.getSendOtp);
+userRouter.post("/forget-verify-otp", userForget.postVerifyOtp);
+userRouter.post("/userForgetSubmit", userForget.postSubmitOtp);
+
 
 userRouter.route("/userSignup").get(userControllers.getUserSignup).post(userControllers.postUserSignup);
 

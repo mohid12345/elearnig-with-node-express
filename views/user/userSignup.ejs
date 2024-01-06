@@ -63,9 +63,9 @@
                     </div>
 
                     <div class="form-check mb-3">
-                      <input class="form-check-input" type="checkbox" name="checkbox" id="checkbox" value="" required>
+                      <input class="form-check-input" type="checkbox" name="checkbox" id="checkbox" value="">
                       <label class="form-check-label" for="exampleCheckbox12">I agree to terms &amp; Policy.</label>
-                      <div id="checkboxError" class="error-message text-danger"></div>
+                      <div id="checkError" class="error-message text-danger"></div>
                     </div>
 
                   <div class="mb-3">
@@ -160,6 +160,7 @@
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmpassword').value;
       const phoneNumber = document.getElementById('phoneNumber').value;
+      const checkbox = document.getElementById('checkbox').value     
 
       // Validate username (should contain only characters without whitespace)
       const usernamePattern = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
@@ -198,7 +199,9 @@
       //     showError('phoneNumberError', 'Phone number must be a number with exactly 10 digits');
       //     return false;
       // }
-      if(checkbox)
+      if(!checkbox){
+        showError('checkError', 'Read Agreement and accept if OK')
+      }
 
       
       return true; // Placeholder, replace with your actual validation logic
@@ -263,7 +266,6 @@
         })
 
         let timerElement = document.getElementById('timer');
-        // let resendOTPButton = document.getElementById('resendButton');
         let resendOTPButton = document.getElementById('sendOTPButton');
         let countdown; 
 
