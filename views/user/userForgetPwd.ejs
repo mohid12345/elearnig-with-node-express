@@ -9,11 +9,11 @@
             <div class="card" id="form-otp">
                 <div class="card-body">
                     <h4 class="card-title text-center mb-4">Forget Password</h4>
-                    <form>
+                    <form method="post">
                     <!-- <form id="forgetPasswordForm" method="post" action="/userForgetSubmit" onsubmit="return validateForm()"> -->
                     <div class="mb-3">
                         <div class="form-group">
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email">
+                            <input type="text" class="form-control"  id="email" placeholder="Enter your email" name="email" required>
                             <div id="emailError" class="error-message text-danger"></div>
                         </div>
                     </div>
@@ -44,29 +44,30 @@
             <!-- form1 end -->
 
 <!-- form2 start -->
-            <div class="card" id="form-password" >
-                <div class="card-body">
-                    <h4 class="card-title text-center mb-4">Forget Password</h4>
-                    <form id="forgetPasswordForm2" method="post" action="/userForgetSubmit" onsubmit="return validateForm()">
-                    <div class="mb-3">
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="password" placeholder="Enter new password " name="password">
-                            <div id="password1Error" class="error-message text-danger"></div>
-                        </div>
-                    </div>
-                        <div class="mb-3">
-                            <div class="form-group">
-                                <input type="password" class="form-control" id="password2" placeholder="Re-enter new password " name="password2">
-                                <div id="password2Error" class="error-message text-danger"></div>
-                            </div>
-                        </div>
-                    <div class="mb-3">
-                            <button type="submit" class="btn btn-primary btn-block" id="submitButton" name="submitButton" >Submit</button>
-                        </div>
-                    </form>
+<div class="card" id="form-password">
+    <div class="card-body">
+        <h4 class="card-title text-center mb-4">Forget Password</h4>
+        <form id="forgetPasswordForm2" method="post" action="/userForgetSubmit" onsubmit="return validateForm()">
+            <div class="mb-3">
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" placeholder="Enter new password" name="password">
+                    <div id="confirmpasswordError" class="error-message text-danger"></div>
                 </div>
             </div>
-            <!-- form2 end -->
+            <div class="mb-3">
+                <div class="form-group">
+                    <input type="password" class="form-control" id="confirm-password" placeholder="Re-enter new password" name="password2">
+                    <div id="password2Error" class="error-message text-danger"></div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary btn-block" id="submitButton" name="submitButton">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- form2 end -->
+
 
             
         </div>
@@ -79,6 +80,7 @@
     const sendOTPButton = document.getElementById("sendOTPButton");
     const verifyOTPButton = document.getElementById("verifyOTPButton");
     const submitButton = document.getElementById("submitButton");
+
     let countdown;
     let form1 = document.getElementById("form-otp");
     let form2 = document.getElementById("form-password");
@@ -87,53 +89,51 @@
     verifyOTPButton.disabled = true;
 
     sendOTPButton.addEventListener("click", function (e) {
-        e.preventDefault();
-        if (validateForm()) {
-            const email = document.querySelector('input[name="email"]').value;
+    e.preventDefault();
+    if (validateForm()) {
+        const email = document.querySelector('input[name="email"]').value;
 
-            fetch(`/forget-send-otp?email=${email}`)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    console.log("Response from server", data);
+        fetch(`/forget-send-otp?email=${email}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log("Response from server", data);
 
-                    if (data.error) {
-                        Swal.fire({
-                            position: 'top-center',
-                            icon: 'error',
-                            title: data.error,
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    } else {
-                        Swal.fire({
-                            position: 'top-center',
-                            icon: 'success',
-                            title: 'OTP sent to email successfully',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        verifyOTPButton.disabled = false;
-                        startResendTimer();
-
-                        // Hide form 1 and show form 2
-                        // form1.style.display = "none";
-                        // form2.style.display = "block";
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error sending OTP", error);
-                });
-        }
-    });
+                if (data.error) {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'error',
+                        title: data.error,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: 'OTP sent to email successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    verifyOTPButton.disabled = false;
+                    startResendTimer();
+                }
+            })
+            .catch((error) => {
+                console.error("Error sending OTP", error);
+            });
+    }
+});
 
     function validateForm() {
         resetErrorMessages();
+
         const email = document.getElementById('email').value;
+        console.log("emai data : ",email);
         const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
         if (!email.match(emailPattern)) {
             showError('emailError', 'Invalid email address');
@@ -141,6 +141,12 @@
         } else {
             return true;
         }
+    }
+
+    //function to show error message
+    function showError(elementId, message){
+        const errorElement = document.getElementById(elementId);
+        errorElement.textContent = message;
     }
 
     function resetErrorMessages() {
@@ -214,6 +220,68 @@
             }
         }, 1000);
     }
+    // validation of passwords form2
+//     document.addEventListener('DOMContentLoaded', function () {
+//     submitButton.addEventListener("click", function(e){
+//         e.preventDefault();
+
+//         const password1 = document.getElementById('password').value;
+//         const password2 = document.getElementById('confirm-password').value;
+        
+//         function validatePassword(){
+//             resetErrorMessages();
+//         // Validate passwordconfirmation
+//       if (password1 !== password2) {
+//         console.log("pwd verification");
+//           showError('confirmpasswordError', 'Passwords do not match');
+//           return false;
+//       } else {   
+//         document.getElementById('forgetPasswordForm2').submit();
+//                 return true;
+
+//       }
+//     }
+//     validatePassword();
+// })
+//     })
+    // validation form2 end
+    //start
+    document.addEventListener('DOMContentLoaded', function () {
+    submitButton.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const password1 = document.getElementById('password').value;
+        const password2 = document.getElementById('confirm-password').value;
+
+        function validatePassword() {
+            resetErrorMessages();
+            // Validate password confirmation
+            if (password1 !== password2) {
+                console.log("pwd verification");
+                showError('confirmpasswordError', 'Passwords do not match');
+                return false;
+            } else {
+                // Display success message using Swal.fire
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Password changed successfully!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+
+                // Submit the form after showing the success message
+                document.getElementById('forgetPasswordForm2').submit();
+
+                return true;
+            }
+        }
+
+        validatePassword();
+    })
+});
+
+    //end
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

@@ -10,26 +10,14 @@ function generateOTP() {
 // sending otp 
 module.exports.getSendOtp = async (req,res) => {
   try {
-    const phoneNumber = req.query.phoneNumber;
-    console.log(phoneNumber)
     const email = req.query.email;
       emaildata = email;
     const existingUser = await userCollection.findOne({
       $or: [
           { email: req.query.email },
-          { phoneNumber: phoneNumber }
       ]
     });
-    // if (existingUser) {
-    //   // Handle the case where either email or phoneNumber already exists
-    //   if (existingUser.email === req.query.email && existingUser.phoneNumber === req.query.phoneNumber) {
-    //     res.status(200).json({error: "User already exists"})
-    //   } else  {
-    //     res.status(200).json({error: "User already exists"})
-    //   }
-  // }
-  //  else  {
-    if (existingUser) {
+      if (existingUser) {
     const email = req.query.email;
 
     generatedOTP = generateOTP();
@@ -64,6 +52,8 @@ module.exports.getSendOtp = async (req,res) => {
     });
   
     res.status(200).json({message: "OTP send successfully"})
+  } else {
+    res.status(200).json({error: "This mail-id is not registered!"})
   }
   } catch (error) {
     console.error(error)
