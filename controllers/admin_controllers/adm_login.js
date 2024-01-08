@@ -2,6 +2,10 @@ const adminCollection = require("../../models/adminSchema");
 
 require('dotenv').config();
 const jwt = require("jsonwebtoken");
+const orderCollection = require("../../models/order");
+const courseCollection = require("../../models/course");
+const categoryCollection = require("../../models/category");
+const userCollection = require("../../models/userSchema");
 const secretkey = process.env.JWT_SECRET_KEY
 
 module.exports.getAdminLogin = async (req, res) => {
@@ -56,7 +60,21 @@ module.exports.postAdminDashboard = async(req,res) => {
 
 module.exports.getAdminDashboard = async (req, res) => {
     if (req.cookies.loggedIn2) {
-      res.render("adminDashboard");
+      const dash_sum = await orderCollection.aggregate([
+        {
+          $group: {
+            _id : null,
+            totalAmount : { $sum : "$totalAmount"}
+          }
+        }
+      ])
+      const dash_order = await orderCollection.countDocuments({});
+      const dash_tabledata = await orderCollection.find({});
+      const dash_product = await courseCollection.countDocuments({})
+      const dash_catg = await categoryCollection.countDocuments({})
+      const dash_user = await userCollection.countDocuments({})
+      res.render("adminDashboard", { dash_sum: dash_sum , dash_order:dash_order,dash_product: dash_product,
+        dash_catg: dash_catg, dash_user: dash_user, dash_tabledata: dash_tabledata} );
     } else {
       res.render("adminLogin");
     }
