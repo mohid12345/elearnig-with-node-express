@@ -210,6 +210,14 @@
                         </div>
                         
                         <hr />
+                        <style>
+                        .thumbnail-preview {
+                            max-width: 50%;
+                            max-height: 50px;
+                            margin-top: 10px;
+                        }
+                        </style>
+                                               
                         <div class="form-group my-3">
                             <label for="video">Course Thumbnail</label> &nbsp;
                             <input
@@ -219,8 +227,12 @@
                                 name="courseImg"
                                 accept="image/*"
                                 multiple
-                             required/>
+                                required
+                                onchange="previewImage()"
+                            /> 
                         </div>
+                        <span id="thumbnailPreview" class="thumbnail-preview"></span>
+                        
                         <button type="submit" class="btn btn-primary">Submit Details</button>
                     </form>
                    
@@ -360,6 +372,35 @@
         </div>
     </footer>
 </main>
+<script>
+    //for img thumbnail preview
+    function previewImage() {
+    const input = document.getElementById('courseImg');
+    const preview = document.getElementById('thumbnailPreview');
+    
+    // Ensure that a file is selected
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            // Create an image element and set the source to the selected file
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            
+            // Clear any previous preview
+            preview.innerHTML = '';
+            
+            // Append the image to the preview container
+            preview.appendChild(img);
+        };
+
+        // Read the selected file as a data URL
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+// thumbnail end
+
+</script>
 <script src="/adminAssets/js/vendors/jquery-3.6.0.min.js"></script>
 <script src="/adminAssets/js/vendors/bootstrap.bundle.min.js"></script>
 <script src="/adminAssets/js/vendors/select2.min.js"></script>
