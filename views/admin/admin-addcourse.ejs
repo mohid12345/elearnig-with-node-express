@@ -1,5 +1,5 @@
 <%- include("../partials/admin-header")%>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="screen-overlay"></div>
@@ -138,12 +138,12 @@
         <div class="row">
             <div class="col-6">
                 <div class="content-header">
-                    <h2 class="content-title">Add New Product</h2>
+                    <h2 class="content-title">Add New Course</h2>
                 </div>
 
 
                 <div class="container mt-5">
-                    <form action="/admin/postadd-course" method="post" enctype="multipart/form-data">
+                    <form action="/admin/postadd-course" method="post"  enctype="multipart/form-data" onsubmit="return validateForm()">
                         <div class="form-group">
                             <label for="courseName">Course Name</label>
                             <div id="courseNameError" class="error-message text-danger"></div>
@@ -177,11 +177,12 @@
                         <div class="form-group">
                             <label for="category">Category</label>
                             <select class="form-control" id="category" name="courseCategory">
-                                <option value="">Select a category</option>
+                                <option value="" >Select a category</option>
                                 <% categories.forEach(category => {%>
                                 <option value="<%= category.catgName %>"><%= category.catgName %></option>
                                 <%}) %>
                             </select>
+                            <div id="courseCategoryError" class="error-message text-danger"></div>
                         </div>
                         <div class="form-group">
                             <label for="brand">Author</label>
@@ -190,11 +191,13 @@
                         </div>
                         <div class="form-group">
                             <label for="amount">Regular Price (in Rupees)</label>
-                            <input type="number" class="form-control" id="courseAmount" name="courseAmount" required min="0"/>
+                            <input type="number" class="form-control" id="courseAmount" name="courseAmount" min="0"/>
+                            <div id="courseAmountError" class="error-message text-danger"></div>
                         </div>
                         <div class="form-group">
                             <label for="amount">Total Duration (in Hours)</label>
-                            <input type="number" class="form-control" id="courseDuration" name="courseDuration" required min="0" />
+                            <input type="number" class="form-control" id="courseDuration" name="courseDuration" min="0" />
+                            <div id="courseDurationError" class="error-message text-danger"></div>
                         </div>
                         <div class="form-group">
                             <label for="amount">No of Lessons</label>
@@ -207,6 +210,7 @@
                                 min="1"
                             value="1"
                             />
+                            <!-- <div id="courseLessonError" class="error-message text-danger"></div> -->
                         </div>
                         
                         <hr />
@@ -236,28 +240,16 @@
                         
                         <button type="submit" class="btn btn-primary">Submit Details</button>
                     </form>
+                    
+                    <!-- form -2  VIDEO -->
                    
-<!-- 
                     <form action="/admin/postadd-course-video" method="post" enctype="multipart/form-data">
-                        <div id="courseVid"></div>
-                        <button type="submit" id="addVideoButton" class="btn btn-primary">Add Video</button>
-
-                    </form> -->
-                    <form action="/admin/postadd-course-video" method="post" enctype="multipart/form-data">
-                        <!-- <div class="form-group my-3">
-                            <label for="video">Course Video</label> &nbsp;
-                            <input type="file" class="form-control" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4" multiple required/>
-                        </div> -->
-
-
-                        <!-- <div type="file" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4" multiple required></div> -->
                         <div id="courseContainer">
                         <input type="file" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4" multiple required>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Add Video</button>
                     </form>
-                    <!-- VIDEO SECTION END -->
                 </div>
                 <br />
             </div>
@@ -411,6 +403,98 @@
         });
     });
 </script>
+
+<!-- form1 validation -->
+<script>
+    function validateForm() {
+        // Reset previous error messages
+        clearErrorMessages();
+    
+        // Validation logic
+        let isValid = true;
+    
+        // Validate courseName
+        const courseName = document.getElementById('courseName').value.trim();
+        if (courseName === '') {
+            displayErrorMessage('courseNameError', 'Please enter the course name.');
+            isValid = false;
+        }
+        
+        // Validate courseDiscriptionError
+        const courseDisc = document.getElementById('courseDiscription').value.trim(); // Fix typo here
+        if (courseDisc === '') {
+            displayErrorMessage('courseDiscriptionError', 'Please enter Description'); // Fix typo here
+            isValid = false;
+        }
+        
+        // Validate courseRequirementsError
+        const courseReq = document.getElementById('courseRequirements').value.trim();
+        if (courseReq === '') {
+            displayErrorMessage('courseRequirementsError', 'Please enter course description');
+            isValid = false;
+        }
+        
+        // Validate courseWhoError
+        const courseForwho = document.getElementById('courseForwho').value.trim();
+        if (courseForwho === '') {
+            displayErrorMessage('courseWhoError', 'Please enter - Who this course for?');
+            isValid = false;
+        }
+
+          
+        // Validate courseCategoryError
+        const category = document.getElementById('category').value;
+        if (category === '') {
+            displayErrorMessage('courseCategoryError', 'Please select a category');
+            isValid = false;
+        }
+        
+        // Validate courseAuthorError
+        const courseAuthor = document.getElementById('courseAuthor').value.trim();
+        if (courseAuthor === '') {
+            displayErrorMessage('courseAuthorError', 'Please enter author\'s name'); // Added escape for apostrophe
+            isValid = false;
+        }
+        
+        // Validate courseAmountError
+        const courseAmount = document.getElementById('courseAmount').value.trim();
+        if (courseAmount === '') {
+            displayErrorMessage('courseAmountError', 'Please enter the price of the course');
+            isValid = false;
+        } else if (isNaN(courseAmount)) {
+            displayErrorMessage('courseAmountError', 'Please enter a number');
+            isValid = false;
+        }
+        
+        // Validate courseDurationError
+        const courseDuration = document.getElementById('courseDuration').value.trim();
+        if (courseDuration === '') {
+            displayErrorMessage('courseDurationError', 'Please enter the duration of the course');
+            isValid = false;
+        } else if (isNaN(courseDuration)) {
+            displayErrorMessage('courseAmountError', 'Please enter a number');
+            isValid = false;
+        }
+        
+        return isValid;
+    }
+    
+    function clearErrorMessages() {
+        // Clear error messages for all fields
+        const errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(element => element.innerHTML = '');
+    }
+    
+    function displayErrorMessage(elementId, message) {
+        // Display error message for a specific field
+        const errorElement = document.getElementById(elementId);
+        if (errorElement) {
+            errorElement.innerHTML = message;
+        }
+    }
+</script>
+
+    
 <!-- for video form submit sweetalert2 end -->
 
 <script src="/adminAssets/js/vendors/jquery-3.6.0.min.js"></script>
