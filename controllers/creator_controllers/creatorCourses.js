@@ -48,36 +48,77 @@ module.exports.postCourse = async (req, res) => {
   }
 };
 
-//video posting by creator
+//video posting by creator test 1
 module.exports.postCourseVideo = async (req, res) => {
   try {
       if (courseId) {
           console.log(courseId);
           if (req.files) {
-              const videoUrl = req.cloudinarVideoUrl;
-              console.log("url is: ", videoUrl);
+              const videoUrls = req.cloudinaryVideoUrls; // Fix the property name
+              console.log("urls are: ", videoUrls);
+
               const course = await courseCollection.findById(courseId);
 
               if (course) {
-                  course.courseVid.push({ url: videoUrl });
+                  // Assuming courseVid is an array in your schema
+                  videoUrls.forEach((url) => {
+                      course.courseVid.push({ url });
+                  });
+
                   await course.save();
-                  res.status(200);
+
+                  // res.status(200);
+                  return res.status(200).json({ success: true, message: 'Videos uploaded successfully' });
+                  // res.status(200).send("Videos uploaded successfully");
                   const coursedata = await courseCollection.find();
-                  res.render("creatorCourselist", { coursedata });
+                  res.render("creator-course-list", { coursedata });
               } else {
-                  res.status(404).send("Course not found");
+                  res.status(404).json({ success: false, message: 'No videos uploaded accessable' });
               }
           } else {
-              res.status(404).send("No video selected for upload");
+              return res.status(400).json({ success: false, message: 'No videos uploaded' });
           }
       } else {
-          res.status(400).send("Invalid courseId");
+          return res.status(400).json({ success: false, message: 'Invalid courseId' });
       }
   } catch (error) {
       console.error(error);
-      res.status(500).send("Internal server error");
+      res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
+
+
+
+//video posting by creator test 0
+// module.exports.postCourseVideo = async (req, res) => {
+//   try {
+//       if (courseId) {
+//           console.log(courseId);
+//           if (req.files) {
+//               const videoUrl = req.cloudinarVideoUrl;
+//               console.log("url is: ", videoUrl);
+//               const course = await courseCollection.findById(courseId);
+
+//               if (course) {
+//                   course.courseVid.push({ url: videoUrl });
+//                   await course.save();
+//                   res.status(200);
+//                   const coursedata = await courseCollection.find();
+//                   res.render("creatorCourselist", { coursedata });
+//               } else {
+//                   res.status(404).send("Course not found");
+//               }
+//           } else {
+//               res.status(404).send("No video selected for upload");
+//           }
+//       } else {
+//           res.status(400).send("Invalid courseId");
+//       }
+//   } catch (error) {
+//       console.error(error);
+//       res.status(500).send("Internal server error");
+//   }
+// };
 
 
 
