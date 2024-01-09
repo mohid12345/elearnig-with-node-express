@@ -229,7 +229,7 @@
                                 multiple
                                 required
                                 onchange="previewImage()"
-                                
+
                             /> 
                         </div>
                         <span id="thumbnailPreview" class="thumbnail-preview"></span>
@@ -239,17 +239,97 @@
                    
 <!-- 
                     <form action="/admin/postadd-course-video" method="post" enctype="multipart/form-data">
-                        <div id="videoFieldsContainer"></div>
+                        <div id="courseVid"></div>
                         <button type="submit" id="addVideoButton" class="btn btn-primary">Add Video</button>
 
                     </form> -->
                     <form action="/admin/postadd-course-video" method="post" enctype="multipart/form-data">
-                        <div class="form-group my-3">
+                        <!-- <div class="form-group my-3">
                             <label for="video">Course Video</label> &nbsp;
-                            <input type="file" class="form-control" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4" required/>
+                            <input type="file" class="form-control" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4" multiple required/>
+                        </div> -->
+
+
+                        <!-- <div type="file" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4" multiple required></div> -->
+                        <div id="courseContainer">
+                        <input type="file" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4" multiple required>
                         </div>
+
                         <button type="submit" class="btn btn-primary">Add Video</button>
                     </form>
+                    <!-- VIDEO SECTION END -->
+                </div>
+                <br />
+            </div>
+        </div>
+    </section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <footer class="main-footer font-xs">
+        <div class="row pb-30 pt-15">
+            <div class="col-sm-6">
+                 <div class="col-sm-6">
+                    <div class="text-sm-end">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</main>
+
+//for img thumbnail preview
+<script>
+    function previewImage() {
+    const input = document.getElementById('courseImg');
+    const preview = document.getElementById('thumbnailPreview');
+    
+    // Ensure that a file is selected
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            // Create an image element and set the source to the selected file
+            const img = document.createElement('img');
+            img.src = e.target.result;          
+            // Clear any previous preview
+            preview.innerHTML = '';       
+            // Append the image to the preview container
+            preview.appendChild(img);
+        };
+        // Read the selected file as a data URL
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+  
+<!-- for dynamic multiple video start -->
+<script>
+    // Wait for the document to be ready
+    document.addEventListener("DOMContentLoaded", function () {
+        // Add an event listener to the "No of Lessons" input field
+        const courseLessonNos = document.getElementById("courseLessonNos");
+        const courseContainer = document.getElementById("courseContainer");
+
+        function addVideoField() {
+            const numOfLessons = parseInt(courseLessonNos.value, 10);
+            courseContainer.innerHTML = ""; //clearing field
+            for (let i = 1; i <= numOfLessons; i++) { //make new fields
+                const videoField = document.createElement("div");
+                videoField.className = "form-group my-3";
+                videoField.innerHTML = `
+                    <label for="video">Lesson ${i} Video</label> &nbsp;
+                    <input type="file" class="form-control" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4">
+                `;
+                courseContainer.appendChild(videoField);
+            }
+        }
+        // Add event listener to handle changes in No of Lessons
+        courseLessonNos.addEventListener("input", addVideoField);
+        // Trigger the initial generation of video upload fields
+        addVideoField();
+    });
+</script>
+
+
 <!-- //sweetalert2 script -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -294,114 +374,45 @@
                             });
                         });
                     </script>
-
-                    <!-- VIDEO SECTION END -->
-                </div>
-                <br />
-            </div>
-        </div>
-    </section>
-
-    <!-- //////////////////////////////////////////////////////////////////////////// -->
-    
-
-<!-- Include jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- ... Your existing HTML ... -->
-<!-- ... Your existing HTML ... -->
-
-<!-- Container div for dynamically generated video fields -->
-
-
-<!-- Add an empty container div for dynamically generated video fields -->
-<!-- 
+<!-- for video form submit sweetalert2  start-->
 <script>
-    // Wait for the document to be ready
-    $(document).ready(function () {
-        // Add an event listener to the "No of Lessons" input field
-        $("#courseLessonNos").on("input", function () {
-            // Get the number of lessons entered by the user
-            const numOfLessons = $(this).val();
+    document.addEventListener("DOMContentLoaded", function () {
+        const secondForm = document.querySelector("form[action ='/admin/postadd-course-video']");
+        const courseContainer = document.getElementById("courseContainer");
 
-            // Clear the existing video upload fields
-            $("#videoFieldsContainer").empty();
+        secondForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            //form2 submissiton via fetch method
+            try{
+                const response = await fetch("/admin/postadd-course-video", {
+                    method: "POST",
+                    body: new FormData(secondForm),
+                });
+                const responseData = await response.json();
 
-            // Generate new video upload fields based on the number of lessons
-            for (let i = 1; i <= numOfLessons; i++) {
-                const courseVid = `
-                    <div class="form-group my-3">
-                        <label for="video">Lesson ${i} Video</label> &nbsp;
-                        <input type="file" class="form-control" name="lessonVideos" accept="video/mp4,video/x-m4v,video/*,mp4">
-                    </div>`;
-                $("#videoFieldsContainer").append(courseVid);
+                if(response.ok) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: responseData.message,
+                    }).then(() => {
+                        window.location.href = "/admin/course-list";
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: responseData.message,
+                    });
+                }
+            } catch(error){
+                console.error("Error:", error);
             }
-
-            // Conditionally show/hide the "Add Video" button
-            const addButton = $("#addVideoButton");
-            if (numOfLessons > 0) {
-                addButton.show();
-            } else {
-                addButton.hide();
-            }
-        });
-
-        // Show/hide video fields based on whether an image thumbnail is added
-        $("#courseImg").on("change", function () {
-            const thumbnailAdded = $(this).val() !== "";
-            $("#videoFieldsContainer").toggle(thumbnailAdded);
         });
     });
-</script> -->
-
-<!-- Add Video button with an ID for easy reference -->
-
-<!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-
-    <footer class="main-footer font-xs">
-        <div class="row pb-30 pt-15">
-            <div class="col-sm-6">
-                <!-- <script>
-                    document.write(new Date().getFullYear())
-                    </script>
-                </div> -->
-                <div class="col-sm-6">
-                    <div class="text-sm-end">
-                        <!-- All rights reserved -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-</main>
-<script>
-    //for img thumbnail preview
-    function previewImage() {
-    const input = document.getElementById('courseImg');
-    const preview = document.getElementById('thumbnailPreview');
-    
-    // Ensure that a file is selected
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-            // Create an image element and set the source to the selected file
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            
-            // Clear any previous preview
-            preview.innerHTML = '';
-            
-            // Append the image to the preview container
-            preview.appendChild(img);
-        };
-
-        // Read the selected file as a data URL
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-// thumbnail end
-
 </script>
+<!-- for video form submit sweetalert2 end -->
+
 <script src="/adminAssets/js/vendors/jquery-3.6.0.min.js"></script>
 <script src="/adminAssets/js/vendors/bootstrap.bundle.min.js"></script>
 <script src="/adminAssets/js/vendors/select2.min.js"></script>
@@ -409,8 +420,4 @@
 <script src="/adminAssets/js/vendors/jquery.fullscreen.min.js"></script>
 <!-- Main Script -->
 <script src="/adminAssets/js/main.js" type="text/javascript"></script>
-
-
-<!-- ... Your existing scripts ... -->
-
 <%- include("../partials/admin-footer")%>
