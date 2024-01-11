@@ -1,7 +1,7 @@
 const courseCollection = require("../../models/course");
 const userCollection = require("../../models/userSchema");
 const wishlistCollection = require("../../models/wishlist");
-
+const cartCollection = require("../../models/cart")
 require('dotenv').config();
 const jwt = require("jsonwebtoken");
 const { default : mongoose } = require("mongoose");
@@ -96,3 +96,37 @@ module.exports.deleteWishlist = async (req, res) =>{
 
     }
 };
+
+
+module.exports.postCartPageFrom = async (req, res) =>{
+    try {
+        const userData = await userCollection.findOne({email: req.user})
+        const userId = userData._id;
+        const courseId = req.query.courseId;
+
+        let userCart = await cartCollection.findOne({userId: userId})
+        if(!userCart){
+            userCart = new cartCollection({
+                userId,
+                courses: [],
+            })
+        }
+        const existingCourseIndex = userCart.courses.findIndex(
+            (course) => course.courseId.toString() === courseId
+        );
+        console.log("dat z : ",existingCourseIndex);
+        if(existingCourseIndex !== -1) {//if element return -1(if new) else 0(if already exist) rom findIndex method
+           return res.json({message: "Course already in cart!"})
+        } else {
+            userCart.courses.push({
+                courseId: new mongoose.Types.ObjectId(courseId),
+            });
+        }
+        await userCart.save()
+        res.json({message: "Course added to the Cart"})
+
+    } catch(error){
+        console.log("Error adding to the cart:", error);
+        res.status(500).json({error:"Failed to add course to cart"})
+    }
+}

@@ -63,6 +63,8 @@ userRouter.get("/contact", homepageControll.getUserRoute_Contact);
 userRouter.get("/userWishlist",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.getWishlistPage);
 userRouter.post("/addWishlist",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.postWishlistPage);
 userRouter.get("/delete-wishlist",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.deleteWishlist);
+userRouter.post("/addCartFrom",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.postCartPageFrom);
+
 
 //Renderign the cart page
 userRouter.get("/userCart",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,cartControl.getCartPage);

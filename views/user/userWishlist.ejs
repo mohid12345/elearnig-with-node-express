@@ -133,7 +133,7 @@ remove this -->
             addingcartButtons.forEach(button => {
                 button.addEventListener("click", function () {
                     const courseId = button.getAttribute("data-course-id");
-                    fetch(`/addCart?courseId=${courseId}`, {
+                    fetch(`/addCartFrom?courseId=${courseId}`, {
                         method: 'POST',
                         headers: {
                             'content-Type': 'application/json',
@@ -146,13 +146,12 @@ remove this -->
                         return response.json();
                     })
                     .then(data => {
-                        console.log("Response from server", data);
                         // Check if the response contains a message
                         if (data.message) {
                             // Display Sweet Alert
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Course Added to Cart',
+                                title: data.message,
                                 showConfirmButton: false,
                                 timer: 1500
                             });
