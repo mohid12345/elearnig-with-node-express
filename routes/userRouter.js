@@ -78,7 +78,7 @@ userRouter.get("/userCheckout", userMiddleware.verifyUser, userMiddleware.checkB
 userRouter.get("/get-grandtotal", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.grandtotal)
 userRouter.post("/add-coupon", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.applyCoupon)
 userRouter.post("/remove-coupon", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.removeCoupon)
-userRouter.get("/order-placed", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.getPlaceOrder)
+// userRouter.get("/order-placed", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.getPlaceOrder)
 userRouter.post("/cashOnDelivery", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.cashOnDelivery)
 userRouter.post("/razorpay", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.razorpayOrder)
 userRouter.get("/razorpayorder-placed", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.razorpayOrderPlaced)

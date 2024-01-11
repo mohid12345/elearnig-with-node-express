@@ -73,7 +73,7 @@
       <h4><%= coursedata.courseAmount%> Inr</h4>
       <hr>
       <br>
-      <button style="border: 0cap" class="btn btn-primary flex-fill text-center border-end py-2 add-cart-btn" course-dat-id-1="<%= coursedata._id %>">Buy This Course</button>
+      <button style="border: 0cap" class="btn btn-primary flex-fill text-center border-end py-2 add-cart-btn" course-dat-id-1="<%= coursedata._id %>">Add to Cart</button>
 
       <!-- <a href="addCart" class="btn btn-primary float-right">Buy this course</a> -->
     </div>
@@ -152,13 +152,13 @@
             </div>
         </div>
 
-          <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />          <ul class="list-group-item list-group-item-secondary"> -->
-            <!-- <ul> 
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />          <ul class="list-group-item list-group-item-secondary">
+            <ul> 
                 <span class="material-symbols-outlined">
                 play_circle
                 </span>
                 <a href="<%= coursedata.courseVid[0].url %>">Video 1</a>
-            </ul> -->
+            </ul>
         </ul>
 
       <!-- </ul> -->
@@ -166,10 +166,10 @@
     <!-- test1 -->
 
      <br>
-    <video id="myVideo" width="640" height="360" controls>
+    <!-- <video id="myVideo" width="640" height="360" controls>
         <source src="<%= coursedata.courseVid[0].url %>" type="video/mp4">
         Your browser does not support the video tag.
-    </video>
+    </video> -->
     <br>
     <!-- <button type="button" class="btn btn-outline-danger" onclick="playVideo()">
         <span class="material-symbols-outlined">

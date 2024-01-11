@@ -118,15 +118,15 @@ module.exports.cashOnDelivery = async (req, res) => {
 
 
 // render place order
-module.exports.getPlaceOrder = async(req,res) => {
-  try{
-    const loggedIn = req.cookies.loggedIn;
-    const username = req.cookies.username;
-    res.render("user-orderplaced",{loggedIn,username})
-  }catch(error){
-    console.error("error: ", error)
-  }
-}
+// module.exports.getPlaceOrder = async(req,res) => {
+//   try{
+//     const loggedIn = req.cookies.loggedIn;
+//     const username = req.cookies.username;
+//     res.render("user-orderplaced",{loggedIn,username})
+//   }catch(error){
+//     console.error("error: ", error)
+//   }
+// }
 
 
 
@@ -379,6 +379,7 @@ module.exports.razorpayOrderPlaced = async(req,res) => {
         paymentMethod,
         paymentStatus,
       });
+      console.log("dat2 : ",userId);
 
       // Delete courses from cart
       await cartCollection.findOneAndDelete({ userId: userId });
@@ -571,19 +572,19 @@ module.exports.razorpayOrderPlaced = async(req,res) => {
 //   }
 // }
 
-// render place order page
-module.exports.getPlaceOrder = async(req,res) => {
-  try{
-    const loggedIn = req.cookies.loggedIn;
-    const userData = await userCollection.findOne({email: req.user})
-    const userId = userData._id;
-    const username = userData.username;
+// // render place order page
+// module.exports.getPlaceOrder = async(req,res) => {
+//   try{
+//     const loggedIn = req.cookies.loggedIn;
+//     const userData = await userCollection.findOne({email: req.user})
+//     const userId = userData._id;
+//     const username = userData.username;
     
-    res.render("user-orderplaced",{loggedIn,username})
-  } catch(error){
-    console.error("error: ", error)
-  }
-}
+//     res.render("user-orderplaced",{loggedIn,username})
+//   } catch(error){
+//     console.error("error: ", error)
+//   }
+// }
 
 
 
