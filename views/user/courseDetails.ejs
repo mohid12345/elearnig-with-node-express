@@ -152,13 +152,22 @@
             </div>
         </div>
 
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />          <ul class="list-group-item list-group-item-secondary">
-            <ul> 
-                <span class="material-symbols-outlined">
-                play_circle
-                </span>
-                <a href="<%= coursedata.courseVid[0].url %>">Video 1</a>
-            </ul>
+          <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />          <ul class="list-group-item list-group-item-secondary"> -->
+            
+            
+            <ul class="video-list">
+                <% for (let i = 0; i < coursedata.courseVid.length; i++) { %>
+                  <li class="video-item">
+                    <!-- <span class="material-symbols-outlined"> -->
+                    <span class="material-symbols-outlined">
+                      <!-- play_circle -->
+                    </span>
+                    <a href="<%= coursedata.courseVid[i].url %>">Lesson Number  :  <%= i + 1 %></a>
+                  </li>
+                <% } %>
+              </ul>
+              
+              
         </ul>
 
       <!-- </ul> -->

@@ -16,7 +16,8 @@ const adminRouter = require("./routes/adminRouter");
 const userRouter = require("./routes/userRouter");
 const creatorRouter = require("./routes/creatorRouter");
 
-const PORT = process.env.PORT;
+const PORT = 8001
+// const PORT = process.env.PORT;
 
 app.use(nocache());
 app.use(cookieParser()); // parsing the incoming data
