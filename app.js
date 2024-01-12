@@ -25,7 +25,8 @@ app.set('view engine', 'ejs');
 // app.set("views","./views");
 // app.set("views", path.join(__dirname, "views","user"));
 // app.use(express.static("public"));
-app.use(express.static(__dirname + "/public")); //serving public file
+app.use(express.static(path.join(__dirname + "/public")));
+// app.use(express.static(__dirname + "/public")); //serving public file
 app.use(
     session({    
     secret: uuidv4(),
