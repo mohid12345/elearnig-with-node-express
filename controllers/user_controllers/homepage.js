@@ -6,8 +6,10 @@ module.exports.getUserRoute = async(req, res) => {
     try{
         const loggedIn = req.cookies.loggedIn;
         const courseData = await courseCollection.find()
+        const userName = req.cookies.username;
+        const categoryData = await categoryCollection.find();
         // console.log(userRouter.locals); - this is  a express data storages systerm to further use
-        res.render("main",{loggedIn, courseData});
+        res.render("main",{loggedIn,userName,courseData,categoryData});
     }catch(error){
     console.error(error);
 }

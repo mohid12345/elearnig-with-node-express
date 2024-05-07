@@ -31,7 +31,11 @@
                     </div>
                 </div>
                 <div class="nav-item dropdown">
+                    <%if(!loggedIn){%>
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Learning</a>
+                    <%} else { %>
+                        <a href="#" class="nav-link dropdown-toggle active " data-bs-toggle="dropdown">Hello,<%=userName%></a>
+                        <% } %>
                     <div class="dropdown-menu fade-down m-0">
                         <a href="userAccount" class="dropdown-item">Profile</a>
                         <a href="userWishlist" class="dropdown-item">Wishlist</a>
@@ -47,9 +51,10 @@
                     </div>
                 </div>
             </div>
-            <a href="/userSignup" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
-                >Join Now<i class="fa fa-arrow-right ms-3"></i
-            ></a>
+            <%if(!loggedIn){%><a href="/userSignup" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
+                >Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+                <% } %>
+               
         </div>
     </nav>
     <!-- Navbar End -->
@@ -73,7 +78,9 @@
                                      knowledge meets innovation for a dynamic learning experience.
                                 </p>
                                 <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                <% if(!loggedIn){ %>
                                 <a href="/userSignup" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                                <%}%>
                             </div>
                         </div>
                     </div>
@@ -280,7 +287,7 @@
                 <h1 class="mb-5">Popular Courses</h1>
             </div>
             <div class="row g-4 justify-content-center">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <!-- <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="course-item bg-light">
                         <div class="position-relative overflow-hidden">
                             <img class="img-fluid" src="img/course-1.jpg" alt="" />
@@ -323,95 +330,48 @@
                             >
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="course-item bg-light">
-                        <div class="position-relative overflow-hidden">
-                            <img class="img-fluid" src="img/course-2.jpg" alt="" />
-                            <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                                <a
-                                    href="#"
-                                    class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
-                                    style="border-radius: 30px 0 0 30px"
-                                    >Read More</a
-                                >
-                                <a
-                                    href="#"
-                                    class="flex-shrink-0 btn btn-sm btn-primary px-3"
-                                    style="border-radius: 0 30px 30px 0"
-                                    >Join Now</a
-                                >
+                </div> -->
+
+                <!-- resp datat start -->
+                
+                <% courseData.slice(0,3).forEach(course => {%> 
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="course-item bg-light">
+                            <div class="position-relative overflow-hidden">
+                                <!-- <a href="/course-details/<%= course._id %>"> -->
+                                <a href="/course-details/<%= course._id %>">
+                                <img class="img-fluid" src="<%= course.courseImg[0] %>" alt="">
+                                <!-- </a> -->
+                                <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
+                                    <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
+                                    <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="text-center p-4 pb-0">
-                            <h3 class="mb-0">$149.00</h3>
-                            <div class="mb-3">
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small>(123)</small>
+                            <div class="text-center p-4 pb-0">
+                                <h3 class="mb-0"> Rs <%= course.courseAmount %></h3>
+                                <div class="mb-3">
+                                    <small class="fa fa-star text-primary"></small>
+                                    <small class="fa fa-star text-primary"></small>
+                                    <small class="fa fa-star text-primary"></small>
+                                    <small class="fa fa-star text-primary"></small>
+                                    <small class="fa fa-star text-primary"></small>
+                                    <small>(123)</small>
+                                </div>
+                                <h5 class="mb-4"><%= course.courseName %></h5>
                             </div>
-                            <h5 class="mb-4">Web Design & Development Course for Beginners</h5>
-                        </div>
-                        <div class="d-flex border-top">
-                            <small class="flex-fill text-center border-end py-2"
-                                ><i class="fa fa-user-tie text-primary me-2"></i>John Doe</small
-                            >
-                            <small class="flex-fill text-center border-end py-2"
-                                ><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small
-                            >
-                            <small class="flex-fill text-center py-2"
-                                ><i class="fa fa-user text-primary me-2"></i>30 Students</small
-                            >
+                            <div class="d-flex border-top">
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i><%= course.courseAuthor %></small>
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i><%= course.courseDuration %></small>
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-user text-primary me-2"></i><%= course.courseLessonNos %></small>
+                                <button style="border: 0cap; background-color: inherit" class="flex-fill text-center border-end py-2 add-cart-btn" course-dat-id-1="<%= course._id %>"><i class="fa fa-shopping-cart text-primary me-2"></i></button>
+                                <button style="border: 0cap; background-color: inherit" class="flex-fill text-center py-2 add-wish-btn" course-dat-id="<%= course._id %>" ><i class="bi bi-heart-fill text-primary me-2 "></i></button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="course-item bg-light">
-                        <div class="position-relative overflow-hidden">
-                            <img class="img-fluid" src="img/course-3.jpg" alt="" />
-                            <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                                <a
-                                    href="#"
-                                    class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
-                                    style="border-radius: 30px 0 0 30px"
-                                    >Read More</a
-                                >
-                                <a
-                                    href="#"
-                                    class="flex-shrink-0 btn btn-sm btn-primary px-3"
-                                    style="border-radius: 0 30px 30px 0"
-                                    >Join Now</a
-                                >
-                            </div>
-                        </div>
-                        <div class="text-center p-4 pb-0">
-                            <h3 class="mb-0">$149.00</h3>
-                            <div class="mb-3">
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small>(123)</small>
-                            </div>
-                            <h5 class="mb-4">Web Design & Development Course for Beginners</h5>
-                        </div>
-                        <div class="d-flex border-top">
-                            <small class="flex-fill text-center border-end py-2"
-                                ><i class="fa fa-user-tie text-primary me-2"></i>John Doe</small
-                            >
-                            <small class="flex-fill text-center border-end py-2"
-                                ><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small
-                            >
-                            <small class="flex-fill text-center py-2"
-                                ><i class="fa fa-user text-primary me-2"></i>30 Students</small
-                            >
-                        </div>
-                    </div>
-                </div>
+                   <% }) %>  
+
+             <!-- data end -->
+
             </div>
         </div>
     </div>

@@ -49,10 +49,10 @@ app.use("/creator", (req, res, next) => {
   next();
 }, creatorRouter);
 
-const MONGO_CNT = `mongodb+srv://mohidmohan8482:OXLMp6DfFCm1P206@cluster0.1cb8zqv.mongodb.net/EdX-db`;
+// const MONGO_CNT = `mongodb+srv://mohidmohan8482:OXLMp6DfFCm1P206@cluster0.1cb8zqv.mongodb.net/EdX-db`;
 
 
-// const MONGO_CNT = "mongodb://127.0.0.1:27017/EdX-db";
+const MONGO_CNT = "mongodb://127.0.0.1:27017/EdX-db";
 app.listen(PORT, async () => {
   try {
       mongoose.connect(MONGO_CNT, { useNewUrlParser: true, useUnifiedTopology: true });
