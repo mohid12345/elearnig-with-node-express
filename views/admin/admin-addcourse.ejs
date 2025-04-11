@@ -229,7 +229,7 @@
                                 multiple
                                 required
                                 onchange="previewImage()"
-                                
+
                             /> 
                         </div>
                         <span id="thumbnailPreview" class="thumbnail-preview"></span>
@@ -247,9 +247,18 @@
                         <div class="form-group my-3">
                             <label for="video">Course Video</label> &nbsp;
                             <input type="file" class="form-control" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4" required/>
+                            
                         </div>
+                        <div id="videoFieldsContainer"></div>
+
                         <button type="submit" class="btn btn-primary">Add Video</button>
                     </form>
+
+
+
+
+
+
 <!-- //sweetalert2 script -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -304,7 +313,42 @@
 
     <!-- //////////////////////////////////////////////////////////////////////////// -->
     
+<!-- for dynamic multiple video start -->
 
+<script>
+    // Wait for the document to be ready
+    document.addEventListener("DOMContentLoaded", function () {
+        // Add an event listener to the "No of Lessons" input field
+        const courseLessonNos = document.getElementById("courseLessonNos");
+        const videoFieldsContainer = document.getElementById("videoFieldsContainer");
+
+        function addVideoField() {
+            const numOfLessons = parseInt(courseLessonNos.value, 10);
+
+            // Clear existing video upload fields
+            videoFieldsContainer.innerHTML = "";
+
+            // Generate new video upload fields based on the number of lessons
+            for (let i = 1; i <= numOfLessons; i++) {
+                const videoField = document.createElement("div");
+                videoField.className = "form-group my-3";
+                videoField.innerHTML = `
+                    <label for="video">Lesson ${i} Video</label> &nbsp;
+                    <input type="file" class="form-control" name="lessonVideos" accept="video/mp4,video/x-m4v,video/*,mp4">
+                `;
+                videoFieldsContainer.appendChild(videoField);
+            }
+        }
+
+        // Add event listener to handle changes in No of Lessons
+        courseLessonNos.addEventListener("input", addVideoField);
+
+        // Trigger the initial generation of video upload fields
+        addVideoField();
+    });
+</script>
+
+<!-- for dynamic multiple video end -->
 <!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- ... Your existing HTML ... -->

@@ -47,7 +47,9 @@ app.use("/creator", (req, res, next) => {
   next();
 }, creatorRouter);
 
-const MONGO_CNT = "mongodb://127.0.0.1:27017/EdX-db";
+// const MONGO_CNT = "mongodb://127.0.0.1:27017/EdX-db";
+const MONGO_CNT="mongodb+srv://mohidmohan8482:KVKF1b515ASDtsNx@cluster0.wtifn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/EdX-Edu"
+
 app.listen(PORT, async () => {
     try {
       await mongoose.connect(MONGO_CNT);
