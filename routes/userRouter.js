@@ -63,6 +63,8 @@ userRouter.get("/contact", homepageControll.getUserRoute_Contact);
 userRouter.get("/userWishlist",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.getWishlistPage);
 userRouter.post("/addWishlist",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.postWishlistPage);
 userRouter.get("/delete-wishlist",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.deleteWishlist);
+userRouter.post("/addCartFrom",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,wishlistControl.postCartPageFrom);
+
 
 //Renderign the cart page
 userRouter.get("/userCart",userMiddleware.verifyUser,userMiddleware.checkBlockedStatus,cartControl.getCartPage);
@@ -76,7 +78,7 @@ userRouter.get("/userCheckout", userMiddleware.verifyUser, userMiddleware.checkB
 userRouter.get("/get-grandtotal", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.grandtotal)
 userRouter.post("/add-coupon", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.applyCoupon)
 userRouter.post("/remove-coupon", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.removeCoupon)
-userRouter.get("/order-placed", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.getPlaceOrder)
+// userRouter.get("/order-placed", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.getPlaceOrder)
 userRouter.post("/cashOnDelivery", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.cashOnDelivery)
 userRouter.post("/razorpay", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.razorpayOrder)
 userRouter.get("/razorpayorder-placed", userMiddleware.verifyUser, userMiddleware.checkBlockedStatus, checkoutControll.razorpayOrderPlaced)

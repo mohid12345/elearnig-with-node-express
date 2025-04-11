@@ -138,12 +138,12 @@
         <div class="row">
             <div class="col-6">
                 <div class="content-header">
-                    <h2 class="content-title">Add New Product</h2>
+                    <h2 class="content-title">Add New Course</h2>
                 </div>
 
 
                 <div class="container mt-5">
-                    <form action="/admin/postadd-course" method="post" enctype="multipart/form-data">
+                    <form action="/admin/postadd-course" method="post"  enctype="multipart/form-data" onsubmit="return validateForm()">
                         <div class="form-group">
                             <label for="courseName">Course Name</label>
                             <div id="courseNameError" class="error-message text-danger"></div>
@@ -177,11 +177,12 @@
                         <div class="form-group">
                             <label for="category">Category</label>
                             <select class="form-control" id="category" name="courseCategory">
-                                <option value="">Select a category</option>
+                                <option value="" >Select a category</option>
                                 <% categories.forEach(category => {%>
                                 <option value="<%= category.catgName %>"><%= category.catgName %></option>
                                 <%}) %>
                             </select>
+                            <div id="courseCategoryError" class="error-message text-danger"></div>
                         </div>
                         <div class="form-group">
                             <label for="brand">Author</label>
@@ -190,11 +191,13 @@
                         </div>
                         <div class="form-group">
                             <label for="amount">Regular Price (in Rupees)</label>
-                            <input type="number" class="form-control" id="courseAmount" name="courseAmount" required min="0"/>
+                            <input type="number" class="form-control" id="courseAmount" name="courseAmount" min="0"/>
+                            <div id="courseAmountError" class="error-message text-danger"></div>
                         </div>
                         <div class="form-group">
                             <label for="amount">Total Duration (in Hours)</label>
-                            <input type="number" class="form-control" id="courseDuration" name="courseDuration" required min="0" />
+                            <input type="number" class="form-control" id="courseDuration" name="courseDuration" min="0" />
+                            <div id="courseDurationError" class="error-message text-danger"></div>
                         </div>
                         <div class="form-group">
                             <label for="amount">No of Lessons</label>
@@ -207,6 +210,7 @@
                                 min="1"
                             value="1"
                             />
+                            <!-- <div id="courseLessonError" class="error-message text-danger"></div> -->
                         </div>
                         
                         <hr />
@@ -230,6 +234,7 @@
                                 required
                                 onchange="previewImage()"
 
+
                             /> 
                         </div>
                         <span id="thumbnailPreview" class="thumbnail-preview"></span>
@@ -244,12 +249,12 @@
 
                     </form> -->
                     <form action="/admin/postadd-course-video" method="post" enctype="multipart/form-data">
-                        <div class="form-group my-3">
-                            <label for="video">Course Video</label> &nbsp;
-                            <input type="file" class="form-control" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4" required/>
+                        <div id="courseContainer">
+                        <input type="file" id="courseVid" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4" multiple required>
                             
                         </div>
                         <div id="videoFieldsContainer"></div>
+
 
                         <button type="submit" class="btn btn-primary">Add Video</button>
                     </form>
@@ -257,6 +262,78 @@
 
 
 
+
+
+                </div>
+                <br />
+            </div>
+        </div>
+    </section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <footer class="main-footer font-xs">
+        <div class="row pb-30 pt-15">
+            <div class="col-sm-6">
+                 <div class="col-sm-6">
+                    <div class="text-sm-end">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</main>
+
+//for img thumbnail preview
+<script>
+    function previewImage() {
+    const input = document.getElementById('courseImg');
+    const preview = document.getElementById('thumbnailPreview');
+    
+    // Ensure that a file is selected
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            // Create an image element and set the source to the selected file
+            const img = document.createElement('img');
+            img.src = e.target.result;          
+            // Clear any previous preview
+            preview.innerHTML = '';       
+            // Append the image to the preview container
+            preview.appendChild(img);
+        };
+        // Read the selected file as a data URL
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+  
+<!-- for dynamic multiple video start -->
+<script>
+    // Wait for the document to be ready
+    document.addEventListener("DOMContentLoaded", function () {
+        // Add an event listener to the "No of Lessons" input field
+        const courseLessonNos = document.getElementById("courseLessonNos");
+        const courseContainer = document.getElementById("courseContainer");
+
+        function addVideoField() {
+            const numOfLessons = parseInt(courseLessonNos.value, 10);
+            courseContainer.innerHTML = ""; //clearing field
+            for (let i = 1; i <= numOfLessons; i++) { //make new fields
+                const videoField = document.createElement("div");
+                videoField.className = "form-group my-3";
+                videoField.innerHTML = `
+                    <label for="video">Lesson ${i} Video</label> &nbsp;
+                    <input type="file" class="form-control" name="courseVid" accept="video/mp4,video/x-m4v,video/*,mp4">
+                `;
+                courseContainer.appendChild(videoField);
+            }
+        }
+        // Add event listener to handle changes in No of Lessons
+        courseLessonNos.addEventListener("input", addVideoField);
+        // Trigger the initial generation of video upload fields
+        addVideoField();
+    });
+</script>
 
 
 <!-- //sweetalert2 script -->
@@ -359,92 +436,132 @@
 
 <!-- Add an empty container div for dynamically generated video fields -->
 <!-- 
+<!-- for video form submit sweetalert2  start-->
 <script>
-    // Wait for the document to be ready
-    $(document).ready(function () {
-        // Add an event listener to the "No of Lessons" input field
-        $("#courseLessonNos").on("input", function () {
-            // Get the number of lessons entered by the user
-            const numOfLessons = $(this).val();
+    document.addEventListener("DOMContentLoaded", function () {
+        const secondForm = document.querySelector("form[action ='/admin/postadd-course-video']");
+        const courseContainer = document.getElementById("courseContainer");
 
-            // Clear the existing video upload fields
-            $("#videoFieldsContainer").empty();
+        secondForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            //form2 submissiton via fetch method
+            try{
+                const response = await fetch("/admin/postadd-course-video", {
+                    method: "POST",
+                    body: new FormData(secondForm),
+                });
+                const responseData = await response.json();
 
-            // Generate new video upload fields based on the number of lessons
-            for (let i = 1; i <= numOfLessons; i++) {
-                const courseVid = `
-                    <div class="form-group my-3">
-                        <label for="video">Lesson ${i} Video</label> &nbsp;
-                        <input type="file" class="form-control" name="lessonVideos" accept="video/mp4,video/x-m4v,video/*,mp4">
-                    </div>`;
-                $("#videoFieldsContainer").append(courseVid);
+                if(response.ok) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: responseData.message,
+                    }).then(() => {
+                        window.location.href = "/admin/course-list";
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: responseData.message,
+                    });
+                }
+            } catch(error){
+                console.error("Error:", error);
             }
-
-            // Conditionally show/hide the "Add Video" button
-            const addButton = $("#addVideoButton");
-            if (numOfLessons > 0) {
-                addButton.show();
-            } else {
-                addButton.hide();
-            }
-        });
-
-        // Show/hide video fields based on whether an image thumbnail is added
-        $("#courseImg").on("change", function () {
-            const thumbnailAdded = $(this).val() !== "";
-            $("#videoFieldsContainer").toggle(thumbnailAdded);
         });
     });
-</script> -->
+</script>
 
-<!-- Add Video button with an ID for easy reference -->
-
-<!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-
-    <footer class="main-footer font-xs">
-        <div class="row pb-30 pt-15">
-            <div class="col-sm-6">
-                <!-- <script>
-                    document.write(new Date().getFullYear())
-                    </script>
-                </div> -->
-                <div class="col-sm-6">
-                    <div class="text-sm-end">
-                        <!-- All rights reserved -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-</main>
+<!-- form1 validation -->
 <script>
-    //for img thumbnail preview
-    function previewImage() {
-    const input = document.getElementById('courseImg');
-    const preview = document.getElementById('thumbnailPreview');
+    function validateForm() {
+        // Reset previous error messages
+        clearErrorMessages();
     
-    // Ensure that a file is selected
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
+        // Validation logic
+        let isValid = true;
+    
+        // Validate courseName
+        const courseName = document.getElementById('courseName').value.trim();
+        if (courseName === '') {
+            displayErrorMessage('courseNameError', 'Please enter the course name.');
+            isValid = false;
+        }
+        
+        // Validate courseDiscriptionError
+        const courseDisc = document.getElementById('courseDiscription').value.trim(); // Fix typo here
+        if (courseDisc === '') {
+            displayErrorMessage('courseDiscriptionError', 'Please enter Description'); // Fix typo here
+            isValid = false;
+        }
+        
+        // Validate courseRequirementsError
+        const courseReq = document.getElementById('courseRequirements').value.trim();
+        if (courseReq === '') {
+            displayErrorMessage('courseRequirementsError', 'Please enter course description');
+            isValid = false;
+        }
+        
+        // Validate courseWhoError
+        const courseForwho = document.getElementById('courseForwho').value.trim();
+        if (courseForwho === '') {
+            displayErrorMessage('courseWhoError', 'Please enter - Who this course for?');
+            isValid = false;
+        }
 
-        reader.onload = function (e) {
-            // Create an image element and set the source to the selected file
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            
-            // Clear any previous preview
-            preview.innerHTML = '';
-            
-            // Append the image to the preview container
-            preview.appendChild(img);
-        };
-
-        // Read the selected file as a data URL
-        reader.readAsDataURL(input.files[0]);
+          
+        // Validate courseCategoryError
+        const category = document.getElementById('category').value;
+        if (category === '') {
+            displayErrorMessage('courseCategoryError', 'Please select a category');
+            isValid = false;
+        }
+        
+        // Validate courseAuthorError
+        const courseAuthor = document.getElementById('courseAuthor').value.trim();
+        if (courseAuthor === '') {
+            displayErrorMessage('courseAuthorError', 'Please enter author\'s name'); // Added escape for apostrophe
+            isValid = false;
+        }
+        
+        // Validate courseAmountError
+        const courseAmount = document.getElementById('courseAmount').value.trim();
+        if (courseAmount === '') {
+            displayErrorMessage('courseAmountError', 'Please enter the price of the course');
+            isValid = false;
+        } else if (isNaN(courseAmount)) {
+            displayErrorMessage('courseAmountError', 'Please enter a number');
+            isValid = false;
+        }
+        
+        // Validate courseDurationError
+        const courseDuration = document.getElementById('courseDuration').value.trim();
+        if (courseDuration === '') {
+            displayErrorMessage('courseDurationError', 'Please enter the duration of the course');
+            isValid = false;
+        } else if (isNaN(courseDuration)) {
+            displayErrorMessage('courseAmountError', 'Please enter a number');
+            isValid = false;
+        }
+        
+        return isValid;
     }
-}
-// thumbnail end
-
+    
+    function clearErrorMessages() {
+        // Clear error messages for all fields
+        const errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(element => element.innerHTML = '');
+    }
+    
+    function displayErrorMessage(elementId, message) {
+        // Display error message for a specific field
+        const errorElement = document.getElementById(elementId);
+        if (errorElement) {
+            errorElement.innerHTML = message;
+        }
+    }
 </script>
 <script src="/adminAssets/js/vendors/jquery-3.6.0.min.js"></script>
 <script src="/adminAssets/js/vendors/bootstrap.bundle.min.js"></script>

@@ -55,7 +55,7 @@ adminRouter.post("/postadd-course",adminMiddleware.verifyAdmin, uploads, courseC
 adminRouter.post("/postadd-course-video",adminMiddleware.verifyAdmin,fileUpload(), cloudinaryUploadMiddleware('courseVid'), courseControll.postCourseVideo)
 //we are using expresss fileUpload methos for uploading vidoe. and it cant be set with
 // app.use( )  method globallly, then imgupload wont work
-
+  
 adminRouter.get("/delete-course/:courseId",adminMiddleware.verifyAdmin, courseControll.deleteCourse);
 adminRouter.get("/edit-course/:courseId",adminMiddleware.verifyAdmin,courseControll.editCourse)
 
