@@ -17,6 +17,7 @@ const userRouter = require("./routes/userRouter");
 const creatorRouter = require("./routes/creatorRouter");
 
 const PORT = process.env.PORT;
+const MONGO_CNT = process.env.MONGO_CNT
 
 app.use(nocache());
 app.use(cookieParser()); // parsing the incoming data
@@ -47,11 +48,10 @@ app.use("/creator", (req, res, next) => {
   next();
 }, creatorRouter);
 
-// const MONGO_CNT = `mongodb+srv://mohidmohan8482:OXLMp6DfFCm1P206@cluster0.1cb8zqv.mongodb.net/EdX-db`;
-
 
 // const MONGO_CNT = "mongodb://127.0.0.1:27017/EdX-db";
-const MONGO_CNT="mongodb+srv://mohidmohan8482:KVKF1b515ASDtsNx@cluster0.wtifn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/EdX-Edu"
+
+
 
 app.listen(PORT, async () => {
     try {

@@ -40,7 +40,8 @@ module.exports.getSendOtp = async (req,res) => {
       requireTLS: true,
       auth: {
         user: "mohidmohan8482@gmail.com",
-        pass: "rrnq vrmh vaag prjr",
+        // pass: "rrnq vrmh vaag prjr",
+        pass: "oywv tfzr eulv lfrn",
       },
     }); 
 
