@@ -32,7 +32,6 @@
     "razorpay": "^2.9.2",
     "session": "^0.1.0",
     "sharp": "^0.32.6",
-    "twilio": "^4.19.0",
     "uuid": "^9.0.1"
   },
   "repository": {
@@ -42,6 +41,5 @@
   "bugs": {
     "url": "https://github.com/mohid12345/elearnig-with-node-express/issues"
   },
-  "homepage": "https://github.com/mohid12345/elearnig-with-node-express#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/mohid12345/elearnig-with-node-express#readme"
 }
