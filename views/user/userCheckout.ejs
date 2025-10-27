@@ -17,8 +17,8 @@ remove this -->
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>edX</h2>
+        <a href="/" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>EdX</h2>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -64,7 +64,7 @@ remove this -->
         <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
-                    <h1 class="display-3 text-white animated slideInDown">Wishlist</h1>
+                    <h1 class="display-3 text-white animated slideInDown">Checkout</h1>
                 </div>
             </div>
         </div>
@@ -104,7 +104,7 @@ remove this -->
                                         <tr>
                                             <td class="image course-thumbnail"><img src="<%= course.courseId.courseImg[0] %>" alt="#"></td>
                                             <td>
-                                                <h5><a href="shop-course-full.html"><%= course.courseId.courseName %></a></h5> <span class="course-qty">x <%= course.quantity %></span>
+                                                <h5><a href="shop-course-full.html"><%= course.courseId.courseName %></a></h5> <span class="course-qty"> <%= course.quantity %></span>
                                             </td>
                                             <td>₹<%= course.courseId.courseAmount %></td>
                                         </tr>

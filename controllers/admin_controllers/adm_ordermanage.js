@@ -6,8 +6,13 @@ const courseCollection = require("../../models/course");
 // render order manage page
 module.exports.getOrderlist = async(req,res) => {
   try{
+    console.log("hello from order list");
+    
     const orderDetails = await orderCollection.find().populate('courses.courseId').populate('userId');
+        console.log("resutl ::", orderDetails);
+
     res.render("admin-orderlist",{ orderDetails})
+    
   }catch (error) {
     console.error("Error:", error)
   }

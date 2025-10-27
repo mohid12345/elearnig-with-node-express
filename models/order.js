@@ -37,10 +37,6 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // address: {
-  //   type: Object,
-  //   required: true,
-  // },
   cancelReason: {
     type: String
   },

@@ -154,8 +154,9 @@
                                     <% orderDetails.reverse().forEach((order) => { %>
                                         
                                 <tr>
+                                    <% console.log("details ::", orderDetails) %>
                                     <td>orderId_<%= order._id %></td>
-                                    <td><b><%= order.userId.username %></b></td>
+                                    <td><b><%= order?.userId?.username %></b></td>
                                     <!-- <td><template class="_cf_email_" data-cfemail="aec3cfdcd8c7c0eecbd6cfc3dec2cb80cdc1c3">[email&#160;protected]</template></td> -->
                                     <td>₹<%= order.totalAmount %></td>
                                     <!-- <td><span class=""><%= order.orderStatus %></span></td> -->
