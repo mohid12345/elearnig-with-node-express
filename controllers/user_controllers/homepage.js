@@ -15,32 +15,54 @@ module.exports.getUserRoute = async(req, res) => {
 }
 }
 
-//  getting course/course page
-// module.exports.getUserRoute_Course = async (req,res) => {
-//     try {
-//       const {startIndex , endIndex } = req.pagination;
-//       const users = data.slice(startIndex , endIndex);
-//       res.json({ users , total: data.length});
-      
-//       const loggedIn = req.cookies.loggedIn;
-//       const coursedata = await courseCollection.find()
-//       res.render("courses", {loggedIn, coursedata});
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-
-  // test 0
+  // Courses page with filtering, sorting, and pagination
 module.exports.getUserRoute_Course = async (req,res) => {
     try {
-      // const {startIndex , endIndex } = req.pagination;
-      // const users = data.slice(startIndex , endIndex);
-      // res.json({ users , total: data.length});
-
       const loggedIn = req.cookies.loggedIn;
-      const coursedata = await courseCollection.find()
       const categorydata = await categoryCollection.find();
-      res.render("courses", {loggedIn, coursedata, categorydata,categories:null,sort:null});
+
+      // Query params
+      const page = Math.max(parseInt(req.query.page || '1', 10), 1);
+      const limit = Math.min(Math.max(parseInt(req.query.limit || '9', 10), 1), 48);
+      const sortParam = req.query.sort || null; // 'lowToHigh' | 'highToLow' | null
+      const selectedCategories = req.query.categories
+        ? (Array.isArray(req.query.categories) ? req.query.categories : [req.query.categories])
+        : null;
+
+      // Build filter
+      let filter = {};
+      if (selectedCategories && selectedCategories.length > 0) {
+        const categoryDocs = await categoryCollection.find({ _id: { $in: selectedCategories } });
+        const names = categoryDocs.map(c => c.catgName);
+        filter.courseCategory = { $in: names };
+      }
+
+      // Build sort
+      let sort = {};
+      if (sortParam === 'lowToHigh') sort = { courseAmount: 1 };
+      else if (sortParam === 'highToLow') sort = { courseAmount: -1 };
+
+      const totalCount = await courseCollection.countDocuments(filter);
+      const totalPages = Math.max(Math.ceil(totalCount / limit), 1);
+      const safePage = Math.min(page, totalPages);
+
+      const coursedata = await courseCollection
+        .find(filter)
+        .sort(sort)
+        .skip((safePage - 1) * limit)
+        .limit(limit);
+
+      res.render("courses", {
+        loggedIn,
+        coursedata,
+        categorydata,
+        categories: selectedCategories,
+        sort: sortParam,
+        page: safePage,
+        totalPages,
+        limit,
+        totalCount,
+      });
     } catch (error) {
       console.error(error);
     }

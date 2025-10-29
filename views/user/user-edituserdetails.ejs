@@ -119,17 +119,17 @@ remove this -->
                                                     </div>
                                                     <div class="card-body">
                                                         <!-- <p>Already have an account? <a href="page-login-register.html">Log in instead!</a></p> -->
-                                                        <form method="post" name="enq">
+                                                        <form method="post" name="enq" id="editProfileForm" novalidate>
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label> Name <span class="required">*</span></label>
-                                                                    <input required="" value="<%= userData.username %>"
-                                                                        class="form-control square" name="username" type="text">
+                                                                    <input required value="<%= userData.username %>"
+                                                                        class="form-control square" name="username" type="text" minlength="3" maxlength="50">
                                                                 </div>
                                                                 <div class="form-group col-md-12">
                                                                     <label>Phone Number <span class="required">*</span></label>
-                                                                    <input required="" value="<%= userData.phoneNumber %>"
-                                                                        class="form-control square" name="phoneNumber" type="number">
+                                                                    <input required value="<%= userData.phoneNumber %>"
+                                                                        class="form-control square" name="phoneNumber" type="tel" pattern="^[0-9]{10}$" maxlength="10">
                                                                 </div>
                                                                 <div class="col-md-12   ">
                                                                     <button type="submit" class="btn btn-fill-out submit hover-up "
@@ -153,15 +153,26 @@ remove this -->
                     </section>
 
                         <script>
-                            // edited address
+                            // Edit profile validation and submission
                             const submitButton = document.getElementById("submitButton")
+                            const form = document.getElementById("editProfileForm");
                 
                             submitButton.addEventListener("click", function (e) {
                                 e.preventDefault();
                 
-                                const username = document.querySelector('input[name="username"]').value;
-                                // const email = document.querySelector('input[name="email"]').value;
-                                const phoneNumber = document.querySelector('input[name="phoneNumber"]').value;
+                                const usernameInput = document.querySelector('input[name="username"]');
+                                const phoneInput = document.querySelector('input[name="phoneNumber"]');
+                                const username = usernameInput.value.trim();
+                                const phoneNumber = phoneInput.value.trim();
+
+                                if (!username || username.length < 3) {
+                                    Swal.fire({ icon: 'warning', title: 'Name must be at least 3 characters' });
+                                    return;
+                                }
+                                if (!/^[0-9]{10}$/.test(phoneNumber)) {
+                                    Swal.fire({ icon: 'warning', title: 'Enter a valid 10-digit phone number' });
+                                    return;
+                                }
                 
                 
                                 fetch('/post-userupdatedetails', {
@@ -180,7 +191,7 @@ remove this -->
                                     .then(data => {
                                         console.log(data);
                                         if (data.message) {
-                                            swal.fire({
+                                            Swal.fire({
                                                 position: 'top-center',
                                                 icon: 'success',
                                                 title: data.message,
@@ -188,7 +199,7 @@ remove this -->
                                                 timer: 1500
                                             });
                                         }
-                                        window.location.href = '/account'
+                                        window.location.href = '/userAccount'
                                     })
                                     .catch(error => {
                                         Swal.fire({
@@ -202,6 +213,7 @@ remove this -->
                                     });
                             });
                         </script>
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
                 
 
 

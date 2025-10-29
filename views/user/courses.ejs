@@ -124,14 +124,12 @@
                                 <input type="radio" class="form-check-input" id="viewAll" value="viewAll" name="sort" >
                                 <label class="form-check-label" for="popularity">View All</label>
                             </li> -->
-                            <p>Sort Value: <%= sort %></p>
-
                             <li class="form-check">
-                                <input type="radio" class="form-check-input" id="lowToHigh" value="lowToHigh" name="sort" <% if(sort == "1") { %>checked<% } %>>
+                                <input type="radio" class="form-check-input" id="lowToHigh" value="lowToHigh" name="sort" <% if(sort === "lowToHigh") { %>checked<% } %>>
                                 <label class="form-check-label" for="lowToHigh">Price: Low to High</label>
                             </li>
                             <li class="form-check">
-                                <input type="radio" class="form-check-input" id="highToLow" value="-1" name="sort"<% if(sort == "highToLow") { %>checked<% } %>>
+                                <input type="radio" class="form-check-input" id="highToLow" value="highToLow" name="sort" <% if(sort === "highToLow") { %>checked<% } %>>
                                 <label class="form-check-label" for="highToLow">Price: High to Low</label>
                             </li>
                         </ul>
@@ -279,12 +277,25 @@
         <div>
             <nav aria-label="">
                 <ul class="pagination">
-                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                    <li class="page-item"><a class="page-link" href="#">02</a></li>
-                    <li class="page-item"><a class="page-link" href="#">03</a></li>
-                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                    <li class="page-item"><a class="page-link" href="#">16</a></li>
-                    <!-- <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li> -->
+                    <% if (page && totalPages) { %>
+                      <% const maxPagesToShow = 16; %>
+                      <% let startPage = Math.max(1, page - Math.floor(maxPagesToShow/2)); %>
+                      <% let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1); %>
+                      <% if (endPage - startPage + 1 < maxPagesToShow) { startPage = Math.max(1, endPage - maxPagesToShow + 1); } %>
+                      <% const buildQuery = (p) => {
+                           const params = new URLSearchParams();
+                           if (sort) params.set('sort', sort);
+                           if (categories) {
+                             const catArray = Array.isArray(categories) ? categories : [categories];
+                             catArray.forEach(c => params.append('categories', c));
+                           }
+                           params.set('page', String(p));
+                           return `/courses?${params.toString()}`;
+                         }; %>
+                      <% for (let p = startPage; p <= endPage; p++) { %>
+                        <li class="page-item <%= p === page ? 'active' : '' %>"><a class="page-link" href="<%= buildQuery(p) %>"><%= p.toString().padStart(2, '0') %></a></li>
+                      <% } %>
+                    <% } %>
                 </ul>
             </nav>
         </div>   

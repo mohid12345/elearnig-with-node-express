@@ -50,31 +50,19 @@ module.exports.filterCategory = async (req, res) => {
     const loggedIn = req.cookies.loggedIn;
     const userData = await userCollection.findOne({ email: req.user });
     const username = userData.username;
-    let coursedata;
+
+    // Normalize inputs (support existing POST form, then redirect to GET with query)
     let { sort, categories } = req.body;
-
-    sort = (sort === "highToLow") ? -1 : 1; // Updated this line
-
-    const categorydata = await categoryCollection.find({});
-
-    if (sort && categories) {
-      const category = await categoryCollection.findById(categories);
-      const categoryName = category.catgName;
-      
-      coursedata = await courseCollection
-        .find({ courseCategory: categoryName })
-        .sort({ courseAmount: sort }); // Updated this line
-      const courseCount = coursedata.length;
-      res.render("courses", { username, loggedIn, coursedata, categorydata, courseCount,categories,sort });
-    } else {
-      coursedata = await courseCollection.find({})
-        .sort({ courseAmount: sort }); // Updated this line
-      const courseCount = coursedata.length;
-      
-      res.render("courses", { username, loggedIn, coursedata, categorydata, courseCount,categories,sort});
+    const params = new URLSearchParams();
+    if (sort) params.set('sort', sort);
+    if (categories) {
+      const arrayCats = Array.isArray(categories) ? categories : [categories];
+      arrayCats.forEach(c => params.append('categories', c));
     }
+    return res.redirect(`/courses?${params.toString()}`);
   } catch (error) {
     console.log(error);
+    res.redirect('/courses');
   }
 };
 

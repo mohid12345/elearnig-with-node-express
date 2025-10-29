@@ -158,11 +158,14 @@
             <ul class="video-list">
                 <% for (let i = 0; i < coursedata.courseVid.length; i++) { %>
                   <li class="video-item">
-                    <!-- <span class="material-symbols-outlined"> -->
-                    <span class="material-symbols-outlined">
-                      <!-- play_circle -->
-                    </span>
-                    <a href="<%= coursedata.courseVid[i].url %>">Lesson Number  :  <%= i + 1 %></a>
+                    <span class="material-symbols-outlined"></span>
+                    <% if (i === 0) { %>
+                      <a href="<%= coursedata.courseVid[i].url %>">Lesson Number  :  <%= i + 1 %> (Introduction)</a>
+                    <% } else if (hasPurchased) { %>
+                      <a href="<%= coursedata.courseVid[i].url %>">Lesson Number  :  <%= i + 1 %></a>
+                    <% } else { %>
+                      <span>Lesson Number  :  <%= i + 1 %> - <a href="/userCart">Purchase to view full course</a></span>
+                    <% } %>
                   </li>
                 <% } %>
               </ul>

@@ -112,7 +112,41 @@ remove this -->
                                             <h5 class="mb-0">Hello <%= username %>! </h5>
                                         </div>
                                         <div class="card-body">
-                                            <p>From your account dashboard. you can easily check &amp; view your <a href="#">recent orders</a>, manage your <a href="#">shipping and billing addresses</a> and <a href="#">edit your password and account details.</a></p>
+                                            <p class="mb-4">Your purchased courses</p>
+                                            <div class="row g-3">
+                                                <% 
+                                                  const purchasedCourses = [];
+                                                  if (orderDetails && orderDetails.length) {
+                                                    orderDetails.forEach(order => {
+                                                      if (order.paymentStatus === 'Success') {
+                                                        order.courses.forEach(c => {
+                                                          if (c.courseId) purchasedCourses.push(c.courseId);
+                                                        });
+                                                      }
+                                                    });
+                                                  }
+                                                %>
+                                                <% if (!purchasedCourses.length) { %>
+                                                    <div class="col-12 text-center text-muted">No purchased courses yet.</div>
+                                                <% } else { %>
+                                                    <% purchasedCourses.forEach(course => { %>
+                                                      <div class="col-md-6 col-lg-4">
+                                                        <div class="course-item bg-light">
+                                                          <div class="position-relative overflow-hidden">
+                                                            <a href="/course-details/<%= course._id %>">
+                                                              <img class="img-fluid" src="/<%= course.courseImg && course.courseImg[0] ? course.courseImg[0] : '' %>" alt="">
+                                                            </a>
+                                                          </div>
+                                                          <div class="text-center p-3">
+                                                            <h6 class="mb-2"><%= course.courseName %></h6>
+                                                            <div class="small text-muted mb-2"><%= course.courseAuthor %></div>
+                                                            <a class="btn btn-sm btn-primary" href="/course-details/<%= course._id %>">Go to course</a>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    <% }); %>
+                                                <% } %>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
